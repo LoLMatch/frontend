@@ -119,7 +119,8 @@
             ],
             "styles": [
               "src/styles.scss",
-              "src/styles/breakpoints.scss"
+              "src/styles/breakpoints.scss",
+              "src/styles/palette.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
