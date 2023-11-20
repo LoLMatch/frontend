@@ -1,14 +1,23 @@
 import { Routes } from "@angular/router";
-import { AppComponent } from "@app/app.component";
+import { RoutesPath } from "@core/constants/routes.const";
+import { LandingPageComponent } from "@pages/landing-page/landing-page.component";
 
 export default [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: RoutesPath.LANDING_PAGE,
     pathMatch: 'full'
   },
   {
-    path: 'home',
-    component: AppComponent,
+    path: RoutesPath.LANDING_PAGE,
+    component: LandingPageComponent,
+  },
+  {
+    path: RoutesPath.AUTHORIZATION,
+    loadChildren: () => import('./pages/auth/auth.routing')
+  },
+  {
+    path: RoutesPath.HOME,
+    loadChildren: () => import('./pages/home/home.routing')
   }
 ] as Routes;
