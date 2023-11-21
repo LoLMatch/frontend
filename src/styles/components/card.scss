@@ -1,0 +1,10 @@
+//card 
+@import '../variables/palette';
+
+.ds__card {
+  background-color: map-get($map: $ds-grey, $key: 450);
+  border-radius: 20px;
+  border: none;
+  padding: 12px;
+  margin: 12px;
+}

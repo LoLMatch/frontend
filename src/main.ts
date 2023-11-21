@@ -5,7 +5,8 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import appRouting from '@app/app.routing';
-
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { MatFormFieldDefaultOptionsConfig } from '@app/config/material/form-field.config';
 
 bootstrapApplication(AppComponent, {
     providers: [
@@ -15,7 +16,11 @@ bootstrapApplication(AppComponent, {
             // or after 30 seconds (whichever comes first).
             registrationStrategy: 'registerWhenStable:30000'
         })),
-        provideAnimations()
+        provideAnimations(),
+        {
+            provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+            useValue: MatFormFieldDefaultOptionsConfig,
+        }
     ]
 })
     .catch(err => console.error(err));
