@@ -1,3 +1,11 @@
+// @import 'src/styles/variables/palette.scss';
+
 :host {
   display: block;
+}
+
+.registration__form {
+  display: flex;
+  flex-direction: column;
+  // color: map.get(palette.$ds-grey, 200);
 }
