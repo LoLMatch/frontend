@@ -1,0 +1,42 @@
+name: Angular CI
+
+on:
+  push:
+    branches: [ "development" ]
+  pull_request:
+    branches: [ "development" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+     - name: Set up npm
+       uses: actions/setup-node@v3
+       with:
+         node-version: 18
+
+     - name: Checkout code
+       uses: actions/checkout@v2
+
+     - name: Cache dependencies
+       id: cache-deps
+       uses: actions/cache@v3
+       with:
+         path: |
+           node_modues
+         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+         restore-keys: |
+          ${{ runner.os }}-node-
+    
+     - name: Install dependencies
+       if: steps.cache-deps.outputs.cache-hit != 'true'
+       run: npm install
+       
+     - name: Run tests
+       run: npm test  
+       
+     - name: Build Angular app
+       run: npm run build 
+
+     
