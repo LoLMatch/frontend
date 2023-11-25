@@ -1,6 +1,7 @@
-<h2>Ready to start?</h2>
+<h2 class="title">Ready to start?</h2>
 
-<a [routerLink]="route">Already have an account? Log in.</a>
+<a [routerLink]="route" class="log__in__link">Already have an account? Log in.</a>
+
 <form
   [formGroup]="form"
   class="registration__form"
@@ -24,7 +25,7 @@
       formControlName="email"
     >
     <mat-error>
-      Required
+      Required proper email
     </mat-error>
   </mat-form-field>
   <mat-form-field>
@@ -49,31 +50,34 @@
       Required
     </mat-error>
   </mat-form-field>
+
   @if(form.errors?.['passwordsNotSame'] && form.get('password').dirty && form.get('repeatPassword').dirty) {
-    <mat-error>
+    <mat-error class="same__passwd__error">
       Passwords must be same
     </mat-error>
   }
 
-  <div class="buttons">
-    <button
-    type="submit"
-    dsButton
-    dsButtonType="primary"
-    dsButtonCutCorner="top-left"
-    [disabled]="form.invalid"
-    (click)="signUp()"
-  >
-    Sign Up
-  </button>
-  <button
-    type="submit"
-    dsButton
-    dsButtonType="secondary"
-    dsButtonCutCorner="bottom-right"
-    routerLink=""
-  >
-    Exit
-  </button>
-  </div>
 </form>
+<div class="buttons">
+    <button
+      type="submit"
+      class="action__button"
+      dsButton
+      dsButtonType="primary"
+      dsButtonCutCorner="top-left"
+      [disabled]="form.invalid"
+      (click)="signUp()"
+    >
+      Sign Up
+    </button>
+    <button
+      type="submit"
+      class="action__button"
+      dsButton
+      dsButtonType="secondary"
+      dsButtonCutCorner="bottom-right"
+      routerLink=""
+    >
+      Exit
+    </button>
+  </div>

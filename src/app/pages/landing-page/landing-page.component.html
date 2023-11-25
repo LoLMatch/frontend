@@ -1,28 +1,6 @@
-<!-- <p>landing-page works!</p> XXX
-
-<button
-  dsButton
-  dsButtonType="primary"
-  dsButtonCutCorner="top-left"
->
-  Zapisz
-</button>
-
-
-<div
-  dsCard
-  style="height: 400px;"
->
-  przykładowa wiadomosc 123
-</div>
-
-<h2
-  dsCutCornerBorder="bottom-right"
-  style="width: 400px;"
->Tytul</h2> -->
-<h2>Welcome to</h2>
-<h1>LoLMatch</h1>
-<h3>The perfect place where you can find a dream team mate that you deserve.</h3>
+<h2 class="welcome">Welcome to</h2>
+<ds-logo class="title" fontSize="95px"/>
+<h3 class="description">The perfect place where you can find a dream team mate that you deserve.</h3>
 <div class="actions">
   <a
     class="action__button"
@@ -31,7 +9,7 @@
     dsButtonCutCorner="top-left"
     [routerLink]="loginRoute"
   >
-    Sign in
+    Log in
   </a>
   <a
     class="action__button"
@@ -40,6 +18,6 @@
     dsButtonCutCorner="bottom-right"
     [routerLink]="registerRoute"
   >
-    Register
+    Sign up
   </a>
 </div>

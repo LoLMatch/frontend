@@ -1,0 +1,5 @@
+<h1 class="title">
+  @for (letter of logo; track $index) {
+    <span [class]="'char' + ($index + 1)">{{ letter }}</span>
+  }
+</h1>

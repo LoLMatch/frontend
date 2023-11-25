@@ -1,11 +1,75 @@
-// @import 'src/styles/variables/palette.scss';
+@import 'src/styles/variables/palette';
+@import 'src/styles/variables/breakpoints';
 
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  color: map-get($map: $ds-grey, $key: 200);
+  font-size: 32px;
+  text-transform: uppercase;
+  margin-top: 30px;
+  font-weight: 400;
+}
+
+.log__in__link {
+  color: map-get($map: $ds-grey, $key: 300);
+  font-size: 18px;
 }
 
 .registration__form {
   display: flex;
   flex-direction: column;
-  // color: map.get(palette.$ds-grey, 200);
+  gap: 20px;
+  color: map-get($ds-utils, font-color);
+  margin-top: 50px;
+  width: 300px;
+}
+
+mat-label {
+  color: map-get($ds-utils, font-color);
+  font-size: 22px;
+}
+
+.same__passwd__error {
+  margin: 0px;
+  padding: 0px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  justify-content: center;
+  align-items: baseline;
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+
+.action__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 25px;
+  width: 215px;
+  height: 60px;
+}
+
+@media screen and (max-width:$screen-428) {
+  .title {
+    margin-top: 10px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    margin-top: 30px;
+  }
 }

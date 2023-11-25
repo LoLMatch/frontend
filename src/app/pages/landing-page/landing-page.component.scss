@@ -1,44 +1,85 @@
+@import 'src/styles/variables/palette';
+@import 'src/styles/variables/breakpoints';
+
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
   width: 50%;
   font-weight: 400;
   margin: auto;
-  margin-top: 100px;
   text-align: center;
 }
 
-h2 {
+.welcome {
   margin-top: 300px;
-  font-size: 57px;
+  font-size: 55px;
   text-transform: uppercase;
+  font-weight: 400;
+  color: map-get($map: $ds-grey, $key: 200);
 }
 
-h3 {
-  line-height: 43.38px;
-  font-size: 34px;
+.title {
+  font-size: 95px;
+}
+
+.description {
+  line-height: 45px;
+  font-size: 35px;
   margin: auto;
-  margin-top: 40px;
+  margin-top: 10px;
   width: 700px;
   height: 40px;
+  color: map-get($map: $ds-grey, $key: 200);
 }
 
 .actions {
   display: flex;
   flex-direction: row;
+  gap: 80px;
   justify-content: center;
   align-items: baseline;
+  margin-top: 100px;
 }
 
 .action__button {
-  // display: block;
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  margin: 80px;
-  margin-top: 160px;
-  font-size: 20px;
-  text-transform: uppercase;
+  font-size: 25px;
   width: 215px;
-  height: 62px;
+  height: 60px;
+}
+
+
+@media screen and (max-width:$screen-428) {
+  :host {
+    gap: 20px;
+    width: 100%;
+  }
+
+  .welcome {
+    margin-top: 75px;
+    font-size: 32px;
+  }
+
+  .title {
+    font-size: 60px;
+  }
+
+  .description {
+    line-height: 40px;
+    font-size: 30px;
+    margin-top: 70px;
+    width: 85%;
+    height: 132px;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    margin-top: 60px;
+  }
 }

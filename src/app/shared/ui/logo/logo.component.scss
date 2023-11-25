@@ -1,0 +1,19 @@
+@import '../../../../styles/variables/palette.scss';
+
+:host {
+  display: block;
+}
+
+.title {
+  color: map-get($map: $ds-grey, $key: 200);
+  font-size: var(--font-size);
+  font-weight: 700;
+}
+
+.title .char1, .char3 {
+  color: map-get($map: $ds-primary, $key: 200);
+}
+
+.title .char2 {
+  color: map-get($map: $ds-secondary, $key: 300);
+}

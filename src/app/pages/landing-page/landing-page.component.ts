@@ -5,6 +5,7 @@ import { RoutesPath } from '@core/constants/routes.const';
 import { DsButtonDirective } from '@shared/ui/button/ds-button.directive';
 import { CardDirective } from '@shared/ui/card/card.directive';
 import { CutCornerBorderDirective } from '@shared/ui/cut-corner-border/cut-corner-border.directive';
+import { LogoComponent } from '@shared/ui/logo/logo.component';
 
 @Component({
   selector: 'ds-landing-page',
@@ -15,6 +16,7 @@ import { CutCornerBorderDirective } from '@shared/ui/cut-corner-border/cut-corne
     CardDirective,
     CutCornerBorderDirective,
     RouterModule,
+    LogoComponent
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss',
