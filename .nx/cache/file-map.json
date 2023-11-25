@@ -86,7 +86,7 @@
       },
       {
         "file": ".nx/cache/file-map.json",
-        "hash": "4092431033657135483"
+        "hash": "17415245934197928951"
       },
       {
         "file": ".nx/cache/lockfile.hash",
@@ -98,7 +98,7 @@
       },
       {
         "file": ".nx/cache/project-graph.json",
-        "hash": "2614067021250523669"
+        "hash": "7494658101571039694"
       },
       {
         "file": ".vscode/extensions.json",
@@ -159,6 +159,10 @@
       {
         "file": "src/app/app.routing.ts",
         "hash": "18315695464739218576"
+      },
+      {
+        "file": "src/app/config/material/form-field.config.ts",
+        "hash": "15912614786173546648"
       },
       {
         "file": "src/app/core/constants/api.const.ts",
@@ -254,7 +258,7 @@
       },
       {
         "file": "src/app/pages/landing-page/landing-page.component.html",
-        "hash": "16202075373058098493"
+        "hash": "6061915273640633698"
       },
       {
         "file": "src/app/pages/landing-page/landing-page.component.scss",
@@ -262,7 +266,7 @@
       },
       {
         "file": "src/app/pages/landing-page/landing-page.component.ts",
-        "hash": "12227358234773035360"
+        "hash": "3406836082675802541"
       },
       {
         "file": "src/app/shared/ui/button/ds-button.directive.ts",
@@ -271,6 +275,14 @@
       {
         "file": "src/app/shared/ui/button/ds-button.types.ts",
         "hash": "12310378837140158613"
+      },
+      {
+        "file": "src/app/shared/ui/card/card.directive.ts",
+        "hash": "3833188679486330189"
+      },
+      {
+        "file": "src/app/shared/ui/cut-corner-border/cut-corner-border.directive.ts",
+        "hash": "3793393914626792098"
       },
       {
         "file": "src/assets/.gitkeep",
@@ -326,7 +338,7 @@
       },
       {
         "file": "src/main.ts",
-        "hash": "3191557569348957630"
+        "hash": "13655044851853114151"
       },
       {
         "file": "src/manifest.webmanifest",
@@ -337,8 +349,20 @@
         "hash": "5878623919738862874"
       },
       {
+        "file": "src/styles/components/button.scss",
+        "hash": "4540453376839271120"
+      },
+      {
+        "file": "src/styles/components/card.scss",
+        "hash": "3949419232674027349"
+      },
+      {
+        "file": "src/styles/components/cut-corner.scss",
+        "hash": "9023063111184483685"
+      },
+      {
         "file": "src/styles/styles.scss",
-        "hash": "14720993071948100638"
+        "hash": "469371864961238298"
       },
       {
         "file": "src/styles/variables/breakpoints.scss",
@@ -346,7 +370,7 @@
       },
       {
         "file": "src/styles/variables/palette.scss",
-        "hash": "9726149613683495025"
+        "hash": "3906316492799758339"
       },
       {
         "file": "tsconfig.app.json",
