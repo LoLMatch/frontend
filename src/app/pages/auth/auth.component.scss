@@ -2,36 +2,49 @@
 @import 'src/styles/variables/breakpoints';
 
 :host {
+  width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 50px;
+  justify-content: center;
+  gap: 20px;
+
+  @media (min-width:$screen-440) and (max-width:$screen-1024) {
+    gap: 40px;
+  }
+
+  @media (min-width:$screen-1024) {
+    gap: 50px;
+  }
 }
 
 .title {
-  margin-top: 110px;
-  font-size: 90px;
+  font-size: 60px;
+
+  @media (min-width:$screen-440) and (max-width:$screen-1024) {
+    font-size: 75px;
+  }
+
+  @media (min-width:$screen-1024) {
+    font-size: 90px;
+  }
 }
 
 .content {
-  width: 40%;
-  min-width: 400px;
+  width: 400px;
   min-height: 600px;
-}
+  background-color: map-get($map: $ds-utils, $key: background-color);
 
-@media screen and (max-width:$screen-428) {
-  :host {
-    gap: 20px;
+  @media (min-width:$screen-440) and (max-width:$screen-1024) {
+    background-color: map-get($map: $ds-grey, $key: 450);
+    width: 60%;
+    min-width: 400px;
   }
 
-  .title {
-    margin-top: 70px;
-    font-size: 60px;
-  }
-
-  .content {
-    width: 400px;
-    background-color: map-get($map: $ds-utils, $key: background-color);
+  @media (min-width:$screen-1024) {
+    background-color: map-get($map: $ds-grey, $key: 450);
+    width: 40%;
+    min-width: 600px;
   }
 }

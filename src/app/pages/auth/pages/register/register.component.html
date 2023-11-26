@@ -1,6 +1,7 @@
-<h2 class="title">Ready to start?</h2>
-
-<a [routerLink]="route" class="log__in__link">Already have an account? Log in.</a>
+<div class="wrapper">
+  <h2 class="title">Ready to start?</h2>
+  <a [routerLink]="route" class="log__in__link">Already have an account? Log in.</a>
+</div>
 
 <form
   [formGroup]="form"
@@ -56,28 +57,27 @@
       Passwords must be same
     </mat-error>
   }
-
 </form>
 <div class="buttons">
-    <button
-      type="submit"
-      class="action__button"
-      dsButton
-      dsButtonType="primary"
-      dsButtonCutCorner="top-left"
-      [disabled]="form.invalid"
-      (click)="signUp()"
-    >
-      Sign Up
-    </button>
-    <button
-      type="submit"
-      class="action__button"
-      dsButton
-      dsButtonType="secondary"
-      dsButtonCutCorner="bottom-right"
-      routerLink=""
-    >
-      Exit
-    </button>
-  </div>
+  <button
+    type="submit"
+    class="action__button"
+    dsButton
+    dsButtonType="primary"
+    dsButtonCutCorner="top-left"
+    [disabled]="form.invalid"
+    (click)="signUp()"
+  >
+    Sign Up
+  </button>
+  <button
+    type="submit"
+    class="action__button"
+    dsButton
+    dsButtonType="secondary"
+    dsButtonCutCorner="bottom-right"
+    routerLink=""
+  >
+    Exit
+  </button>
+</div>

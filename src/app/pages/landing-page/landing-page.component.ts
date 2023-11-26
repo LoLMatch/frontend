@@ -23,6 +23,6 @@ import { LogoComponent } from '@shared/ui/logo/logo.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LandingPageComponent {
-    loginRoute = "/" + RoutesPath.AUTHORIZATION;
-    registerRoute = "/" + RoutesPath.AUTHORIZATION + "/" + RoutesPath.REGISTER;
+    loginRoute = `/${RoutesPath.AUTHORIZATION}`;
+    registerRoute = `/${RoutesPath.AUTHORIZATION}/${RoutesPath.REGISTER}`;
  }
