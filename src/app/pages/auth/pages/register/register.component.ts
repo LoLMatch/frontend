@@ -26,16 +26,12 @@ import { DsButtonDirective } from '@shared/ui/button/ds-button.directive';
   styleUrl: './register.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RegisterComponent implements OnInit{
+export class RegisterComponent{
 
-  form: FormGroup;
+  form = this.formCreator.createForm();
   route = `/${RoutesPath.AUTHORIZATION}/${RoutesPath.LOGIN}`;
 
   constructor(private formCreator: RegisterFormCreatorService){ }
-
-  ngOnInit(): void {
-      this.form = this.formCreator.createForm();
-  }
 
   signUp(){
     console.log("signed up!");
