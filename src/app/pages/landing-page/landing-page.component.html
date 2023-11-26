@@ -1,22 +1,25 @@
-<p>landing-page works!</p> XXX
-
-<button
-  dsButton
-  dsButtonType="primary"
-  dsButtonCutCorner="top-left"
->
-  Zapisz
-</button>
-
-
-<div
-  dsCard
-  style="height: 400px;"
->
-  przykładowa wiadomosc 123
+<h2 class="welcome">Welcome to</h2>
+<div class="wrapper">
+  <ds-logo class="title" />
+  <h3 class="description">The perfect place where you can find a dream team mate that you deserve.</h3>
 </div>
-
-<h2
-  dsCutCornerBorder="bottom-right"
-  style="width: 400px;"
->Tytul</h2>
+<div class="actions">
+  <a
+    class="action__button"
+    dsButton
+    dsButtonType="primary"
+    dsButtonCutCorner="top-left"
+    [routerLink]="loginRoute"
+  >
+    Log in
+  </a>
+  <a
+    class="action__button"
+    dsButton
+    dsButtonType="secondary"
+    dsButtonCutCorner="bottom-right"
+    [routerLink]="registerRoute"
+  >
+    Sign up
+  </a>
+</div>
