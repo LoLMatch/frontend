@@ -1,5 +1,5 @@
-@import 'src/styles/variables/palette';
-@import 'src/styles/variables/breakpoints';
+@import "src/styles/variables/palette";
+@import "src/styles/variables/breakpoints";
 
 :host {
   width: 100%;
@@ -10,11 +10,11 @@
   justify-content: center;
   gap: 20px;
 
-  @media (min-width:$screen-440) and (max-width:$screen-1024) {
+  @media (min-width: $screen-440) {
     gap: 40px;
   }
 
-  @media (min-width:$screen-1024) {
+  @media (min-width: $screen-1024) {
     gap: 50px;
   }
 }
@@ -22,27 +22,28 @@
 .title {
   font-size: 60px;
 
-  @media (min-width:$screen-440) and (max-width:$screen-1024) {
+  @media (min-width: $screen-440) {
     font-size: 75px;
   }
 
-  @media (min-width:$screen-1024) {
+  @media (min-width: $screen-1024) {
     font-size: 90px;
   }
 }
 
 .content {
-  width: 400px;
-  min-height: 600px;
+  width: 300px;
+  // width: 400px;
+  // min-height: 600px;
   background-color: map-get($map: $ds-utils, $key: background-color);
 
-  @media (min-width:$screen-440) and (max-width:$screen-1024) {
+  @media (min-width: $screen-440) {
     background-color: map-get($map: $ds-grey, $key: 450);
     width: 60%;
     min-width: 400px;
   }
 
-  @media (min-width:$screen-1024) {
+  @media (min-width: $screen-1024) {
     background-color: map-get($map: $ds-grey, $key: 450);
     width: 40%;
     min-width: 600px;

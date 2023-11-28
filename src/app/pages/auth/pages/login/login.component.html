@@ -1,1 +1,38 @@
-<p>login works!</p>,
+<div class="wrapper">
+  <div class="header">
+    <h2 class="title">Welcome back!</h2>
+    <a [routerLink]="registerRoute" class="sign__up__link">New here? Sign up!</a>
+  </div>
+
+  <form [formGroup]="form" class="login__form">
+    <mat-form-field>
+      <mat-label>E-mail</mat-label>
+      <input matInput type="email" formControlName="email">
+      <mat-error>
+        Required proper email
+      </mat-error>
+    </mat-form-field>
+    <div class="password">
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password">
+        <mat-error>
+          Password required
+        </mat-error>
+      </mat-form-field>
+      <a [routerLink]="forgotPasswordRoute" class="sign__up__link">Forgot your password?</a>
+    </div>
+  </form>
+
+
+  <div class="buttons">
+    <button type="submit" class="action__button" dsButton dsButtonType="primary" dsButtonCutCorner="top-left"
+      [disabled]="form.invalid" (click)="logIn()">
+      Log In
+    </button>
+    <button type="submit" class="action__button" dsButton dsButtonType="secondary" dsButtonCutCorner="bottom-right"
+      routerLink="">
+      Exit
+    </button>
+  </div>
+</div>
