@@ -33,8 +33,6 @@
 
 .content {
   width: 300px;
-  // width: 400px;
-  // min-height: 600px;
   background-color: map-get($map: $ds-utils, $key: background-color);
 
   @media (min-width: $screen-440) {
