@@ -1,18 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { LayoutComponent } from '@layout/layout.component';
 
 @Component({
-  selector: 'ds-home',
+  selector: 'ds-messages',
   standalone: true,
   imports: [
-    CommonModule,
-    LayoutComponent,
-    RouterModule
+    CommonModule, RouterModule
   ],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  templateUrl: './messages.component.html',
+  styleUrl: './messages.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent { }
+export class MessagesComponent { }
