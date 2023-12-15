@@ -1,0 +1,152 @@
+@import 'src/styles/variables/palette';
+@import 'src/styles/variables/breakpoints';
+
+:host {
+  display: block;
+}
+
+.sidebar {
+  background-color: map-get($map: $ds-grey, $key: 450);
+  height: 380px;
+  width: 100vw;
+  max-width: 440px;
+  border-bottom: 3px solid map-get($map: $ds-primary, $key: 200);
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+
+  @media (min-width: $screen-440){
+    height: 100vh;
+    max-width: 360px;
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-right: 3px solid map-get($map: $ds-primary, $key: 200);
+  }
+}
+
+.come__from__left {
+  animation: come__from__left .5s;
+}
+
+@keyframes come__from__left {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.go__back__left {
+  animation: go__back__left .5s;
+}
+
+@keyframes go__back__left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.go__down {
+  animation: go__down .5s;
+}
+
+@keyframes go__down {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.go__up {
+  animation: go__up .5s;
+}
+
+@keyframes go__up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.top__side {
+  padding: 5px 10px 0 10px;
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+  gap: 10px;
+  background-color: map-get($map: $ds-utils, $key: background-color);
+
+  @media (min-width: $screen-440){
+    padding: 15px 15px 0 15px;
+    height: 60px;
+    background-color: map-get($map: $ds-grey, $key: 450);
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
+}
+
+.left__side {
+  display: flex;
+  gap: 10px;
+}
+
+.topbar__button {
+  cursor: pointer;
+}
+
+.right__side {
+  display: flex;
+  gap: 10px;
+}
+
+.logo {
+  font-size: 32px;
+  align-self: flex-end;
+}
+
+.nav__section {
+  padding-left: 10px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  border-top: 3px solid map-get($map: $ds-primary, $key: 200);
+  justify-content: space-around;
+
+  @media (min-width: $screen-440){
+    padding-left: 20px;
+  }
+}
+
+.line {
+  width: 440px;
+  margin-left: -10px;
+  border-top: 3px solid map-get($map: $ds-primary, $key: 200);
+
+  @media (min-width: $screen-440){
+    width: 357px;
+    margin-left: -20px;
+  }
+}
+
+.navigation {
+  text-decoration: none;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navigation:hover, .navigation.active {
+  cursor: pointer;
+  color: map-get($map: $ds-primary, $key: 200);
+}
+
