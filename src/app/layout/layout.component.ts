@@ -15,6 +15,4 @@ import { TopBarMenuComponent } from '@layout/components/top-bar-menu/top-bar-men
   styleUrl: './layout.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LayoutComponent {
-  
-}
+export class LayoutComponent { }

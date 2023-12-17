@@ -5,8 +5,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { SidebarManagementService } from '@layout/services/sidebar-management.service';
 import { LogoComponent } from '@shared/ui/logo/logo.component';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ActiveLinkDirective } from './link/link.directive';
+import { NAVIGATION } from '@core/constants/navigation.const';
 
 @Component({
   selector: 'ds-side-bar',
@@ -17,52 +18,44 @@ import { ActiveLinkDirective } from './link/link.directive';
     MatButtonModule,
     LogoComponent,
     RouterModule,
-    ActiveLinkDirective
+    ActiveLinkDirective,
+    RouterModule,
   ],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SideBarComponent implements OnInit, OnDestroy { 
-  
-  private sidebarManager = inject(SidebarManagementService);
-  private cdr = inject(ChangeDetectorRef);
+export class SideBarComponent implements OnInit {
 
-  isOpen = true;  
+  private sidebarManager = inject(SidebarManagementService);
+
   isOpenFromService: boolean;
-  private isOpenSubscription: Subscription;
   windowWidth: number;
   isPhone = false;
   areNewMessages = true;
+  isOpen$: Observable<boolean>;
+  NAVIGATION = NAVIGATION;
 
   ngOnInit(): void {
     this.windowWidth = window.innerWidth;
-    if(this.windowWidth <= 440){
+    if (this.windowWidth <= 440) {
       this.isPhone = true;
     }
-
-    this.isOpenSubscription = this.sidebarManager.isOpen$.subscribe((newValue) => {
-      this.isOpenFromService = newValue;
-      this.cdr.detectChanges();
-    });
+    this.isOpen$ = this.sidebarManager.isOpen$;
   }
 
   @HostListener('window:resize', ['$event'])
   onWindowResize() {
     this.windowWidth = window.innerWidth;
-    if(this.windowWidth <= 440){
+    if (this.windowWidth <= 440) {
       this.isPhone = true;
     } else {
       this.isPhone = false;
     }
   }
 
-  ngOnDestroy(): void {
-    this.isOpenSubscription.unsubscribe();
-  }
-  
+
   closeSidebar() {
-    this.isOpen = false; 
     this.sidebarManager.hideLoaderSmoothly();
   }
 }
