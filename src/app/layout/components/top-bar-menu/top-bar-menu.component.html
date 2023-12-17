@@ -1,0 +1,32 @@
+<div class="menu">
+    <div class="left__side">
+        <a
+            class="topbar__button"
+            (click)="openSidebar()"
+        >
+            <mat-icon>
+                menu
+            </mat-icon>
+        </a>
+        <ds-logo class="logo" />
+    </div>
+    <div class="right__side">
+        <a
+            routerLink="/chat"
+            class="topbar__button"
+        >
+            <mat-icon>
+                {{areNewMessages ? 'mark_unread_chat_alt' :'chat_bubble'}}
+            </mat-icon>
+        </a>
+
+        <a
+            routerLink="/account"
+            class="topbar__button"
+        >
+            <mat-icon>
+                person
+            </mat-icon>
+        </a>
+    </div>
+</div>

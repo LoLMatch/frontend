@@ -1,0 +1,63 @@
+@if ({isOpen:isOpen$ |async};as props) {
+
+<div
+    class="sidebar"
+    [class.come__from__left]="props.isOpen && !isPhone"
+    [class.go__back__left]="!props.isOpen && !isPhone"
+    [class.go__down]="props.isOpen && isPhone"
+    [class.go__up]="!props.isOpen && isPhone"
+>
+    <div class="top__side">
+        <div class="left__side">
+            <a
+                class="topbar__button"
+                (click)="closeSidebar()"
+            >
+                <mat-icon>
+                    close
+                </mat-icon>
+            </a>
+
+            <ds-logo class="logo" />
+
+        </div>
+        @if (isPhone) {
+        <div class="right__side">
+            <a
+                routerLink="/chat"
+                class="topbar__button"
+            >
+                <mat-icon>
+                    {{areNewMessages ? 'mark_unread_chat_alt' :'chat_bubble'}}
+                </mat-icon>
+            </a>
+            <a
+                routerLink="/account"
+                class="topbar__button"
+            >
+                <mat-icon>
+                    person
+                </mat-icon>
+            </a>
+        </div>
+        }
+    </div>
+    <div class="nav__section">
+        @for (navItem of NAVIGATION; track $index) {
+        <a
+            [routerLink]="navItem.link"
+            dsActiveLink
+            class="navigation"
+        >
+            <mat-icon>
+                {{navItem.icon}}
+            </mat-icon>
+            {{navItem.name}}
+        </a>
+        @if ($index==2) {
+        <hr class="line">
+        }
+        }
+    </div>
+</div>
+}
