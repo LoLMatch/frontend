@@ -1,5 +1,5 @@
-@import 'src/styles/variables/palette';
-@import 'src/styles/variables/breakpoints';
+@import "src/styles/variables/palette";
+@import "src/styles/variables/breakpoints";
 
 :host {
   width: 100%;
@@ -27,9 +27,17 @@
 .registration__form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 0px;
   color: map-get($ds-utils, font-color);
   width: 300px;
+
+  @media (min-width: $screen-440) {
+    gap: 5px;
+  }
+
+  @media (min-height: $screen-926) {
+    gap: 20px;
+  }
 }
 
 mat-label {
@@ -49,10 +57,10 @@ mat-label {
   justify-content: center;
   align-items: baseline;
 
-  @media (min-width:$screen-1024) {
+  @media (min-width: $screen-1024) {
     flex-direction: row;
     align-items: center;
-    gap: 20px
+    gap: 20px;
   }
 }
 
