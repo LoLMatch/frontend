@@ -4,5 +4,6 @@ export const RoutesPath = {
   AUTHORIZATION: "authorization",
   LOGIN: "login",
   REGISTER: "register",
-  FORGOT_PASSWORD: "forgot-password"
+  FORGOT_PASSWORD: "forgot-password",
+  MESSAGES: 'messages',
 };

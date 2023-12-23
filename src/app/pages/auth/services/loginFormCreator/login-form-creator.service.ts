@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Injectable()
 export class LoginFormCreatorService {
 
-  constructor(private fb: FormBuilder) { }
+  private fb = inject(FormBuilder);
 
   createForm() {
     return this.fb.group({

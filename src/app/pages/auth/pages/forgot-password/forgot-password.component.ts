@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -25,11 +25,12 @@ import { FormBuilder, Validators } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ForgotPasswordComponent {
+  private fb = inject(FormBuilder);
+  
   form = this.fb.group({
     email: [null as string, [Validators.email, Validators.required, Validators.maxLength(255)]],
   });
 
-  constructor(private fb: FormBuilder) {}
 
   sendRecoveryLink() {
     // eslint-disable-next-line no-console
