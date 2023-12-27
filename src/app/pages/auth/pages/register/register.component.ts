@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -28,10 +28,11 @@ import { DsButtonDirective } from '@shared/ui/button/ds-button.directive';
 })
 export class RegisterComponent{
 
+  private formCreator = inject(RegisterFormCreatorService);
+
   form = this.formCreator.createForm();
   route = `/${RoutesPath.AUTHORIZATION}/${RoutesPath.LOGIN}`;
 
-  constructor(private formCreator: RegisterFormCreatorService){ }
 
   signUp(){
     console.log("signed up!");

@@ -24,7 +24,7 @@
         @if (isPhone) {
         <div class="right__side">
             <a
-                routerLink="/chat"
+                routerLink="/home/messages"
                 class="topbar__button"
             >
                 <mat-icon>
@@ -44,19 +44,19 @@
     </div>
     <div class="nav__section">
         @for (navItem of NAVIGATION; track $index) {
-        <a
-            [routerLink]="navItem.link"
-            dsActiveLink
-            class="navigation"
-        >
-            <mat-icon>
-                {{navItem.icon}}
-            </mat-icon>
-            {{navItem.name}}
-        </a>
-        @if ($index==2) {
-        <hr class="line">
-        }
+          <a
+              [routerLink]="navItem.link"
+              dsActiveLink
+              class="navigation"
+          >
+              <mat-icon>
+                  {{navItem.icon}}
+              </mat-icon>
+              {{navItem.name}}
+          </a>
+          @if ($index==2) {
+            <hr class="line">
+          }
         }
     </div>
 </div>

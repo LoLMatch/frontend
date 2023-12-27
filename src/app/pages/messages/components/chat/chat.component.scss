@@ -1,3 +1,33 @@
+@import 'src/styles/variables/palette';
+
 :host {
   display: block;
+}
+
+.messages__wrapper {
+  background-color: yellowgreen;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.list {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.message__item {
+  margin-right: 15px;
+  margin-bottom: 41px;
+  max-width: 575px;
+  text-align: justify;
+  padding: 26px 31px 26px 31px;
+  border-radius: 20px;
+}
+
+.message__item.from__me {
+  background-color: map-get($map: $ds-secondary, $key: 300);
+  align-self: flex-end;
 }

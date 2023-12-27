@@ -1,1 +1,15 @@
-<p>chat works!</p>,
+
+
+<div class="messages__wrapper">
+  <cdk-virtual-scroll-viewport
+    itemSize="50"
+    class="list"
+  >
+    <div
+      *cdkVirtualFor="let message of messages"
+      class="message__item from__me"
+    >
+      {{ message.text }}
+    </div>
+  </cdk-virtual-scroll-viewport>
+</div>

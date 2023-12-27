@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, OnInit, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { NAVIGATION } from '@core/constants/navigation.const';
 import { SidebarManagementService } from '@layout/services/sidebar-management.service';
 import { LogoComponent } from '@shared/ui/logo/logo.component';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ActiveLinkDirective } from './link/link.directive';
-import { NAVIGATION } from '@core/constants/navigation.const';
 
 @Component({
   selector: 'ds-side-bar',
