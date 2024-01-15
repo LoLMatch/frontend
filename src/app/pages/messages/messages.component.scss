@@ -1,3 +1,13 @@
 :host {
-  display: block;
+  display: flex;
 }
+
+.list {
+  width: 30%;
+  min-width: 300px; //na razie testowo
+}
+
+.chat {
+  width: 70%;
+}
+

@@ -1,3 +1,29 @@
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-left: 30px;
+}
+
+// .search__bar {
+
+// }
+
+
+.list__wrapper {
+  padding-right: 10px;
+}
+
+.list {
+  height: 80vh;
+  width: 100%;
+  // display: flex;
+  // flex-direction: column;
+  // gap: 30px;
+}
+
+.chat__item {
+  margin-right: 15px;
+  margin-bottom: 30px;
+  cursor: pointer;
 }

@@ -1,1 +1,38 @@
-<p>contacts-list works!</p>,
+<div class="search__bar">
+  <form
+    [formGroup]="form"
+    (submit)="filterChats()"
+  >
+    <mat-form-field>
+      <mat-icon matPrefix>search</mat-icon>
+      <input
+        matInput
+        name="nickname"
+        placeholder="Search"
+        formControlName="nameToFilter"
+      >
+    </mat-form-field>
+    <mat-icon>
+      add
+    </mat-icon>
+  </form>
+</div>
+<div class="list__wrapper">
+  <cdk-virtual-scroll-viewport
+    itemSize="50"
+    class="list"
+  >
+    <div
+      *cdkVirtualFor="let chat of filteredChats"
+      class="chat__item"
+    >
+      <ds-contact-item
+        [name]="chat.name"
+        [message]="chat.message"
+        [isUnread]="chat.isUnread"
+        [isOnline]="true"
+        (click)="goToChat(chat.id)"
+      />
+    </div>
+  </cdk-virtual-scroll-viewport>
+</div>
