@@ -5,7 +5,7 @@
   display: block;
 }
 
-.wrapper {
+.contact__item__wrapper {
   padding: 15px;
   display: flex;
   justify-content: space-around;
@@ -60,6 +60,8 @@
   -webkit-line-clamp: 2;          // ----- to lepiej działa, ale jest chyba gorsze overall,
   -webkit-box-orient: vertical;   //       więc nie wiem, czy to zostawić, czy jakoś inaczej
   overflow: hidden;
+  word-wrap: break-word;
+  word-break: break-all;
   // overflow: hidden;
   // text-overflow: ellipsis;    // ------ o wiele gorsze rozwiązanie
 }
@@ -79,4 +81,8 @@
   background-color: map-get($map: $ds-primary, $key: 200);
   border-radius: 50%;
   text-align: center;
+}
+
+.active .new__messages {
+  display: none;
 }

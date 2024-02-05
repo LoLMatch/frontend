@@ -1,15 +1,50 @@
 
-
-<div class="messages__wrapper">
-  <cdk-virtual-scroll-viewport
-    itemSize="50"
-    class="list"
-  >
-    <div
-      *cdkVirtualFor="let message of messages"
-      class="message__item from__me"
-    >
-      {{ message.text }}
+<div class="chat__wrapper">
+  <div class="contact__display">
+    <div class="image">
+      <img src="/assets/icons/profile1.png" alt="Profile Image">
     </div>
-  </cdk-virtual-scroll-viewport>
+    <div class="contact__data">
+      <p><span class="contact__name">Username</span> <br>
+      Last active: 5 hours ago</p>
+    </div>
+  </div>
+  <div class="messages__wrapper" #scrollContainer>
+    @for (message of messages; track $index) {
+      <div [class]="'message ' + (message.isMe ? 'my__message' : 'contact__message')">
+        {{ message.text }}
+      </div>
+    }
+    <ol>
+      <!-- we will use Angular binding to populate list of messages -->
+      <li class="message" *ngFor="let message of receivedMessages">
+        {{ message }}
+      </li>
+    </ol>
+    <div class="write__message">
+      <form [formGroup]="form" class="write__form">
+
+        <div class="input-container">
+          <mat-form-field class="field">
+            <input
+              matInput
+              placeholder="Write a message"
+              formControlName="message"
+              name="message"
+            >
+            <div class="option__buttons" matSuffix>
+              <mat-icon class="option__button">
+                mood
+              </mat-icon>
+              <mat-icon class="option__button">
+                note
+              </mat-icon>
+            </div>  
+          </mat-form-field>
+        </div>
+        <button class="send__button" (click)="sendMessage()">SEND</button>
+        
+      </form>
+    </div>
+  </div>
 </div>

@@ -2,9 +2,13 @@
   <form
     [formGroup]="form"
     (submit)="filterChats()"
+    class="form"
   >
-    <mat-form-field>
-      <mat-icon matPrefix>search</mat-icon>
+    <mat-form-field class="search">
+      <div matPrefix>
+        <mat-icon>search</mat-icon>
+      </div>
+      
       <input
         matInput
         name="nickname"
@@ -12,7 +16,7 @@
         formControlName="nameToFilter"
       >
     </mat-form-field>
-    <mat-icon>
+    <mat-icon class="icon__styling"> 
       add
     </mat-icon>
   </form>
@@ -27,9 +31,11 @@
       class="chat__item"
     >
       <ds-contact-item
+        dsActiveLink
+        [routerLink]="'/home/messages/'+chat.id"
         [name]="chat.name"
         [message]="chat.message"
-        [isUnread]="chat.isUnread"
+        [unreadMessages]="chat.unreadMessages"
         [isOnline]="true"
         (click)="goToChat(chat.id)"
       />

@@ -1,33 +1,121 @@
 @import 'src/styles/variables/palette';
 
-:host {
+// :host {
+//   display: block;
+// }
+
+.chat__wrapper {
+  border-left: 1px solid map-get($map: $ds-grey, $key: 300);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.contact__display {
+  height: 130px;
+  display: flex;
+}
+
+.image {
+  margin: 10px;
+  width: 90px;
+  height: 90px;
+  overflow: hidden;
+  position: relative;
+}
+
+.image img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
   display: block;
 }
 
+.contact__data {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contact__name {
+  font-size: 30px;
+}
+
 .messages__wrapper {
-  background-color: yellowgreen;
-  height: 80vh;
   display: flex;
+  height: 80vh;              //   Tragiczne rozwiązanie, ale scroll nie chciał współpracować, jak były procenty ustawione
   flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  overflow: scroll;
 }
 
-.list {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.message__item {
-  margin-right: 15px;
+.message {
   margin-bottom: 41px;
   max-width: 575px;
   text-align: justify;
   padding: 26px 31px 26px 31px;
   border-radius: 20px;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
-.message__item.from__me {
+.my__message {
   background-color: map-get($map: $ds-secondary, $key: 300);
   align-self: flex-end;
+  margin-right: 45px;
 }
+
+.contact__message {
+  background-color: map-get($map: $ds-grey, $key: 400);
+  align-self: flex-start;
+  margin-left: 45px;
+}
+
+.write__message {
+  height: 200px;
+  padding: 20px;
+}
+
+.write__form {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.field {
+  width: 100%;
+}
+
+.send__button {
+  width: 100px;
+  height: 50px;
+  background-color: map-get($map: $ds-primary, $key: 200);
+  border-radius: 20px;
+  border: 0px;
+  cursor: pointer;
+  color: map-get($map: $ds-utils, $key: font-color);
+  font-size: 22px;
+}
+
+.input-container {
+  position: relative;
+  display: inline-block;
+  width: 90%;
+}
+
+.input-container input {
+  // padding-right: 40px; /* Ustawienie odpowiedniego odstępu dla przycisku */
+}
+
+// .input-container .option__buttons {
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   height: 50%;
+//   // transform: translateY(-50%);
+//   cursor: pointer;
+//   display: flex;
+//   align-items: center;
+// }

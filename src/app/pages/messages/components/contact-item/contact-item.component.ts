@@ -14,9 +14,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 export class ContactItemComponent {
   @Input() name : string;// = "YOUR NAME";
   @Input() message: string;// = "your last message";
-  @Input() isUnread: boolean;
-  @Input() isActive: boolean;
+  @Input() unreadMessages: number;
   @Input() isOnline: boolean;
   time = "12:47";
-  newMessages = 2;
 }

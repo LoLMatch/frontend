@@ -1,14 +1,26 @@
+@import 'src/styles/variables/palette';
+@import 'src/styles/variables/breakpoints';
+
 :host {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 10px;
   padding-left: 30px;
 }
 
-// .search__bar {
+.search__bar {
+  margin-top: 20px;  
+  height: 100px;
+}
 
-// }
+.form {
+  display: flex;
+  align-items: flex-start;
+}
 
+.search {
+  width: 300px;
+}
 
 .list__wrapper {
   padding-right: 10px;
@@ -17,13 +29,16 @@
 .list {
   height: 80vh;
   width: 100%;
-  // display: flex;
-  // flex-direction: column;
-  // gap: 30px;
 }
 
 .chat__item {
   margin-right: 15px;
   margin-bottom: 30px;
   cursor: pointer;
+}
+
+.icon__styling {
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
 }

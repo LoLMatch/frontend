@@ -1,10 +1,12 @@
+@import 'src/styles/variables/breakpoints';
+
 :host {
   display: flex;
 }
 
 .list {
   width: 30%;
-  min-width: 300px; //na razie testowo
+  min-width: 340px; //na razie testowo
 }
 
 .chat {
