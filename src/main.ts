@@ -7,6 +7,8 @@ import { RouterModule } from '@angular/router';
 import appRouting from '@app/app.routing';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatFormFieldDefaultOptionsConfig } from '@app/config/material/form-field.config';
+import { NgxsModule } from '@ngxs/store';
+import { ChatState } from '@pages/messages/store/chat.store';
 
 bootstrapApplication(AppComponent, {
     providers: [
@@ -15,7 +17,9 @@ bootstrapApplication(AppComponent, {
             // Register the ServiceWorker as soon as the application is stable
             // or after 30 seconds (whichever comes first).
             registrationStrategy: 'registerWhenStable:30000'
-        })),
+        }),
+            NgxsModule.forRoot([ChatState]),
+        ),
         provideAnimations(),
         {
             provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,

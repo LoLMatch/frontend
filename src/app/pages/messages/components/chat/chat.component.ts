@@ -9,13 +9,16 @@ import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { API } from '@core/constants/api.const';
 import { RoutesPath } from '@core/constants/routes.const';
+import { Select, Selector, Store } from '@ngxs/store';
 import { ActionType } from '@pages/messages/enums/action-type.enum';
 import { MessageTemplate } from '@pages/messages/interfaces/messages.interface';
 import { MOCK_MESSAGES } from '@pages/messages/mock/messages.mock';
 import { rxStompServiceFactory } from '@pages/messages/services/rx-stomp-service-factory';
 import { RxStompService } from '@pages/messages/services/rx-stomp.service';
+import { LoadHistoricalMessages, SaveMessage } from '@pages/messages/store/chat.actions';
+import { ChatState } from '@pages/messages/store/chat.store';
 import { Message } from '@stomp/stompjs';
-import { Subject, filter, map, takeUntil } from 'rxjs';
+import { Observable, Subject, filter, map, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'ds-chat',
@@ -45,7 +48,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   form = this.fb.group({
     message: [null as string, [Validators.minLength(1), Validators.maxLength(512)]]
   });
-  messages = MOCK_MESSAGES;
+  @Select(ChatState.getMessages) messages$: Observable<any[]>;
+
   receivedMessages: string[] = [];
   recipientId: string;
   linkToMessages = `/${RoutesPath.HOME}/${RoutesPath.MESSAGES}`;
@@ -55,8 +59,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     private rxStompService: RxStompService,
-    private cdr: ChangeDetectorRef,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private store: Store,
   ) { }
 
   ngOnInit(): void {
@@ -65,14 +69,10 @@ export class ChatComponent implements OnInit, OnDestroy {
       const sth = JSON.parse(message.body) as MessageTemplate;
 
       if (sth.senderId == this.recipientId) {
-        this.messages = [
-          {
-            text: sth.content,
-            isMe: false
-          },
-          ...this.messages,
-        ];
-        this.cdr.detectChanges();
+        this.store.dispatch(new SaveMessage({
+          text: sth.content,
+          isMe: false
+        }));
       } else {
         // TODO zrobić serwis zarządzający listą kontaktów z wiadomościami
       }
@@ -83,6 +83,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       takeUntil(this.onDestroy$),
     ).subscribe((id) => {
       this.recipientId = id;
+      this.store.dispatch(new LoadHistoricalMessages(id));
     }
     );
 
@@ -111,13 +112,10 @@ export class ChatComponent implements OnInit, OnDestroy {
         recipientId: this.recipientId
       };
 
-      this.messages = [
-        {
-          text: messageToSend,
-          isMe: true
-        },
-        ...this.messages,
-      ];
+      this.store.dispatch(new SaveMessage({
+        text: messageToSend,
+        isMe: true
+      }));
       this.rxStompService.publish({ destination: API.PUBLISH, body: JSON.stringify(message) });
     }
 
