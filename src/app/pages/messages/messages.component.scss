@@ -5,11 +5,22 @@
 }
 
 .list {
-  width: 30%;
-  min-width: 340px; //na razie testowo
+  width: 100%;
+
+  @media (min-width: $screen-840){
+    width: 30%;
+    min-width: 400px;
+  }
 }
 
 .chat {
-  width: 70%;
+  width: 100%;
+
+  @media (min-width: $screen-840){
+    width: 70%;
+  }
 }
 
+.not__active {
+  display: none;
+}

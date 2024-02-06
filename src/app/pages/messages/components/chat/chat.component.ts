@@ -15,28 +15,15 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { Message } from '@stomp/stompjs';
 import { Subscription, filter } from 'rxjs';
 // import * as SockJS from 'sockjs-client';
 import { ApiChatRoutes } from '@core/constants/api.chat.const';
 import { rxStompServiceFactory } from '@pages/messages/services/rx-stomp-service-factory';
 import { RxStompService } from '@pages/messages/services/rx-stomp.service';
-
-interface MyMessageType {
-  type: ActionTypeEnum;
-  senderId: string;
-  recipientId: string;
-  content?: string | null;
-  time: Date;
-  parentId?: string | null;
-}
-
-enum ActionTypeEnum {
-  SEND = 'SEND',
-  MARK_READ = 'MARK_READ',
-}
-
+import { MessageTemplate } from '@pages/messages/interfaces/messages.interface';
+import { ActionType } from '@pages/messages/enums/action-type.enum';
 
 @Component({
   selector: 'ds-chat',
@@ -48,7 +35,8 @@ enum ActionTypeEnum {
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
   ],
   providers: [
     {
@@ -56,7 +44,7 @@ enum ActionTypeEnum {
       useFactory: rxStompServiceFactory,
     },
     HttpClient,
-  ],  
+  ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -124,7 +112,7 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
   private rxStompService = inject(RxStompService);
   private cdr = inject(ChangeDetectorRef);
   private route = inject(ActivatedRoute);
-  
+
 
   ngOnInit(): void {
     this.recipientId = this.route.snapshot.paramMap.get('id');
@@ -135,11 +123,18 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.topicSubscription = this.rxStompService.watch(ApiChatRoutes.WATCH + 'fd0a67ca-1fe7-4759-854b-4ba0a1ac818e').subscribe((message: Message) => {
       const sth = JSON.parse(message.body);
-      this.receivedMessages = [
-        ...this.receivedMessages,
-        sth.content,
-      ];
-      this.cdr.detectChanges();
+      if (sth.senderId == this.recipientId){
+        this.messages = [
+          ...this.messages,
+          {
+            text: sth.content,
+            isMe: false
+          }
+        ];
+        this.cdr.detectChanges();
+      } else {
+        // TODO zrobić serwis zarządzający listą kontaktów z wiadomościami
+      }
     });
 
     this.router.events.pipe(
@@ -163,16 +158,23 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
     if (messageToSend != "" && messageToSend != null){
       this.form.reset();
 
-      const message : MyMessageType = {
-        type: ActionTypeEnum.SEND,
+      const message : MessageTemplate = {
+        type: ActionType.SEND,
         time: new Date(),
         content: messageToSend,
         senderId: this.recipientId,
         recipientId: "fd0a67ca-1fe7-4759-854b-4ba0a1ac818e"
       };
-      console.log(message);
+
+      this.messages = [
+        ...this.messages,
+        {
+          text: messageToSend,
+          isMe: true
+        }
+      ];
       this.rxStompService.publish({destination: ApiChatRoutes.PUBLISH, body: JSON.stringify(message)});
-    }    
+    }
 
   }
 

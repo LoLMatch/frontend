@@ -1,6 +1,14 @@
 
 <div class="chat__wrapper">
   <div class="contact__display">
+    <a
+      class="go__back__link"
+      routerLink="/home/messages"
+    >
+      <mat-icon class="option__button">
+        arrow_back_ios
+      </mat-icon>
+    </a>
     <div class="image">
       <img src="/assets/icons/profile1.png" alt="Profile Image">
     </div>
@@ -15,35 +23,42 @@
         {{ message.text }}
       </div>
     }
-    <ol>
-      <!-- we will use Angular binding to populate list of messages -->
-      <li class="message" *ngFor="let message of receivedMessages">
-        {{ message }}
-      </li>
-    </ol>
+    @empty {
+      <span class="empty__chat">
+        Send a message to start conversation
+      </span>
+    }
+    @if (messages.length > 0) {
+      <span class="seen">
+        Seen 12:10
+      </span>
+    }
     <div class="write__message">
-      <form [formGroup]="form" class="write__form">
-
-        <div class="input-container">
-          <mat-form-field class="field">
-            <input
-              matInput
-              placeholder="Write a message"
-              formControlName="message"
-              name="message"
-            >
-            <div class="option__buttons" matSuffix>
-              <mat-icon class="option__button">
-                mood
-              </mat-icon>
-              <mat-icon class="option__button">
-                note
-              </mat-icon>
-            </div>  
-          </mat-form-field>
-        </div>
-        <button class="send__button" (click)="sendMessage()">SEND</button>
-        
+      <form [formGroup]="form" class="write__form" (submit)="sendMessage()">
+        <mat-form-field class="field">
+          <input
+            matInput
+            placeholder="Write a message"
+            formControlName="message"
+            name="message"
+          >
+          <div class="option__buttons" matSuffix>
+            <mat-icon class="option__button">
+              note
+            </mat-icon>
+            <mat-icon class="option__button">
+              mood
+            </mat-icon>
+          </div>
+        </mat-form-field>
+        <button class="send__button" type="submit">
+          <mat-icon class="submit__icon">
+            arrow_forward
+          </mat-icon>
+          <span class="submit__text">
+            SEND
+          </span>
+        </button>
       </form>
     </div>
   </div>
