@@ -1,4 +1,3 @@
-
 <div class="chat__wrapper">
   <div class="contact__display">
     <a
@@ -10,35 +9,43 @@
       </mat-icon>
     </a>
     <div class="image">
-      <img src="/assets/icons/profile1.png" alt="Profile Image">
+      <img
+        src="/assets/icons/profile1.png"
+        alt="Profile Image"
+      >
     </div>
     <div class="contact__data">
       <p><span class="contact__name">Username</span> <br>
-      Last active: 5 hours ago</p>
+        Last active: 5 hours ago</p>
     </div>
   </div>
 
+  @if(messages$ | async;as messages){
   <div class="messages__box">
     <div class="messages__wrapper">
       @if (messages.length > 0) {
-        <span class="seen">
-          Seen 12:10
-        </span>
+      <span class="seen">
+        Seen 12:10
+      </span>
       }
       @for (message of messages; track $index) {
-        <div [class]="'message ' + (message.isMe ? 'my__message' : 'contact__message')">
-          {{ message.text }}
-        </div>
+      <div [class]="'message ' + (message.isMe ? 'my__message' : 'contact__message')">
+        {{ message.text }}
+      </div>
       }
       @empty {
-        <span class="empty__chat">
-          Send a message to start conversation
-        </span>
+      <span class="empty__chat">
+        Send a message to start conversation
+      </span>
       }
 
     </div>
     <div class="write__message">
-      <form [formGroup]="form" class="write__form" (submit)="sendMessage()">
+      <form
+        [formGroup]="form"
+        class="write__form"
+        (submit)="sendMessage()"
+      >
         <mat-form-field class="field">
           <input
             matInput
@@ -46,7 +53,10 @@
             formControlName="message"
             name="message"
           >
-          <div class="option__buttons" matSuffix>
+          <div
+            class="option__buttons"
+            matSuffix
+          >
             <mat-icon class="option__button">
               note
             </mat-icon>
@@ -55,7 +65,10 @@
             </mat-icon>
           </div>
         </mat-form-field>
-        <button class="send__button" type="submit">
+        <button
+          class="send__button"
+          type="submit"
+        >
           <mat-icon class="submit__icon">
             arrow_forward
           </mat-icon>
@@ -66,4 +79,5 @@
       </form>
     </div>
   </div>
+  }
 </div>
