@@ -1,4 +1,4 @@
-import { ActionType } from "../enums/action-type.enum";
+import { ActionType } from "@pages/messages/enums/action-type.enum";
 
 export interface MessageTemplate {
   type: ActionType;

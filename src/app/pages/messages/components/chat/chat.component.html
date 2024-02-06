@@ -3,7 +3,7 @@
   <div class="contact__display">
     <a
       class="go__back__link"
-      routerLink="/home/messages"
+      [routerLink]="linkToMessages"
     >
       <mat-icon class="option__button">
         arrow_back_ios
@@ -17,17 +17,20 @@
       Last active: 5 hours ago</p>
     </div>
   </div>
-  <div class="messages__wrapper" #scrollContainer>
-    @for (message of messages; track $index) {
-      <div [class]="'message ' + (message.isMe ? 'my__message' : 'contact__message')">
-        {{ message.text }}
-      </div>
-    }
-    @empty {
-      <span class="empty__chat">
-        Send a message to start conversation
-      </span>
-    }
+
+  <div class="messages__box">
+    <div class="messages__wrapper">
+      @for (message of messages; track $index) {
+        <div [class]="'message ' + (message.isMe ? 'my__message' : 'contact__message')">
+          {{ message.text }}
+        </div>
+      }
+      @empty {
+        <span class="empty__chat">
+          Send a message to start conversation
+        </span>
+      }
+    </div>
     @if (messages.length > 0) {
       <span class="seen">
         Seen 12:10

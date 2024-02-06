@@ -5,7 +5,10 @@
     class="form"
   >
     <mat-form-field class="search">
-      <div class="input__icon" matPrefix>
+      <div
+        class="input__icon"
+        matPrefix
+      >
         <mat-icon>search</mat-icon>
       </div>
 
@@ -32,7 +35,7 @@
     >
       <ds-contact-item
         dsActiveLink
-        [routerLink]="'/home/messages/'+chat.id"
+        [routerLink]="pathToMessages+chat.id"
         [name]="chat.name"
         [message]="chat.message"
         [unreadMessages]="chat.unreadMessages"

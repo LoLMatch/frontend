@@ -59,16 +59,23 @@
   font-size: 30px;
 }
 
+.messages__box {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .messages__wrapper {
   display: flex;
-  height: 78vh;              //   Tragiczne rozwiązanie, ale scroll nie chciał współpracować, jak były procenty ustawione
-  flex-direction: column;
+  max-height: 75vh; //   Tragiczne rozwiązanie, ale scroll nie chciał współpracować, jak były procenty ustawione
+  flex-direction: column-reverse;
   overflow-x: hidden;
   overflow-y: scroll;
   overflow: scroll;
 
-  @media (min-width: $screen-840) {   //    Też nie najlepiej, ale dla niższych ekranów nie było widać dobrze inputa na dole
-    height: 75vh;                     //    więc dałem coś takiego
+  @media (min-width: $screen-840) {
+    //    Też nie najlepiej, ale dla niższych ekranów nie było widać dobrze inputa na dole
+    max-height: 72vh; //    więc dałem coś takiego
   }
 }
 
@@ -185,13 +192,14 @@
   height: 30px;
   width: 30px;
   font-size: 30px;
-  @media (min-width: $screen-600){
+
+  @media (min-width: $screen-600) {
     display: none;
   }
 }
 
 .submit__text {
-  @media (max-width: $screen-600){
+  @media (max-width: $screen-600) {
     display: none;
   }
 }

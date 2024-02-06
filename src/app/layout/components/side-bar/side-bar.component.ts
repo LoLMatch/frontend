@@ -4,10 +4,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { NAVIGATION } from '@core/constants/navigation.const';
+import { ActiveLinkDirective } from '@layout/components/side-bar/link/link.directive';
 import { SidebarManagementService } from '@layout/services/sidebar-management.service';
 import { LogoComponent } from '@shared/ui/logo/logo.component';
 import { Observable } from 'rxjs';
-import { ActiveLinkDirective } from './link/link.directive';
 
 @Component({
   selector: 'ds-side-bar',
