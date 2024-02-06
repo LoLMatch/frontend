@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { LogoComponent } from '@app/shared/ui/logo/logo.component';
 import { SidebarManagementService } from '@layout/services/sidebar-management.service';
+import { ActiveLinkDirective } from '../side-bar/link/link.directive';
 
 @Component({
   selector: 'ds-top-bar-menu',
@@ -16,7 +17,8 @@ import { SidebarManagementService } from '@layout/services/sidebar-management.se
     LogoComponent,
     MatButtonModule,
     OverlayModule,
-    RouterModule
+    RouterModule,
+    ActiveLinkDirective
   ],
   templateUrl: './top-bar-menu.component.html',
   styleUrl: './top-bar-menu.component.scss',

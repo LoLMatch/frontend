@@ -1,3 +1,88 @@
+@import 'src/styles/variables/breakpoints';
+@import 'src/styles/variables/palette';
+
 :host {
   display: block;
+}
+
+.contact__item__wrapper {
+  padding: 15px;
+  display: flex;
+  justify-content: space-around;
+  background-color: map-get($map: $ds-grey, $key: 400);
+  border-radius: 30px;
+  gap: 10px;
+
+}
+
+.active {
+  background-color: map-get($map: $ds-primary, $key: 200);
+}
+
+.image {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  position: relative;
+}
+
+.overlay-circle {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 15px;
+  height: 15px;
+  background-color: green;
+  border-radius: 50%;
+  border: 2px solid black;
+  z-index: 1;
+}
+
+.image img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  display: block;
+}
+
+.middle {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-size: 22px;
+}
+
+.message {
+  width: 180px;
+  font-size: 17px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;          // ----- to lepiej działa, ale jest chyba gorsze overall,
+  -webkit-box-orient: vertical;   //       więc nie wiem, czy to zostawić, czy jakoś inaczej
+  overflow: hidden;
+  word-wrap: break-word;
+  word-break: break-all;
+  // overflow: hidden;
+  // text-overflow: ellipsis;    // ------ o wiele gorsze rozwiązanie
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.new__messages {
+  background-color: map-get($map: $ds-primary, $key: 200);
+  border-radius: 50%;
+  text-align: center;
+}
+
+.active .new__messages {
+  display: none;
 }

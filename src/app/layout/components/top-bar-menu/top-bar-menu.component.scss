@@ -33,6 +33,11 @@
   cursor: pointer;
 }
 
+.topbar__button:hover,
+.topbar__button.active {
+  color: map-get($map: $ds-primary, $key: 200);
+}
+
 .logo {
   display: none;
   font-size: 32px;

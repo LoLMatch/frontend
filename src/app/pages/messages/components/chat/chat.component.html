@@ -1,1 +1,69 @@
-<p>chat works!</p>,
+
+<div class="chat__wrapper">
+  <div class="contact__display">
+    <a
+      class="go__back__link"
+      [routerLink]="linkToMessages"
+    >
+      <mat-icon class="option__button">
+        arrow_back_ios
+      </mat-icon>
+    </a>
+    <div class="image">
+      <img src="/assets/icons/profile1.png" alt="Profile Image">
+    </div>
+    <div class="contact__data">
+      <p><span class="contact__name">Username</span> <br>
+      Last active: 5 hours ago</p>
+    </div>
+  </div>
+
+  <div class="messages__box">
+    <div class="messages__wrapper">
+      @if (messages.length > 0) {
+        <span class="seen">
+          Seen 12:10
+        </span>
+      }
+      @for (message of messages; track $index) {
+        <div [class]="'message ' + (message.isMe ? 'my__message' : 'contact__message')">
+          {{ message.text }}
+        </div>
+      }
+      @empty {
+        <span class="empty__chat">
+          Send a message to start conversation
+        </span>
+      }
+
+    </div>
+    <div class="write__message">
+      <form [formGroup]="form" class="write__form" (submit)="sendMessage()">
+        <mat-form-field class="field">
+          <input
+            matInput
+            placeholder="Write a message"
+            formControlName="message"
+            name="message"
+          >
+          <div class="option__buttons" matSuffix>
+            <mat-icon class="option__button">
+              note
+            </mat-icon>
+            <mat-icon class="option__button">
+              mood
+            </mat-icon>
+          </div>
+        </mat-form-field>
+        <button class="send__button" type="submit">
+          <mat-icon class="submit__icon">
+            arrow_forward
+          </mat-icon>
+          <span class="submit__text">
+            SEND
+          </span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

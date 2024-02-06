@@ -115,6 +115,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              "src/app/pages/messages/images",
               "src/manifest.webmanifest"
             ],
             "styles": [

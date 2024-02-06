@@ -1,3 +1,26 @@
+@import 'src/styles/variables/breakpoints';
+
 :host {
-  display: block;
+  display: flex;
+}
+
+.list {
+  width: 100%;
+
+  @media (min-width: $screen-840){
+    width: 30%;
+    min-width: 400px;
+  }
+}
+
+.chat {
+  width: 100%;
+
+  @media (min-width: $screen-840){
+    width: 70%;
+  }
+}
+
+.not__active {
+  display: none;
 }
