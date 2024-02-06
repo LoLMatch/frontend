@@ -20,6 +20,11 @@
 
   <div class="messages__box">
     <div class="messages__wrapper">
+      @if (messages.length > 0) {
+        <span class="seen">
+          Seen 12:10
+        </span>
+      }
       @for (message of messages; track $index) {
         <div [class]="'message ' + (message.isMe ? 'my__message' : 'contact__message')">
           {{ message.text }}
@@ -30,12 +35,8 @@
           Send a message to start conversation
         </span>
       }
+
     </div>
-    @if (messages.length > 0) {
-      <span class="seen">
-        Seen 12:10
-      </span>
-    }
     <div class="write__message">
       <form [formGroup]="form" class="write__form" (submit)="sendMessage()">
         <mat-form-field class="field">

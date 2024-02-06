@@ -39,6 +39,7 @@ export class ActiveLinkDirective implements OnInit {
     const childElement = this.el.nativeElement.querySelector('.contact__item__wrapper');
 
     if (currentUrl == this.routerLink) {
+
       this.renderer.addClass(childElement ? childElement : this.el.nativeElement, 'active');
     } else {
       this.renderer.removeClass(childElement ? childElement : this.el.nativeElement, 'active');

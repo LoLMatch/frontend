@@ -1,14 +1,15 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterModule } from '@angular/router';
-import { ApiChatRoutes } from '@core/constants/api.chat.const';
+import { API } from '@core/constants/api.const';
 import { RoutesPath } from '@core/constants/routes.const';
+import { environment } from '@env/environment';
 import { ActiveLinkDirective } from '@layout/components/side-bar/link/link.directive';
 import { ContactItemComponent } from '@pages/messages/components/contact-item/contact-item.component';
 import { ContactsListFromApi } from '@pages/messages/interfaces/contacts.interface';
@@ -49,7 +50,7 @@ export class ContactsListComponent implements OnInit {
   form = this.fb.group({
     nameToFilter: [null as string],
   });
-  pathToMessages = `/${RoutesPath.HOME}/${RoutesPath.MESSAGES}`;
+  pathToMessages = `/${RoutesPath.HOME}/${RoutesPath.MESSAGES}/`;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -60,14 +61,14 @@ export class ContactsListComponent implements OnInit {
   ngOnInit() {
 
     const headers = new HttpHeaders({
-      'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJscE0yWVV5RjF0N1RqM1c4NmV2SlRxRjRPYllpWk9vXzFPcDJteDBCLUEwIn0.eyJleHAiOjE3MDcyMzQ0NzQsImlhdCI6MTcwNzIzNDE3NCwianRpIjoiNDhmNWIyYjktMTIwYi00MGM2LWI0ZTUtMTk2NzY2ODA5NWFhIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4NDQzL3JlYWxtcy9sb2xtYXRjaCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJmZDBhNjdjYS0xZmU3LTQ3NTktODU0Yi00YmEwYTFhYzgxOGUiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJmcm9udGVuZCIsInNlc3Npb25fc3RhdGUiOiI0YzY1NDM4My1lNGU4LTQyNGItOWNkMy05M2RmMDlhZjkwYTUiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLWxvbC1tYXRjaCJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjRjNjU0MzgzLWU0ZTgtNDI0Yi05Y2QzLTkzZGYwOWFmOTBhNSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwicHJlZmVycmVkX3VzZXJuYW1lIjoiYm9iIn0.XHAMKBtKMwmgwm477Qa49_8zpuW15Oe-10_J-dU0qnvIR5XcFgGxUUuQllfFKxFqnEQEnROcFo9-NLM4QxlWxMSCGuk2PCEn0TAq9VWO-af6v6oY5kFOpXhl-NEgudaGx4k9BfYRvfVGSyELgUuOi6c3EBQCb2qgFTyuwV6xXS2cGVQBjRHgPKKfkjJDneuMoHlPsYf02ayCxefSBKc6A9sx1qKa76OXQpCOaoC5cB7qd6ZP3HG_M4jj_mDXA5Q9pp4japTQ3e85ksCiMw4CDV_SycGRdCFWgGrtPR0aMZmnh2BQ3JiBf7lBQcWbLc0ZPk_tPvg3wupc1gTHKEeSCg'
+      'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJscE0yWVV5RjF0N1RqM1c4NmV2SlRxRjRPYllpWk9vXzFPcDJteDBCLUEwIn0.eyJleHAiOjE3MDcyMzkyMzQsImlhdCI6MTcwNzIzODkzNCwianRpIjoiNDk3YWEwMjMtOTFmMi00MWE2LTg2YWItZjYxYTg2NDNiNjg5IiwiaXNzIjoiaHR0cDovL2tleWNsb2FrOjg0NDMvcmVhbG1zL2xvbG1hdGNoIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImZkMGE2N2NhLTFmZTctNDc1OS04NTRiLTRiYTBhMWFjODE4ZSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250ZW5kIiwic2Vzc2lvbl9zdGF0ZSI6IjRmOGY1YjBiLWNmNDYtNGJlMi1hNmRkLTA0MGYzOGM5OTVlZCIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiKiJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiIsImRlZmF1bHQtcm9sZXMtbG9sLW1hdGNoIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiNGY4ZjViMGItY2Y0Ni00YmUyLWE2ZGQtMDQwZjM4Yzk5NWVkIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJib2IifQ.Y1oHBvqQuynhpeY2J6gMqrzQwlqmfPiXbnmQzyUuhs6BkYVyjuQoFysLBZUg1zgjg2aNq8c-yGrMzd7OHGuE6gcUfDpK2sHQfiwZMqPerDP_rjaMYhYOo2h7rot1_QS0ZOV95oURxM3xO2Gzmxw80eN7aJknGyiJ1fHwrbPGnZ052NgIW5-R0Pg_B0IXlr-G9xtx1_fkIIPiWJsPmpYLVvShDbKxno3Fk62G6z2P-B63R6KTmWVjtdHRf9nce3QnufFVOq7QGCO76Fb7nkxRRpsvVIwmcNAH13i8d6_TwTq2uiXcJ8FPLn2jI-3IT7a1fjpomAINwBgPJ4CcVIa45A'
     });
 
     const params = {
       id: "fd0a67ca-1fe7-4759-854b-4ba0a1ac818e",
     };
 
-    this.http.get<ContactsListFromApi>(`${ApiChatRoutes.CHAT_PATH}${ApiChatRoutes.CONTACTS}`, { headers, params }).subscribe((res: ContactsListFromApi) => {
+    this.http.get<ContactsListFromApi>(`${environment.httpChat}${API.CONTACTS}`, { headers, params }).subscribe((res: ContactsListFromApi) => {
       for (let i = 0; i < res.contacts.length; i++) {
         this.chats[i].id = res.contacts[i].id;
         this.chats[i].name = res.contacts[i].username;

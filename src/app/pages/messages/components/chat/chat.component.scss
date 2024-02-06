@@ -62,21 +62,21 @@
 .messages__box {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  max-height: 78vh;
+
+  @media (min-width: $screen-840) {
+    max-height: 75vh;
+  }
 }
 
 .messages__wrapper {
   display: flex;
-  max-height: 75vh; //   Tragiczne rozwiązanie, ale scroll nie chciał współpracować, jak były procenty ustawione
+  height: 100%;
   flex-direction: column-reverse;
   overflow-x: hidden;
   overflow-y: scroll;
   overflow: scroll;
 
-  @media (min-width: $screen-840) {
-    //    Też nie najlepiej, ale dla niższych ekranów nie było widać dobrze inputa na dole
-    max-height: 72vh; //    więc dałem coś takiego
-  }
 }
 
 .message {
@@ -134,18 +134,18 @@
 .seen {
   color: map-get($map: $ds-grey, $key: 300);
   align-self: flex-end;
-  margin: -19px 20px 8px 0;
+  margin: -19px 20px 0px 0;
 
   @media (min-width: $screen-600) {
-    margin: -35px 46px 20px 0;
+    margin: -35px 46px 1% 0;
   }
 
   @media (min-width: $screen-840) {
-    margin: -19px 20px 8px 0;
+    margin: -19px 20px 0px 0;
   }
 
   @media (min-width: $screen-1024) {
-    margin: -35px 46px 20px 0;
+    margin: -35px 46px 10px 0;
   }
 }
 
@@ -157,7 +157,7 @@
 }
 
 .write__message {
-  margin-top: auto;
+  padding-top: 10px;
   padding-right: 19px;
   padding-left: 16px;
 }

@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
-import { ApiChatRoutes } from '@core/constants/api.chat.const';
+import { API } from '@core/constants/api.const';
 import { RoutesPath } from '@core/constants/routes.const';
 import { ActionType } from '@pages/messages/enums/action-type.enum';
 import { MessageTemplate } from '@pages/messages/interfaces/messages.interface';
@@ -61,7 +61,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.recipientId = this.route.snapshot.paramMap.get('id');
-    this.rxStompService.watch(ApiChatRoutes.WATCH + 'fd0a67ca-1fe7-4759-854b-4ba0a1ac818e').pipe(takeUntil(this.onDestroy$)).subscribe((message: Message) => {
+    this.rxStompService.watch(API.WATCH + 'fd0a67ca-1fe7-4759-854b-4ba0a1ac818e').pipe(takeUntil(this.onDestroy$)).subscribe((message: Message) => {
       const sth = JSON.parse(message.body) as MessageTemplate;
 
       if (sth.senderId == this.recipientId) {
@@ -118,7 +118,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         },
         ...this.messages,
       ];
-      this.rxStompService.publish({ destination: ApiChatRoutes.PUBLISH, body: JSON.stringify(message) });
+      this.rxStompService.publish({ destination: API.PUBLISH, body: JSON.stringify(message) });
     }
 
   }
