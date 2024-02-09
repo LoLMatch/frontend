@@ -9,7 +9,7 @@
     dsButton
     dsButtonType="primary"
     dsButtonCutCorner="top-left"
-    [routerLink]="loginRoute"
+    (click)="login()"
   >
     Log in
   </a>
@@ -18,7 +18,7 @@
     dsButton
     dsButtonType="secondary"
     dsButtonCutCorner="bottom-right"
-    [routerLink]="registerRoute"
+    (click)="register()"
   >
     Sign up
   </a>

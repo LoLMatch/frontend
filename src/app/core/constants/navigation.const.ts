@@ -18,10 +18,5 @@ export const NAVIGATION = [
     link: "/settings",
     icon: "settings",
     name: "SETTINGS"
-  },
-  {
-    link: "/",
-    icon: "logout",
-    name: "LOG OUT"
   }
 ];
