@@ -1,9 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostListener, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  OnInit,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { NAVIGATION } from '@core/constants/navigation.const';
+import { AuthService } from '@core/services/auth/auth.service';
 import { ActiveLinkDirective } from '@layout/components/side-bar/link/link.directive';
 import { SidebarManagementService } from '@layout/services/sidebar-management.service';
 import { LogoComponent } from '@shared/ui/logo/logo.component';
@@ -26,15 +32,17 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SideBarComponent implements OnInit {
-
-  private sidebarManager = inject(SidebarManagementService);
-
   isOpenFromService: boolean;
   windowWidth: number;
   isPhone = false;
   areNewMessages = true;
   isOpen$: Observable<boolean>;
   NAVIGATION = NAVIGATION;
+
+  constructor(
+    private sidebarManager: SidebarManagementService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.windowWidth = window.innerWidth;
@@ -54,6 +62,9 @@ export class SideBarComponent implements OnInit {
     }
   }
 
+  logout() {
+    void this.authService.logout();
+  }
 
   closeSidebar() {
     this.sidebarManager.hideLoaderSmoothly();

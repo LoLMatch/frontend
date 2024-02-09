@@ -1,13 +1,14 @@
-import { Routes } from "@angular/router";
-import { RoutesPath } from "@core/constants/routes.const";
-import { DashboardComponent } from "@pages/dashboard/dashboard.component";
-import { HomeComponent } from "@pages/home/home.component";
+import { Routes } from '@angular/router';
+import { RoutesPath } from '@core/constants/routes.const';
+import { AuthGuard } from '@core/guards/auth.guard';
+import { DashboardComponent } from '@pages/dashboard/dashboard.component';
+import { HomeComponent } from '@pages/home/home.component';
 
 export default [
   {
     path: '',
     component: HomeComponent,
-    //canActivate:[] TUTAJ wrzucic GUARDA DO AUTENTYKACJI
+    canActivate: [AuthGuard], // TUTAJ wrzucic GUARDA DO AUTENTYKACJI
     children: [
       {
         path: '',
@@ -15,8 +16,8 @@ export default [
       },
       {
         path: RoutesPath.MESSAGES,
-        loadChildren: () => import('../messages/messages.routing')
-      }
-    ]
-  }
+        loadChildren: () => import('../messages/messages.routing'),
+      },
+    ],
+  },
 ] as Routes;
