@@ -9,10 +9,13 @@ import { MatInputModule } from '@angular/material/input';
 import { Router, RouterModule } from '@angular/router';
 import { API } from '@core/constants/api.const';
 import { RoutesPath } from '@core/constants/routes.const';
+import { KeyStorage } from '@core/enums/key-storage.enum';
+import { AuthService } from '@core/services/auth/auth.service';
+import { LocalStorageService } from '@core/services/localStorage/local-storage.service';
 import { environment } from '@env/environment';
 import { ActiveLinkDirective } from '@layout/components/side-bar/link/link.directive';
 import { ContactItemComponent } from '@pages/messages/components/contact-item/contact-item.component';
-import { ContactsListFromApi } from '@pages/messages/interfaces/contacts.interface';
+import { ContactListItem, ContactsListFromApi } from '@pages/messages/interfaces/contacts.interface';
 import { MOCK_CONTACTS } from '@pages/messages/mock/contacts.mock';
 
 @Component({
@@ -40,42 +43,51 @@ import { MOCK_CONTACTS } from '@pages/messages/mock/contacts.mock';
 export class ContactsListComponent implements OnInit {
   chats = MOCK_CONTACTS;
 
-  filteredChats: {
-    id: string,
-    name: string;
-    message: string;
-    unreadMessages: number;
-  }[] = this.chats;
+  filteredChats: ContactListItem[] = this.chats;
 
   form = this.fb.group({
     nameToFilter: [null as string],
   });
   pathToMessages = `/${RoutesPath.HOME}/${RoutesPath.MESSAGES}/`;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private http: HttpClient,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private authService: AuthService,
+    private localStorageService: LocalStorageService
   ) { }
 
   ngOnInit() {
+    this.authService.loadProfile().subscribe((user) => {
+      const params = {
+        id: user.id,
+      };
 
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJscE0yWVV5RjF0N1RqM1c4NmV2SlRxRjRPYllpWk9vXzFPcDJteDBCLUEwIn0.eyJleHAiOjE3MDcyMzkyMzQsImlhdCI6MTcwNzIzODkzNCwianRpIjoiNDk3YWEwMjMtOTFmMi00MWE2LTg2YWItZjYxYTg2NDNiNjg5IiwiaXNzIjoiaHR0cDovL2tleWNsb2FrOjg0NDMvcmVhbG1zL2xvbG1hdGNoIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImZkMGE2N2NhLTFmZTctNDc1OS04NTRiLTRiYTBhMWFjODE4ZSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImZyb250ZW5kIiwic2Vzc2lvbl9zdGF0ZSI6IjRmOGY1YjBiLWNmNDYtNGJlMi1hNmRkLTA0MGYzOGM5OTVlZCIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiKiJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiIsImRlZmF1bHQtcm9sZXMtbG9sLW1hdGNoIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiNGY4ZjViMGItY2Y0Ni00YmUyLWE2ZGQtMDQwZjM4Yzk5NWVkIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJib2IifQ.Y1oHBvqQuynhpeY2J6gMqrzQwlqmfPiXbnmQzyUuhs6BkYVyjuQoFysLBZUg1zgjg2aNq8c-yGrMzd7OHGuE6gcUfDpK2sHQfiwZMqPerDP_rjaMYhYOo2h7rot1_QS0ZOV95oURxM3xO2Gzmxw80eN7aJknGyiJ1fHwrbPGnZ052NgIW5-R0Pg_B0IXlr-G9xtx1_fkIIPiWJsPmpYLVvShDbKxno3Fk62G6z2P-B63R6KTmWVjtdHRf9nce3QnufFVOq7QGCO76Fb7nkxRRpsvVIwmcNAH13i8d6_TwTq2uiXcJ8FPLn2jI-3IT7a1fjpomAINwBgPJ4CcVIa45A'
+      this.localStorageService.setItem(KeyStorage.UserId, user.id);
+
+      this.http.get<ContactsListFromApi>(`${environment.httpChat}${API.CONTACTS}`, { params }).subscribe((res: ContactsListFromApi) => {
+        console.log(res);
+        for (let i = 0; i < res.contacts.length; i++) {
+          const contact: ContactListItem = {
+            id: res.contacts[i].contactId,
+            name: res.contacts[i].username,
+            unreadMessages: res.contacts[i].unreadMessages,
+            message: res.contacts[i].lastMessageSenderId == user.id ? "Ty: " + res.contacts[i].lastMessage : res.contacts[i].lastMessage,
+            isActive: res.contacts[i].isActive
+          };
+          this.chats = [
+            ...this.chats.slice(0, i),
+            contact,
+            ...this.chats.slice(i + 1),
+          ];
+        }
+        this.filteredChats = this.chats;
+        this.cdr.detectChanges();
+      });
     });
 
-    const params = {
-      id: "fd0a67ca-1fe7-4759-854b-4ba0a1ac818e",
-    };
-
-    this.http.get<ContactsListFromApi>(`${environment.httpChat}${API.CONTACTS}`, { headers, params }).subscribe((res: ContactsListFromApi) => {
-      for (let i = 0; i < res.contacts.length; i++) {
-        this.chats[i].id = res.contacts[i].id;
-        this.chats[i].name = res.contacts[i].username;
-      }
-      this.filteredChats = this.chats;
-      this.cdr.detectChanges();
-    });
   }
 
   filterChats() {

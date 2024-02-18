@@ -3,60 +3,70 @@ export const MOCK_CONTACTS = [
     name: "marek",
     message: "cos tam cos tam",
     unreadMessages: 0,
-    id: '1'
+    id: '1',
+    isActive: true,
   },
   {
     name: "anna",
     message: "zagrajmy w grę",
     unreadMessages: 2,
-    id: '2'
+    id: '2',
+    isActive: true,
   },
   {
     name: "username1",
     message: "cos tam cos tam ale takie dłuższe wwwwwwwwwwwwwwwwwwwww wwwwwwwwwwwwwwwwwww wwwwwwwwww www",
     unreadMessages: 3,
-    id: '3'
+    id: '3',
+    isActive: true,
   },
   {
     name: "username2",
     message: "zagrajmy w grę",
     unreadMessages: 0,
-    id: '4'
+    id: '4',
+    isActive: false,
   },
   {
     name: "username3",
     message: "cos tam cos tam",
     unreadMessages: 0,
-    id: '5'
+    id: '5',
+    isActive: false,
   },
   {
     name: "username4",
     message: "zagrajmy w grę",
     unreadMessages: 1,
-    id: '6'
+    id: '6',
+    isActive: true,
   },
   {
     name: "username5",
     message: "cos tam cos tam",
     unreadMessages: 0,
-    id: '7'
+    id: '7',
+    isActive: false,
   },
   {
     name: "username6",
     message: "zagrajmy w grę",
     unreadMessages: 2,
-    id: '8'
+    id: '8',
+    isActive: true,
   },
   {
     name: "username7",
     message: "cos tam cos tam",
     unreadMessages: 5,
-    id: '9'
+    id: '9',
+    isActive: true,
   },
   {
     name: "username8",
     message: "zagrajmy w grę",
     unreadMessages: 0,
-    id: '10'
+    id: '10',
+    isActive: false,
   },
 ];

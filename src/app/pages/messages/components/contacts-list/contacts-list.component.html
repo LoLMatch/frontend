@@ -36,7 +36,7 @@
         [name]="chat.name"
         [message]="chat.message"
         [unreadMessages]="chat.unreadMessages"
-        [isOnline]="true"
+        [isOnline]="chat.isActive"
         (click)="goToChat(chat.id)"
       />
     </div>
