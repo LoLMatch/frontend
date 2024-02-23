@@ -22,12 +22,13 @@
   </form>
 </div>
 <div class="list__wrapper">
-  <cdk-virtual-scroll-viewport
+  @if (contacts$ | async; as displayedChats) {
+    <cdk-virtual-scroll-viewport
     itemSize="50"
     class="list"
   >
     <div
-      *cdkVirtualFor="let chat of filteredChats"
+      *cdkVirtualFor="let chat of displayedChats"
       class="chat__item"
     >
       <ds-contact-item
@@ -37,8 +38,11 @@
         [message]="chat.message"
         [unreadMessages]="chat.unreadMessages"
         [isOnline]="chat.isActive"
+        [time]="chat.createdAt"
         (click)="goToChat(chat.id)"
       />
     </div>
   </cdk-virtual-scroll-viewport>
+  }
+  
 </div>

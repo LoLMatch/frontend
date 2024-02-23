@@ -4,11 +4,12 @@ export interface Contact {
   isActive: boolean,
   unreadMessages: number,
   lastMessage: string,
-  lastMessageSenderId: string
+  lastMessageSenderId: string,
+  lastMessageTimestamp: string
 }
 
 export interface User {
-    contactId: string,
+    id: string,
     username: string
     group: string[],
 }
@@ -24,4 +25,5 @@ export interface ContactListItem {
   unreadMessages: number,
   id: string,
   isActive: boolean,
+  createdAt: string
 }

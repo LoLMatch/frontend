@@ -16,5 +16,5 @@ export class ContactItemComponent {
   @Input() message: string;// = "your last message";
   @Input() unreadMessages: number;
   @Input() isOnline: boolean;
-  time = "12:47";
+  @Input() time: string;
 }
