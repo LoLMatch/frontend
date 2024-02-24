@@ -1,0 +1,24 @@
+:host {
+  display: block;
+}
+
+.header {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #E9EAEA80
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+.centered {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

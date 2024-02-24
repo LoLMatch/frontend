@@ -1,7 +1,7 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,10 +9,9 @@ import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { API } from '@core/constants/api.const';
 import { RoutesPath } from '@core/constants/routes.const';
-import { Select, Selector, Store } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { ActionType } from '@pages/messages/enums/action-type.enum';
 import { MessageTemplate } from '@pages/messages/interfaces/messages.interface';
-import { MOCK_MESSAGES } from '@pages/messages/mock/messages.mock';
 import { rxStompServiceFactory } from '@pages/messages/services/rx-stomp-service-factory';
 import { RxStompService } from '@pages/messages/services/rx-stomp.service';
 import { LoadHistoricalMessages, SaveMessage } from '@pages/messages/store/chat.actions';
@@ -30,7 +29,6 @@ import { Observable, Subject, filter, map, takeUntil } from 'rxjs';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    HttpClientModule,
     RouterModule
   ],
   providers: [

@@ -18,6 +18,10 @@ export default [
         path: RoutesPath.MESSAGES,
         loadChildren: () => import('../messages/messages.routing'),
       },
+      {
+        path: RoutesPath.RECOMMENDATIONS,
+        loadChildren: () => import('../recommendations/recommendations.routing'),
+      }
     ],
   },
 ] as Routes;

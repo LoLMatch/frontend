@@ -1,3 +1,41 @@
+@import "src/styles/variables/palette";
+@import 'src/styles/variables/breakpoints';
+
 :host {
-  display: block;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.content {
+  width: 100%;
+  padding: 50px;
+}
+
+.right__image__container {
+  display: none;
+  position: relative;
+  width: 55%;
+
+  @media(min-width: $screen-1024) {
+    display: block;
+
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0) 55%, map-get($map: $ds-utils, $key: background-color) 100%);
+  }
+}
+
+.right__image {
+  height: calc(100vh - 60px);
+  width: 100%;
+  object-fit: cover;
 }
