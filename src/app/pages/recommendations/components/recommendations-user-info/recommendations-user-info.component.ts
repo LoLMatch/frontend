@@ -8,13 +8,15 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RecommendationsUserDescriptionComponent } from '@pages/recommendations/components/recommendations-user-description/recommendations-user-description.component';
 import { RecommendationsUserHeaderComponent } from '@pages/recommendations/components/recommendations-user-header/recommendations-user-header.component';
 import { RecommendationsUserBestTrioComponent } from '@pages/recommendations/components/recommendations-user-best-trio/recommendations-user-best-trio.component';
+import { RecommendationsUserPrimaryInfoComponent } from '@pages/recommendations/components/recommendations-user-primary-info/recommendations-user-primary-info.component';
+import { RecommendationsUserActionsComponent } from '@pages/recommendations/components/recommendations-user-actions/recommendations-user-actions.component';
 
 
 @Component({
   selector: 'ds-recommendations-user-info',
   standalone: true,
   imports: [
-    CommonModule, MatProgressSpinnerModule, RecommendationsUserDescriptionComponent, RecommendationsUserHeaderComponent, RecommendationsUserBestTrioComponent
+    CommonModule, MatProgressSpinnerModule, RecommendationsUserDescriptionComponent, RecommendationsUserHeaderComponent, RecommendationsUserBestTrioComponent, RecommendationsUserPrimaryInfoComponent, RecommendationsUserActionsComponent
   ],
   templateUrl: './recommendations-user-info.component.html',
   styleUrl: './recommendations-user-info.component.scss',

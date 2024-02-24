@@ -15,5 +15,5 @@ export interface RecommendationUser {
 export type PreferedChampions = Record<string, Lane>;
 export type Lane = "Top Lane" | "Jungle" | "Mid Lane" | "Bot Lane" | "Support";
 export type Rank = "I" | "II" | "III" | "IV";
-export type Tier = "IRON" | "BRONZE" | "SILVER" | "GOLD" | "PLATINUM" | "DIAMOND" | "MASTER" | "GRANDMASTER" | "CHALLENGER";
+export type Tier = "IRON" | "BRONZE" | "SILVER" | "GOLD" | "PLATINUM" | "EMERALD" | "DIAMOND" | "MASTER" | "GRANDMASTER" | "CHALLENGER";
 export type Sex = "M" | "W";

@@ -10,7 +10,8 @@
   <ds-recommendations-user-best-trio [dsPreferedChampions]="recommendations?.preferred_champions_and_lines" />
 </div>
 
-
+<ds-recommendations-user-primary-info [dsRecommendation]="recommendations" />
+<ds-recommendations-user-actions />
 }@else {
 <div class="centered">
   <mat-spinner />

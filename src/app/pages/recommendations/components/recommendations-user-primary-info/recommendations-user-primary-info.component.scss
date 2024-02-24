@@ -2,10 +2,19 @@
 
 :host {
   display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: 50px 0;
+}
+
+.information__wrapper {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .header {
@@ -16,21 +25,13 @@
   text-transform: uppercase;
 }
 
-.champion {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
 .champion__icon {
   border-radius: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 68px;
-  height: 68px;
+  width: 90px;
+  height: 90px;
   border: 1px solid map-get($map: $ds-utils, $key: primary-color);
   object-fit: cover;
 }

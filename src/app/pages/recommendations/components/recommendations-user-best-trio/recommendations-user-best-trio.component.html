@@ -1,1 +1,11 @@
-<p>recommendations-user-best-trio works!</p>,
+<div class="header">
+  BEST TRIO
+</div>
+
+@for (champion of bestTrio; track $index) {
+
+<div class="champion">
+  <div class="champion__icon">{{champion?.name}}</div>
+  <div class="champion__icon">{{champion?.lane}}</div>
+</div>
+}
