@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
+import { Status } from "@pages/messages/enums/action-type.enum";
 import { ContactListItem, ContactsListFromApi } from "@pages/messages/interfaces/contacts.interface";
 import { ApiService } from "@pages/messages/services/api.service";
-import { OpenChat, ReceiveNewMessageOnActiveChat, ReceiveNewMessageOnSomeChat, SendMessageOnActiveChat, LoadContacts } from "@pages/messages/store/contacts.actions";
+import { OpenChat, ReceiveNewMessageOnActiveChat, ReceiveNewMessageOnSomeChat, SendMessageOnActiveChat, LoadContacts, ChangeStatus } from "@pages/messages/store/contacts.actions";
 import { map, tap } from "rxjs";
 
 export interface ContactsStateModel {
@@ -49,7 +50,6 @@ export class ContactsState {
       }
       return contact;
     });
-
     patchState({
       contactId: action.id,
       contacts: updatedContacts,
@@ -102,6 +102,23 @@ export class ContactsState {
           ...contact,
           message: "Ty: " + action.message,
           createdAt: this.convertDate(action.createdAt)
+        };
+      }
+      return contact;
+    });
+    patchState({
+      contacts: updatedContacts,
+    });
+  }
+
+  @Action(ChangeStatus)
+  changeStatus({ getState, patchState }: StateContext<ContactsStateModel>, action: ChangeStatus) {
+    const state = getState();  
+    const updatedContacts = state.contacts.map(contact => {
+      if (contact.id === action.message.id) {
+        return {
+          ...contact,
+          isActive: action.message.status == Status.ACTIVE ? true : false
         };
       }
       return contact;

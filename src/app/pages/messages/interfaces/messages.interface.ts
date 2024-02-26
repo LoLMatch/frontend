@@ -1,4 +1,4 @@
-import { ActionType } from "@pages/messages/enums/action-type.enum";
+import { ActionType, Status } from "@pages/messages/enums/action-type.enum";
 import { User } from "./contacts.interface";
 
 export interface MessageTemplate {
@@ -19,6 +19,7 @@ export interface MessageFromWebsocket {
   parentMessageId?: string | null;
   readAt?: string | null;
   createdAt: string;
+  status?: Status | null;
 }
 
 export interface DisplayedMessage {

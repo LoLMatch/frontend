@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
-import { LoadHistoricalMessages, SaveMessage } from "@pages/messages/store/chat.actions";
+import { DisplayedMessage, MessagesApiResponse, MessageFromApi } from "@pages/messages/interfaces/messages.interface";
+import { ApiService } from "@pages/messages/services/api.service";
+import { LoadHistoricalMessages, MarkChatRead, SaveMessage } from "@pages/messages/store/chat.actions";
 import { map, tap } from "rxjs";
-import { DisplayedMessage, MessageFromApi, MessagesApiResponse } from "../interfaces/messages.interface";
-import { ApiService } from "../services/api.service";
 
 export interface ChatStateModel {
   messages: DisplayedMessage[];
@@ -45,6 +45,13 @@ export class ChatState {
     patchState({
       messages: [action.message, ...state.messages,]
     });
+  }
+
+  @Action(MarkChatRead)
+  markChatRead({ patchState }: StateContext<ChatStateModel>, action: MarkChatRead){
+    patchState({
+      lastReadAt: this.convertDate(action.seenAt)
+    })
   }
 
   @Action(LoadHistoricalMessages)

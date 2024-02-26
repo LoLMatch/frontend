@@ -5,7 +5,7 @@ import { ActionType } from '@pages/messages/enums/action-type.enum';
 import { MessageFromWebsocket, MessageTemplate } from '@pages/messages/interfaces/messages.interface';
 import { RxStompService } from '@pages/messages/services/rx-stomp.service';
 import { SaveMessage } from '@pages/messages/store/chat.actions';
-import { ReceiveNewMessageOnActiveChat, ReceiveNewMessageOnSomeChat, SendMessageOnActiveChat } from '@pages/messages/store/contacts.actions';
+import { ChangeStatus, ReceiveNewMessageOnActiveChat, ReceiveNewMessageOnSomeChat, SendMessageOnActiveChat } from '@pages/messages/store/contacts.actions';
 import { RxStomp } from '@stomp/rx-stomp';
 import { Message } from '@stomp/stompjs';
 
@@ -31,20 +31,29 @@ export class ChatService {
     this.rxStomp.watch(API.WATCH + this.myId)
       .subscribe((message: Message) => {
         const sth = JSON.parse(message.body) as MessageFromWebsocket;
-        if (sth.action == ActionType.MESSAGE) {
-          if (sth.senderId == this.activeContactId){
-            this.store.dispatch(new SaveMessage({
-              text: sth.content,
-              isMe: false
-            }));
-            this.store.dispatch(new ReceiveNewMessageOnActiveChat(sth.content, sth.createdAt));
-            this.markChatRead();
-          } else {
-            this.store.dispatch(new ReceiveNewMessageOnSomeChat(sth))
-          }          
-        } else {
-          console.log(sth);
-          // TODO zrobić serwis zarządzający listą kontaktów z wiadomościami
+        console.log(sth)
+        switch (sth.action) {
+          case ActionType.MESSAGE: {
+            if (sth.senderId == this.activeContactId){
+              this.store.dispatch(new SaveMessage({
+                text: sth.content,
+                isMe: false
+              }));
+              this.store.dispatch(new ReceiveNewMessageOnActiveChat(sth.content, sth.createdAt));
+              this.markChatRead();
+            } else {
+              this.store.dispatch(new ReceiveNewMessageOnSomeChat(sth));
+            }   
+            break;   
+          }
+          case ActionType.MESSAGE_READ: {
+
+            break;
+          }
+          case ActionType.CHANGE_STATUS: {
+            this.store.dispatch(new ChangeStatus(sth));
+            break
+          }
         }
     });
   }

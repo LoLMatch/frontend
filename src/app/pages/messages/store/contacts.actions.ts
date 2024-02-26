@@ -24,3 +24,8 @@ export class SendMessageOnActiveChat {
   static readonly type = '[Contacts] Set last message and time of sent message';
   constructor(public message: string, public createdAt: string) {}
 }
+
+export class ChangeStatus {
+  static readonly type = '[Contacts] Change status';
+  constructor(public message: MessageFromWebsocket) {}
+}
