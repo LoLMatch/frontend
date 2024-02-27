@@ -4,7 +4,7 @@ import { Store } from '@ngxs/store';
 import { ActionType } from '@pages/messages/enums/action-type.enum';
 import { MessageFromWebsocket, MessageTemplate } from '@pages/messages/interfaces/messages.interface';
 import { RxStompService } from '@pages/messages/services/rx-stomp.service';
-import { SaveMessage } from '@pages/messages/store/chat.actions';
+import { MarkChatRead, SaveMessage } from '@pages/messages/store/chat.actions';
 import { ChangeStatus, ReceiveNewMessageOnActiveChat, ReceiveNewMessageOnSomeChat, SendMessageOnActiveChat } from '@pages/messages/store/contacts.actions';
 import { RxStomp } from '@stomp/rx-stomp';
 import { Message } from '@stomp/stompjs';
@@ -24,9 +24,9 @@ export class ChatService {
   ) {  }
 
   init(){
-    if (this.rxStomp == null){
+    // if (!this.rxStomp){
       this.rxStomp = this.rxStompService.stomp();
-    }
+    // }
     console.log("init działa ", this.rxStomp);
     this.rxStomp.watch(API.WATCH + this.myId)
       .subscribe((message: Message) => {
@@ -37,22 +37,25 @@ export class ChatService {
             if (sth.senderId == this.activeContactId){
               this.store.dispatch(new SaveMessage({
                 text: sth.content,
-                isMe: false
+                isMe: false,
+                readAt: new Date().toString()
               }));
               this.store.dispatch(new ReceiveNewMessageOnActiveChat(sth.content, sth.createdAt));
               this.markChatRead();
             } else {
               this.store.dispatch(new ReceiveNewMessageOnSomeChat(sth));
-            }   
-            break;   
+            }
+            break;
           }
           case ActionType.MESSAGE_READ: {
-
+            if (sth.senderId == this.activeContactId){
+              this.store.dispatch(new MarkChatRead(sth.readAt));
+            }
             break;
           }
           case ActionType.CHANGE_STATUS: {
             this.store.dispatch(new ChangeStatus(sth));
-            break
+            break;
           }
         }
     });
@@ -77,11 +80,13 @@ export class ChatService {
 
     this.store.dispatch(new SaveMessage({
       text: messageToSend,
-      isMe: true
+      isMe: true,
+      readAt: null,
     }));
     this.rxStomp.publish({ destination: API.PUBLISH, body: JSON.stringify(message) });
     console.log(message.time)
     this.store.dispatch(new SendMessageOnActiveChat(message.content, message.time.toISOString()));
+    this.store.dispatch(new MarkChatRead(null));
   }
 
   markChatRead(){
@@ -93,5 +98,6 @@ export class ChatService {
       recipientId: this.activeContactId
     };
     this.rxStomp.publish({ destination: API.PUBLISH, body: JSON.stringify(message) });
+    this.store.dispatch(new MarkChatRead(message.time.toISOString()));
   }
 }

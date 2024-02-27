@@ -74,6 +74,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     ).subscribe((id) => {
       this.chatService.setActiveContactId(id);
       this.store.dispatch(new LoadHistoricalMessages(this.myId, id));
+      this.chatService.markChatRead();
     });
 
     this.router.events.pipe(
@@ -82,7 +83,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.chatService.setActiveContactId(this.route.snapshot.paramMap.get('id'));
     });
     this.chatService.init();
-    this.chatService.markChatRead();
+    // this.chatService.markChatRead();
   }
 
   ngOnDestroy() {

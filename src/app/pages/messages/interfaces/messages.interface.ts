@@ -25,6 +25,7 @@ export interface MessageFromWebsocket {
 export interface DisplayedMessage {
   text: string;
   isMe: boolean;
+  readAt: string;
 }
 
 export interface MessageFromApi {

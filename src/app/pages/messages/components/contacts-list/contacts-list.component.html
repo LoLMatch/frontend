@@ -1,9 +1,4 @@
 <div class="search__bar">
-  <form
-    [formGroup]="form"
-    (submit)="filterChats()"
-    class="form"
-  >
     <mat-form-field class="search">
       <div
         class="input__icon"
@@ -16,13 +11,12 @@
         matInput
         name="nickname"
         placeholder="Search"
-        formControlName="nameToFilter"
+        [formControl]="control"
       >
     </mat-form-field>
-  </form>
 </div>
 <div class="list__wrapper">
-  @if (contacts$ | async; as displayedChats) {
+  @if (filteredChats$ | async; as displayedChats) {
     <cdk-virtual-scroll-viewport
     itemSize="50"
     class="list"
@@ -44,5 +38,5 @@
     </div>
   </cdk-virtual-scroll-viewport>
   }
-  
+
 </div>
