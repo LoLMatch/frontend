@@ -18,7 +18,7 @@ import { ContactListItem } from '@pages/messages/interfaces/contacts.interface';
 import { MOCK_CONTACTS } from '@pages/messages/mock/contacts.mock';
 import { LoadContacts, OpenChat } from '@pages/messages/store/contacts.actions';
 import { ContactsState } from '@pages/messages/store/contacts.store';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest, debounceTime, map, startWith } from 'rxjs';
 
 @Component({
   selector: 'ds-contacts-list',
@@ -45,13 +45,11 @@ import { Observable } from 'rxjs';
 export class ContactsListComponent implements OnInit {
   chats = MOCK_CONTACTS;
 
-  // filteredChats: ContactListItem[] = this.chats;
-
-  form = this.fb.group({
-    nameToFilter: [null as string],
-  });
+  control = this.fb.control(null as string)
   pathToMessages = `/${RoutesPath.HOME}/${RoutesPath.MESSAGES}/`;
-  @Select(ContactsState.getContacts) contacts$: Observable<any[]>;
+
+  @Select(ContactsState.getContacts) contacts$: Observable<ContactListItem[]>;
+  filteredChats$: Observable<ContactListItem[]>;
 
   constructor(
     private fb: FormBuilder,
@@ -62,19 +60,14 @@ export class ContactsListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.filteredChats$ = combineLatest([this.contacts$,this.control.valueChanges.pipe(startWith(""))]).pipe(
+      debounceTime(400),
+      map(([list,value])=> value ? list?.filter((item) => item?.name?.toLowerCase()?.includes(value?.toLowerCase())) || [] : list)
+    )
     this.authService.loadProfile().subscribe((user) => {
       this.localStorageService.setItem(KeyStorage.UserId, user.id);
       this.store.dispatch(new LoadContacts(user.id));
     });
-
-  }
-
-  filterChats() {
-    // const name: string = this.form.value.nameToFilter;
-
-    // this.filteredChats = this.chats.filter((elem) => {
-    //   return elem.name.includes(name);
-    // });
   }
 
   goToChat(chatId: string) {

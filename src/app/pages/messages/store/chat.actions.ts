@@ -10,7 +10,17 @@ export class LoadHistoricalMessages {
   constructor(public myId: string, public recipientId: string) { }
 }
 
+export class MarkChatReadOnNewChat {
+  static readonly type = '[Chat] Mark chat read on new chat';
+  constructor(public seenAt: string) { }
+}
+
 export class MarkChatRead {
   static readonly type = '[Chat] Mark chat read';
   constructor(public seenAt: string) { }
+}
+
+export class ClearChatStore {
+  static readonly type = '[Chat] Clear chat';
+  constructor() { }
 }

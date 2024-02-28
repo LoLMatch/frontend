@@ -3,7 +3,14 @@ import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { Status } from "@pages/messages/enums/action-type.enum";
 import { ContactListItem, ContactsListFromApi } from "@pages/messages/interfaces/contacts.interface";
 import { ApiService } from "@pages/messages/services/api.service";
-import { OpenChat, ReceiveNewMessageOnActiveChat, ReceiveNewMessageOnSomeChat, SendMessageOnActiveChat, LoadContacts, ChangeStatus } from "@pages/messages/store/contacts.actions";
+import {
+  OpenChat,
+  ReceiveNewMessageOnActiveChat,
+  ReceiveNewMessageOnSomeChat,
+  SendMessageOnActiveChat,
+  LoadContacts,
+  ChangeStatus
+} from "@pages/messages/store/contacts.actions";
 import { map, tap } from "rxjs";
 
 export interface ContactsStateModel {
@@ -20,7 +27,7 @@ export interface ContactsStateModel {
 })
 @Injectable()
 export class ContactsState {
-  
+
   constructor(private apiService: ApiService) {}
 
   @Selector()
@@ -40,7 +47,7 @@ export class ContactsState {
 
   @Action(OpenChat)
   openChat({ getState, patchState }: StateContext<ContactsStateModel>, action: OpenChat) {
-    const state = getState();  
+    const state = getState();
     const updatedContacts = state.contacts.map(contact => {
       if (contact.id === action.id) {
         return {
@@ -58,7 +65,7 @@ export class ContactsState {
 
   @Action(ReceiveNewMessageOnActiveChat)
   receiveMessageOnActiveChat({ getState, patchState }: StateContext<ContactsStateModel>, action: ReceiveNewMessageOnActiveChat) {
-    const state = getState();  
+    const state = getState();
     const updatedContacts = state.contacts.map(contact => {
       if (contact.id === state.contactId) {
         return {
@@ -76,7 +83,7 @@ export class ContactsState {
 
   @Action(ReceiveNewMessageOnSomeChat)
   receiveMessageOnSomeChat({ getState, patchState }: StateContext<ContactsStateModel>, action: ReceiveNewMessageOnSomeChat) {
-    const state = getState();  
+    const state = getState();
     const updatedContacts = state.contacts.map(contact => {
       if (contact.id === action.message.senderId) {
         return {
@@ -95,7 +102,7 @@ export class ContactsState {
 
   @Action(SendMessageOnActiveChat)
   sendMessageOnActiveChat({ getState, patchState }: StateContext<ContactsStateModel>, action: SendMessageOnActiveChat) {
-    const state = getState();  
+    const state = getState();
     const updatedContacts = state.contacts.map(contact => {
       if (contact.id === state.contactId) {
         return {
@@ -113,7 +120,7 @@ export class ContactsState {
 
   @Action(ChangeStatus)
   changeStatus({ getState, patchState }: StateContext<ContactsStateModel>, action: ChangeStatus) {
-    const state = getState();  
+    const state = getState();
     const updatedContacts = state.contacts.map(contact => {
       if (contact.id === action.message.id) {
         return {
@@ -133,7 +140,7 @@ export class ContactsState {
     const params = {
       id: action.myId,
     };
-    this.apiService.getContacts(params).pipe(
+    return this.apiService.getContacts(params).pipe(
         map((res: ContactsListFromApi) => {
           console.log(res);
           return res.contacts.map((con) => {
@@ -153,7 +160,7 @@ export class ContactsState {
                 contacts: allContacts,
             });
         })
-    ).subscribe()
+    );
   }
 
 
