@@ -4,7 +4,7 @@ import { Store } from '@ngxs/store';
 import { ActionType } from '@pages/messages/enums/action-type.enum';
 import { MessageFromWebsocket, MessageTemplate } from '@pages/messages/interfaces/messages.interface';
 import { RxStompService } from '@pages/messages/services/rx-stomp.service';
-import { SaveMessage } from '@pages/messages/store/chat.actions';
+import { MarkChatRead, SaveMessage } from '@pages/messages/store/chat.actions';
 import { ChangeStatus, ReceiveNewMessageOnActiveChat, ReceiveNewMessageOnSomeChat, SendMessageOnActiveChat } from '@pages/messages/store/contacts.actions';
 import { RxStomp } from '@stomp/rx-stomp';
 import { Message } from '@stomp/stompjs';
