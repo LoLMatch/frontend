@@ -1,3 +1,5 @@
+@import 'src/styles/variables/breakpoints';
+
 ds-recommendations-user-header {
   display: flex;
   flex-direction: row;
@@ -45,6 +47,14 @@ ds-recommendations-user-header {
       align-items: center;
       justify-content: center;
       height: 100%;
+    }
+  }
+
+  .spinner {
+    display: none;
+
+    @media(min-width:$screen-550) {
+      display: block;
     }
   }
 
