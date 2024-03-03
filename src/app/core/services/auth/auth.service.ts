@@ -35,8 +35,8 @@ export class AuthService {
     }));
   }
 
-  getToken(): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
+  getToken(): Observable<any> {
+    return from(new Promise<any>((resolve, reject) => {
       if (this.keycloak.isLoggedIn()) {
         this.keycloak
           .getToken()
@@ -45,6 +45,6 @@ export class AuthService {
       } else {
         console.log('User is not logged in');
       }
-    });
+    }));
   }
 }

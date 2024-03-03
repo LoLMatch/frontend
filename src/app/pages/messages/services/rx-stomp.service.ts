@@ -12,7 +12,7 @@ export class RxStompService {
   constructor(
     private authService: AuthService
   ){
-    this.init();
+    
   }
 
   rxStomp: RxStomp;
@@ -32,8 +32,8 @@ export class RxStompService {
 
   private rxStompSubject = new Subject<RxStomp>();
 
-  async init() {
-    const token = await this.authService.getToken();
+  init(token: string) {
+    // const token = await this.authService.getToken();
 
     this.config.connectHeaders = {
       Authorization: 'Bearer ' + token
@@ -42,6 +42,7 @@ export class RxStompService {
     this.rxStomp = new RxStomp();
     this.rxStomp.configure(this.config);
     this.rxStomp.activate();
+    return this.rxStomp;
   }
     // this.authService.getToken().subscribe((token: string) => {
     //   this.config.connectHeaders = {
@@ -69,7 +70,6 @@ export class RxStompService {
     //   });
 
 
-  stomp() {
-    return this.rxStomp;
-  }
+  // stomp() {
+  // }
 }

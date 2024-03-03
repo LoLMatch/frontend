@@ -1,18 +1,18 @@
 <div class="contact__item__wrapper">
   <div class="image">
     <img src="/assets/icons/profile1.png" alt="Profile Image">
-    @if (isOnline) {
+    @if (chat.isActive) {
       <div class="overlay-circle"></div>
     }
   </div>
   <div class="middle">
-    <h2 class="name">{{ name }}</h2>
-    <div class="message" [ngClass]="{'bold' : unreadMessages > 0}">{{ message }}</div>
+    <h2 class="name">{{ chat.name }}</h2>
+    <div class="message" [ngClass]="{'bold' : chat.unreadMessages > 0}">{{ chat.message }}</div>
   </div>
   <div class="right">
-    <h5 class="time"> {{ time }} </h5>
-    @if (unreadMessages > 0) {
-      <h4 class="new__messages"> {{ unreadMessages }} </h4>
+    <h5 class="time"> {{ chat.createdAt }} </h5>
+    @if (chat.unreadMessages > 0) {
+      <h4 class="new__messages"> {{ chat.unreadMessages }} </h4>
     }
   </div>
 </div>

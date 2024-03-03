@@ -7,6 +7,9 @@ import { RouterModule } from '@angular/router';
 import { LogoComponent } from '@app/shared/ui/logo/logo.component';
 import { SidebarManagementService } from '@layout/services/sidebar-management.service';
 import { ActiveLinkDirective } from '../side-bar/link/link.directive';
+import { Select } from '@ngxs/store';
+import { ContactsState } from '@pages/messages/store/contacts.store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ds-top-bar-menu',
@@ -27,7 +30,7 @@ import { ActiveLinkDirective } from '../side-bar/link/link.directive';
 export class TopBarMenuComponent {
   sidebarManager = inject(SidebarManagementService);
 
-  areNewMessages = true;
+  @Select(ContactsState.getNotifications) areNewMessages$: Observable<boolean>;
 
   openSidebar() {
     this.sidebarManager.showLoader();

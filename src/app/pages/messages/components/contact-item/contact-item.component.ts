@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ContactListItem } from '@pages/messages/interfaces/contacts.interface';
 
 @Component({
   selector: 'ds-contact-item',
@@ -12,9 +13,5 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactItemComponent {
-  @Input() name : string;// = "YOUR NAME";
-  @Input() message: string;// = "your last message";
-  @Input() unreadMessages: number;
-  @Input() isOnline: boolean;
-  @Input() time: string;
+  @Input() chat: ContactListItem;
 }

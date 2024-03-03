@@ -8,15 +8,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterModule } from '@angular/router';
 import { RoutesPath } from '@core/constants/routes.const';
-import { KeyStorage } from '@core/enums/key-storage.enum';
-import { AuthService } from '@core/services/auth/auth.service';
-import { LocalStorageService } from '@core/services/localStorage/local-storage.service';
 import { ActiveLinkDirective } from '@layout/components/side-bar/link/link.directive';
 import { Select, Store } from '@ngxs/store';
 import { ContactItemComponent } from '@pages/messages/components/contact-item/contact-item.component';
 import { ContactListItem } from '@pages/messages/interfaces/contacts.interface';
-import { MOCK_CONTACTS } from '@pages/messages/mock/contacts.mock';
-import { LoadContacts, OpenChat } from '@pages/messages/store/contacts.actions';
+import { OpenChat } from '@pages/messages/store/contacts.actions';
 import { ContactsState } from '@pages/messages/store/contacts.store';
 import { Observable, combineLatest, debounceTime, map, startWith } from 'rxjs';
 
@@ -43,31 +39,23 @@ import { Observable, combineLatest, debounceTime, map, startWith } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactsListComponent implements OnInit {
-  chats = MOCK_CONTACTS;
-
-  control = this.fb.control(null as string)
   pathToMessages = `/${RoutesPath.HOME}/${RoutesPath.MESSAGES}/`;
+  filteredChats$: Observable<ContactListItem[]>;
+  control = this.fb.control(null as string)
 
   @Select(ContactsState.getContacts) contacts$: Observable<ContactListItem[]>;
-  filteredChats$: Observable<ContactListItem[]>;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: AuthService,
-    private localStorageService: LocalStorageService,
     private store: Store,
   ) { }
 
   ngOnInit() {
-    this.filteredChats$ = combineLatest([this.contacts$,this.control.valueChanges.pipe(startWith(""))]).pipe(
+    this.filteredChats$ = combineLatest([this.contacts$, this.control.valueChanges.pipe(startWith(""))]).pipe(
       debounceTime(400),
       map(([list,value])=> value ? list?.filter((item) => item?.name?.toLowerCase()?.includes(value?.toLowerCase())) || [] : list)
-    )
-    this.authService.loadProfile().subscribe((user) => {
-      this.localStorageService.setItem(KeyStorage.UserId, user.id);
-      this.store.dispatch(new LoadContacts(user.id));
-    });
+    );
   }
 
   goToChat(chatId: string) {

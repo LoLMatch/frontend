@@ -8,7 +8,7 @@ export default [
   {
     path: '',
     component: HomeComponent,
-    canActivate: [AuthGuard], // TUTAJ wrzucic GUARDA DO AUTENTYKACJI
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -16,7 +16,7 @@ export default [
       },
       {
         path: RoutesPath.MESSAGES,
-        loadChildren: () => import('../messages/messages.routing'),
+        loadChildren: () => import('@pages/messages/messages.routing'),
       },
     ],
   },

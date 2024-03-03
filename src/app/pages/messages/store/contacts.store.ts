@@ -45,6 +45,11 @@ export class ContactsState {
     return contact ? contact.name : "";
   }
 
+  @Selector()
+  static getNotifications(state: ContactsStateModel): boolean {
+    return state.contacts.some(con => con.unreadMessages > 0);
+  }
+
   @Action(OpenChat)
   openChat({ getState, patchState }: StateContext<ContactsStateModel>, action: OpenChat) {
     const state = getState();

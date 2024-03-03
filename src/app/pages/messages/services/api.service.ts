@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API } from '@core/constants/api.const';
 import { environment } from '@env/environment';
-import { ContactsListFromApi } from '../interfaces/contacts.interface';
-import { MessagesApiResponse } from '../interfaces/messages.interface';
+import { ContactsListFromApi } from '@pages/messages/interfaces/contacts.interface';
+import { MessagesApiResponse } from '@pages/messages/interfaces/messages.interface';
 
 @Injectable({
   providedIn: 'root'
