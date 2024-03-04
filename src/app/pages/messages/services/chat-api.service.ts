@@ -8,7 +8,7 @@ import { MessagesApiResponse } from '@pages/messages/interfaces/messages.interfa
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
+export class ChatApiService {
 
   constructor(private http: HttpClient) { }
 

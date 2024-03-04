@@ -1,15 +1,16 @@
 import { Injectable } from "@angular/core";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
+import { convertDate } from "@pages/messages/components/constants/convert-date.const";
 import { Status } from "@pages/messages/enums/action-type.enum";
 import { ContactListItem, ContactsListFromApi } from "@pages/messages/interfaces/contacts.interface";
-import { ApiService } from "@pages/messages/services/api.service";
+import { ChatApiService } from "@pages/messages/services/chat-api.service";
 import {
+  ChangeStatus,
+  LoadContacts,
   OpenChat,
   ReceiveNewMessageOnActiveChat,
   ReceiveNewMessageOnSomeChat,
-  SendMessageOnActiveChat,
-  LoadContacts,
-  ChangeStatus
+  SendMessageOnActiveChat
 } from "@pages/messages/store/contacts.actions";
 import { map, tap } from "rxjs";
 
@@ -28,7 +29,7 @@ export interface ContactsStateModel {
 @Injectable()
 export class ContactsState {
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ChatApiService) { }
 
   @Selector()
   static getContactsState(state: ContactsStateModel): ContactsStateModel {
@@ -76,7 +77,7 @@ export class ContactsState {
         return {
           ...contact,
           message: action.message,
-          createdAt: this.convertDate(action.createdAt)
+          createdAt: convertDate(action.createdAt)
         };
       }
       return contact;
@@ -95,7 +96,7 @@ export class ContactsState {
           ...contact,
           message: action.message.content,
           unreadMessages: contact.unreadMessages + 1,
-          createdAt: this.convertDate(action.message.createdAt)
+          createdAt: convertDate(action.message.createdAt)
         };
       }
       return contact;
@@ -113,7 +114,7 @@ export class ContactsState {
         return {
           ...contact,
           message: "Ty: " + action.message,
-          createdAt: this.convertDate(action.createdAt)
+          createdAt: convertDate(action.createdAt)
         };
       }
       return contact;
@@ -155,7 +156,8 @@ export class ContactsState {
             unreadMessages: con.unreadMessages,
             message: con.lastMessageSenderId == params.id ? "Ty: " + con.lastMessage : con.lastMessage,
             isActive: con.isActive,
-            createdAt: this.convertDate(con.lastMessageTimestamp)
+            createdAt: convertDate(con.lastMessageTimestamp),
+            // lastActive: con. dodać ostatnia aktywnosc tutaj
           };
           return contact;
         });
@@ -166,38 +168,5 @@ export class ContactsState {
         });
       })
     );
-  }
-
-
-  private convertDate(date: string): string {
-    if (date == null) {
-      return "";
-    }
-    const messageDate = new Date(date);
-    const currentDate = new Date();
-
-    if (
-      currentDate.getFullYear() === messageDate.getFullYear() &&
-      currentDate.getMonth() === messageDate.getMonth() &&
-      currentDate.getDate() === messageDate.getDate()
-    ) {
-      const timeOnly = messageDate.toLocaleTimeString('en-US', {
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: true,
-      });
-      return timeOnly;
-
-    } else {
-      const fullDate = messageDate.toLocaleString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: true,
-      });
-      return fullDate;
-    }
   }
 }

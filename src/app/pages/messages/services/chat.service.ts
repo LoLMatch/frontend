@@ -18,7 +18,6 @@ export class ChatService implements OnDestroy {
   private rxStomp: RxStomp;
   private myId: string;
   private activeContactId: string;
-  // private isR
   private onDestroy$ = new Subject<void>();
 
   constructor(
@@ -33,7 +32,6 @@ export class ChatService implements OnDestroy {
 
   init(token: string) {
     this.rxStomp = this.rxStompService.init(token);
-    console.log("init działa ", this.rxStomp);
     this.rxStomp.watch(API.WATCH + this.myId)
       .pipe(
         takeUntil(this.onDestroy$)
@@ -57,7 +55,7 @@ export class ChatService implements OnDestroy {
               break;
             }
             case ActionType.MESSAGE_READ: {
-              if (sth.senderId == this.activeContactId) {
+              if (sth.senderId == this.myId) {
                 this.store.dispatch(new MarkChatRead(sth.readAt));
               }
               break;
@@ -102,12 +100,11 @@ export class ChatService implements OnDestroy {
       type: ActionType.MARK_READ,
       time: new Date(),
       content: null,
-      senderId: this.myId,
-      recipientId: this.activeContactId
+      senderId: this.activeContactId,
+      recipientId: this.myId
     };
     this.rxStomp?.publish({ destination: API.PUBLISH, body: JSON.stringify(message) });
     if (!isFirstTime) {
-      console.log("nie pierwszy")
       this.store.dispatch(new MarkChatRead(message.time.toISOString()));
     }
   }

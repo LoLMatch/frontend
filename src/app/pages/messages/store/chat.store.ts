@@ -2,8 +2,9 @@ import { Injectable } from "@angular/core";
 import { KeyStorage } from "@core/enums/key-storage.enum";
 import { LocalStorageService } from "@core/services/localStorage/local-storage.service";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
+import { convertDate } from "@pages/messages/components/constants/convert-date.const";
 import { DisplayedMessage, MessageFromApi, MessagesApiResponse } from "@pages/messages/interfaces/messages.interface";
-import { ApiService } from "@pages/messages/services/api.service";
+import { ChatApiService } from "@pages/messages/services/chat-api.service";
 import { ClearChatStore, LoadHistoricalMessages, MarkChatRead, SaveMessage, SetMessagesPageAndRecipient } from "@pages/messages/store/chat.actions";
 import { map, tap } from "rxjs";
 
@@ -27,7 +28,7 @@ export interface ChatStateModel {
 export class ChatState {
 
   constructor(
-    private apiService: ApiService,
+    private apiService: ChatApiService,
     private localStorageService: LocalStorageService
   ) { }
 
@@ -52,7 +53,7 @@ export class ChatState {
     const message: DisplayedMessage = {
       text: action.message.text,
       isMe: action.message.isMe,
-      readAt: this.convertDate(action.message.readAt)
+      readAt: convertDate(action.message.readAt)
     }
     patchState({
       messages: [message, ...state.messages,],
@@ -72,7 +73,7 @@ export class ChatState {
     const message = {
       text: state.messages[0]?.text,
       isMe: state.messages[0]?.isMe,
-      readAt: this.convertDate(action.seenAt)
+      readAt: convertDate(action.seenAt)
     };
     const updatedMessages = [message, ...state.messages.slice(1)];
     patchState({
@@ -108,7 +109,7 @@ export class ChatState {
         return response?.messages?.map((message: MessageFromApi) => {
           const isMe = message.sender.id == myId;
           const text = message.content || '';
-          const readAt = this.convertDate(message.readAt);
+          const readAt = convertDate(message.readAt);
           return { text, isMe, readAt };
         });
       }),
@@ -132,35 +133,4 @@ export class ChatState {
     })
   }
 
-  private convertDate(date: string): string {
-    if (date == null) {
-      return "";
-    };
-    const messageDate = new Date(date);
-    const currentDate = new Date();
-
-    if (
-      currentDate.getFullYear() === messageDate.getFullYear() &&
-      currentDate.getMonth() === messageDate.getMonth() &&
-      currentDate.getDate() === messageDate.getDate()
-    ) {
-      const timeOnly = messageDate.toLocaleTimeString('en-US', {
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: true,
-      });
-      return timeOnly;
-
-    } else {
-      const fullDate = messageDate.toLocaleString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: true,
-      });
-      return fullDate;
-    }
-  }
 }

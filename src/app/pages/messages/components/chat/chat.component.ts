@@ -12,6 +12,7 @@ import { DisplayedMessage } from '@pages/messages/interfaces/messages.interface'
 import { ChatService } from '@pages/messages/services/chat.service';
 import { ClearChatStore, LoadHistoricalMessages, SetMessagesPageAndRecipient } from '@pages/messages/store/chat.actions';
 import { ChatState } from '@pages/messages/store/chat.store';
+import { OpenChat } from '@pages/messages/store/contacts.actions';
 import { ContactsState } from '@pages/messages/store/contacts.store';
 import { Observable, Subject, filter, map, takeUntil } from 'rxjs';
 
@@ -65,8 +66,9 @@ export class ChatComponent implements OnInit, OnDestroy {
     ).subscribe((id) => {
       this.chatService.setActiveContactId(id);
       this.store.dispatch(new ClearChatStore());
+      this.store.dispatch(new OpenChat(id));
       this.store.dispatch(new SetMessagesPageAndRecipient(0, id));
-      this.chatService.markChatRead(true); // tu jest problem z odświeżaniem
+      this.chatService.markChatRead(true); 
       this.store.dispatch(new LoadHistoricalMessages());
     });
 
