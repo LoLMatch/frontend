@@ -25,6 +25,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
       },
       initOptions: {
         redirectUri: KEYCLOAK.REDIRECT_LOGIN,
+        // checkLoginIframe: false,
       },
     });
 }

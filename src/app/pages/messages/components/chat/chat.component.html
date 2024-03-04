@@ -22,7 +22,7 @@
 
   @if(messages$ | async; as messages){
     <div class="messages__box">
-      <div class="messages__wrapper" (scroll)="onScroll($event)">
+      <div class="messages__wrapper" [class.messages__wrapper--empty]="messages?.length === 0" (scroll)="onScroll($event)">
         @if (readAt$ | async; as seen) {
           <span class="seen">
             Seen {{ seen }}

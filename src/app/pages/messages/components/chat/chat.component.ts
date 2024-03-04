@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { RoutesPath } from '@core/constants/routes.const';
 import { Select, Store } from '@ngxs/store';
+import { DisplayedMessage } from '@pages/messages/interfaces/messages.interface';
 import { ChatService } from '@pages/messages/services/chat.service';
 import { ClearChatStore, LoadHistoricalMessages, SetMessagesPageAndRecipient } from '@pages/messages/store/chat.actions';
 import { ChatState } from '@pages/messages/store/chat.store';
@@ -35,7 +36,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     message: [null as string, [Validators.minLength(1), Validators.maxLength(512)]]
   });
 
-  @Select(ChatState.getMessages) messages$: Observable<any[]>;
+  @Select(ChatState.getMessages) messages$: Observable<DisplayedMessage[]>;
   @Select(ContactsState.getUsername) username$: Observable<string>;
   @Select(ChatState.getLastReadAt) readAt$: Observable<string>;
 
@@ -54,7 +55,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     const element = event.target as HTMLElement;
     if (element.scrollTop === (element.scrollHeight - element.clientHeight) * -1) {
       this.store.dispatch(new LoadHistoricalMessages());
-    }        
+    }
   }
 
   ngOnInit(): void {
@@ -66,21 +67,18 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.store.dispatch(new ClearChatStore());
       this.store.dispatch(new SetMessagesPageAndRecipient(0, id));
       this.chatService.markChatRead(true); // tu jest problem z odświeżaniem
-      console.log("hello there 1")
       this.store.dispatch(new LoadHistoricalMessages());
     });
-    
+
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
       takeUntil(this.onDestroy$),
     ).subscribe(() => {
       this.chatService.setActiveContactId(this.route.snapshot.paramMap.get('id'));
       this.chatService.markChatRead(true);
-      console.log("hello there 2")
       this.store.dispatch(new LoadHistoricalMessages());
     });
     this.chatService.markChatRead(true);
-    console.log("hello there 3")
     this.store.dispatch(new LoadHistoricalMessages());
   }
 

@@ -28,7 +28,7 @@ export interface ContactsStateModel {
 @Injectable()
 export class ContactsState {
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) { }
 
   @Selector()
   static getContactsState(state: ContactsStateModel): ContactsStateModel {
@@ -41,7 +41,7 @@ export class ContactsState {
 
   @Selector()
   static getUsername(state: ContactsStateModel): string {
-    const contact = state.contacts.find(con => con.id === state.contactId);
+    const contact = state.contacts?.find(con => con.id === state.contactId);
     return contact ? contact.name : "";
   }
 
@@ -146,31 +146,31 @@ export class ContactsState {
       id: action.myId,
     };
     return this.apiService.getContacts(params).pipe(
-        map((res: ContactsListFromApi) => {
-          console.log(res);
-          return res.contacts.map((con) => {
-              const contact: ContactListItem = {
-                  id: con.contactId,
-                  name: con.username,
-                  unreadMessages: con.unreadMessages,
-                  message: con.lastMessageSenderId == params.id ? "Ty: " + con.lastMessage : con.lastMessage,
-                  isActive: con.isActive,
-                  createdAt: this.convertDate(con.lastMessageTimestamp)
-              };
-              return contact;
-          });
-        }),
-        tap(allContacts => {
-            patchState({
-                contacts: allContacts,
-            });
-        })
+      map((res: ContactsListFromApi) => {
+        console.log(res);
+        return res.contacts.map((con) => {
+          const contact: ContactListItem = {
+            id: con.contactId,
+            name: con.username,
+            unreadMessages: con.unreadMessages,
+            message: con.lastMessageSenderId == params.id ? "Ty: " + con.lastMessage : con.lastMessage,
+            isActive: con.isActive,
+            createdAt: this.convertDate(con.lastMessageTimestamp)
+          };
+          return contact;
+        });
+      }),
+      tap(allContacts => {
+        patchState({
+          contacts: allContacts,
+        });
+      })
     );
   }
 
 
   private convertDate(date: string): string {
-    if (date == null){
+    if (date == null) {
       return "";
     }
     const messageDate = new Date(date);

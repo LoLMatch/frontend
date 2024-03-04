@@ -1,4 +1,3 @@
-import { resolve } from '@angular/compiler-cli';
 import { Injectable } from '@angular/core';
 import { KEYCLOAK } from '@core/constants/keycloak.const';
 import { KeycloakService } from 'keycloak-angular';
@@ -8,7 +7,7 @@ import { Observable, from } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private keycloak: KeycloakService) {}
+  constructor(private keycloak: KeycloakService) { }
 
   login() {
     void this.keycloak.login();

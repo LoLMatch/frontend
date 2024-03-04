@@ -28,8 +28,8 @@ export class ChatState {
 
   constructor(
     private apiService: ApiService,
-    private localStorageService: LocalStorageService  
-  ) {}
+    private localStorageService: LocalStorageService
+  ) { }
 
   @Selector()
   static getChatState(state: ChatStateModel): ChatStateModel {
@@ -37,7 +37,7 @@ export class ChatState {
   }
 
   @Selector()
-  static getMessages(state: ChatStateModel): any[] {
+  static getMessages(state: ChatStateModel): DisplayedMessage[] {
     return state?.messages;
   }
 
@@ -61,27 +61,27 @@ export class ChatState {
   }
 
   @Action(MarkChatRead)
-  markChatRead({getState, patchState }: StateContext<ChatStateModel>, action: MarkChatRead){
+  markChatRead({ getState, patchState }: StateContext<ChatStateModel>, action: MarkChatRead) {
     const state = getState();
     if (state.messages.length === 0) {
       return;
     }
-    if ((state.messages[0]?.isMe && state.messages[0]?.readAt) || (!state.messages[0]?.isMe && state.messages[0]?.readAt)){
+    if ((state.messages[0]?.isMe && state.messages[0]?.readAt) || (!state.messages[0]?.isMe && state.messages[0]?.readAt)) {
       return;
-    };
+    }
     const message = {
       text: state.messages[0]?.text,
       isMe: state.messages[0]?.isMe,
       readAt: this.convertDate(action.seenAt)
-    }
+    };
     const updatedMessages = [message, ...state.messages.slice(1)];
     patchState({
       messages: updatedMessages
-    })
+    });
   }
 
   @Action(SetMessagesPageAndRecipient)
-  setMessagesPageAndRecipient({ patchState }: StateContext<ChatStateModel>, action: SetMessagesPageAndRecipient){
+  setMessagesPageAndRecipient({ patchState }: StateContext<ChatStateModel>, action: SetMessagesPageAndRecipient) {
     patchState({
       messagesPage: action.page,
       recipientId: action.recipientId,
@@ -99,13 +99,13 @@ export class ChatState {
       page: state.messagesPage,
     };
     let total: number;
-    if (state.messages.length == state.totalMessages){
+    if (state.messages.length == state.totalMessages) {
       return 0;
     }
     return this.apiService.getMessages(params).pipe(
       map((response: MessagesApiResponse) => {
-        total = response.totalMessages;
-        return response.messages.map((message: MessageFromApi) => {
+        total = response?.totalMessages;
+        return response?.messages?.map((message: MessageFromApi) => {
           const isMe = message.sender.id == myId;
           const text = message.content || '';
           const readAt = this.convertDate(message.readAt);
@@ -123,7 +123,7 @@ export class ChatState {
   }
 
   @Action(ClearChatStore)
-  clearChatStore({ setState }: StateContext<ChatStateModel>){
+  clearChatStore({ setState }: StateContext<ChatStateModel>) {
     setState({
       messages: [],
       recipientId: null,
@@ -133,7 +133,7 @@ export class ChatState {
   }
 
   private convertDate(date: string): string {
-    if (date == null){
+    if (date == null) {
       return "";
     };
     const messageDate = new Date(date);

@@ -18,20 +18,20 @@ export class ChatService implements OnDestroy {
   private rxStomp: RxStomp;
   private myId: string;
   private activeContactId: string;
+  // private isR
   private onDestroy$ = new Subject<void>();
-
 
   constructor(
     private rxStompService: RxStompService,
     private store: Store,
-  ) {  }
+  ) { }
 
   ngOnDestroy() {
     this.onDestroy$.next();
     this.onDestroy$.complete();
   }
 
-  init(token: string){
+  init(token: string) {
     this.rxStomp = this.rxStompService.init(token);
     console.log("init działa ", this.rxStomp);
     this.rxStomp.watch(API.WATCH + this.myId)
@@ -43,7 +43,7 @@ export class ChatService implements OnDestroy {
           const sth = JSON.parse(message.body) as MessageFromWebsocket;
           switch (sth.action) {
             case ActionType.MESSAGE: {
-              if (sth.senderId == this.activeContactId){
+              if (sth.senderId == this.activeContactId) {
                 this.store.dispatch(new SaveMessage({
                   text: sth.content,
                   isMe: false,
@@ -57,7 +57,7 @@ export class ChatService implements OnDestroy {
               break;
             }
             case ActionType.MESSAGE_READ: {
-              if (sth.senderId == this.activeContactId){
+              if (sth.senderId == this.activeContactId) {
                 this.store.dispatch(new MarkChatRead(sth.readAt));
               }
               break;
@@ -71,15 +71,15 @@ export class ChatService implements OnDestroy {
       );
   }
 
-  setActiveContactId(id: string){
+  setActiveContactId(id: string) {
     this.activeContactId = id;
   }
 
-  setMyId(id: string){
+  setMyId(id: string) {
     this.myId = id;
   }
 
-  sendMessage(messageToSend: string){
+  sendMessage(messageToSend: string) {
     const message: MessageTemplate = {
       type: ActionType.SEND,
       time: new Date(),
@@ -97,7 +97,7 @@ export class ChatService implements OnDestroy {
     this.store.dispatch(new MarkChatRead(null));
   }
 
-  markChatRead(isFirstTime?: boolean){
+  markChatRead(isFirstTime?: boolean) {
     const message: MessageTemplate = {
       type: ActionType.MARK_READ,
       time: new Date(),
@@ -105,8 +105,8 @@ export class ChatService implements OnDestroy {
       senderId: this.myId,
       recipientId: this.activeContactId
     };
-    this.rxStomp.publish({ destination: API.PUBLISH, body: JSON.stringify(message) });
-    if (!isFirstTime){
+    this.rxStomp?.publish({ destination: API.PUBLISH, body: JSON.stringify(message) });
+    if (!isFirstTime) {
       console.log("nie pierwszy")
       this.store.dispatch(new MarkChatRead(message.time.toISOString()));
     }

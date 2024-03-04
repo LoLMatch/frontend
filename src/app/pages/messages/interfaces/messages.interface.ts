@@ -1,5 +1,5 @@
 import { ActionType, Status } from "@pages/messages/enums/action-type.enum";
-import { User } from "./contacts.interface";
+import { User } from "@pages/messages/interfaces/contacts.interface";
 
 export interface MessageTemplate {
   type: ActionType;

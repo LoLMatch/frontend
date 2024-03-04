@@ -79,6 +79,10 @@
   // justify-content: center;     <------------   Jest potrzebne jeśli czat jest pusty, ale nie może być, gdy nie jest pusty
 }
 
+.messages__wrapper--empty {
+  justify-content: center;
+}
+
 .message {
   margin-bottom: 22px;
   max-width: 242px;

@@ -11,13 +11,13 @@ export class RxStompService {
 
   constructor(
     private authService: AuthService
-  ){
-    
+  ) {
+
   }
 
   rxStomp: RxStomp;
 
-  config ={
+  config = {
     brokerURL: environment.httpWebsockets,
     connectHeaders: {
       Authorization: 'Bearer '
@@ -26,7 +26,7 @@ export class RxStompService {
     heartbeatOutgoing: 20000,
     reconnectDelay: 200,
     debug: (msg: string): void => {
-      console.log(new Date(), msg);
+      // console.log(new Date(), msg);
     }
   };
 
@@ -44,30 +44,30 @@ export class RxStompService {
     this.rxStomp.activate();
     return this.rxStomp;
   }
-    // this.authService.getToken().subscribe((token: string) => {
-    //   this.config.connectHeaders = {
-    //     Authorization: 'Bearer '+ token
-    //   };
-    //   this.rxStomp = new RxStomp();
-    //   this.rxStomp.configure(this.config);
-    //   this.rxStomp.activate();
-    // });
-    //---------------------------------------------------------------
-    // this.authService.getToken()
-    //   .pipe(
-    //     switchMap((token: string) => {
-    //       this.config.connectHeaders = {
-    //         Authorization: 'Bearer ' + token
-    //       };
-    //       this.rxStomp = new RxStomp();
-    //       this.rxStomp.configure(this.config);
-    //       this.rxStomp.activate();
-    //       return from(this.rxStomp.connected$.pipe(take(1))); // Czekaj na połączenie RxStomp
-    //     })
-    //   )
-    //   .subscribe(() => {
-    //     this.rxStompSubject.next(this.rxStomp);
-    //   });
+  // this.authService.getToken().subscribe((token: string) => {
+  //   this.config.connectHeaders = {
+  //     Authorization: 'Bearer '+ token
+  //   };
+  //   this.rxStomp = new RxStomp();
+  //   this.rxStomp.configure(this.config);
+  //   this.rxStomp.activate();
+  // });
+  //---------------------------------------------------------------
+  // this.authService.getToken()
+  //   .pipe(
+  //     switchMap((token: string) => {
+  //       this.config.connectHeaders = {
+  //         Authorization: 'Bearer ' + token
+  //       };
+  //       this.rxStomp = new RxStomp();
+  //       this.rxStomp.configure(this.config);
+  //       this.rxStomp.activate();
+  //       return from(this.rxStomp.connected$.pipe(take(1))); // Czekaj na połączenie RxStomp
+  //     })
+  //   )
+  //   .subscribe(() => {
+  //     this.rxStompSubject.next(this.rxStomp);
+  //   });
 
 
   // stomp() {
