@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { Directive, ElementRef, HostListener, Input, OnInit, Renderer2, inject } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, HostListener, Input, OnInit, Renderer2, inject } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { SidebarManagementService } from '@layout/services/sidebar-management.service';
-import { filter } from 'rxjs';
+import { debounceTime, filter } from 'rxjs';
 
 @Directive({
   selector: '[dsActiveLink]',
@@ -24,16 +24,18 @@ export class ActiveLinkDirective implements OnInit {
     private router: Router,
     private el: ElementRef,
     private sidebarOverlay: SidebarManagementService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
     this.updateActiveClass();
 
     this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
+      filter(event => event instanceof NavigationEnd),
+      debounceTime(400)
     ).subscribe(() => {
-      this.updateActiveClass();
-    });
+      this.updateActiveClass();      
+    });    
   }
 
   private updateActiveClass() {

@@ -62,7 +62,7 @@
 .messages__box {
   display: flex;
   flex-direction: column;
-  max-height: 78vh;
+  height: 78vh;
 
   @media (min-width: $screen-840) {
     max-height: 75vh;
@@ -76,7 +76,7 @@
   overflow-x: hidden;
   overflow-y: scroll;
   overflow: scroll;
-
+  // justify-content: center;     <------------   Jest potrzebne jeśli czat jest pusty, ale nie może być, gdy nie jest pusty
 }
 
 .message {
@@ -150,7 +150,6 @@
 }
 
 .empty__chat {
-  margin-top: 150px;
   font-size: 20px;
   padding: 20px;
   text-align: center;
