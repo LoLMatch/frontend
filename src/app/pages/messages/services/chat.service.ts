@@ -5,7 +5,7 @@ import { ActionType } from '@pages/messages/enums/action-type.enum';
 import { MessageFromWebsocket, MessageTemplate } from '@pages/messages/interfaces/messages.interface';
 import { RxStompService } from '@pages/messages/services/rx-stomp.service';
 import { MarkChatRead, SaveMessage } from '@pages/messages/store/chat.actions';
-import { ChangeStatus, ReceiveNewMessageOnActiveChat, ReceiveNewMessageOnSomeChat, SendMessageOnActiveChat } from '@pages/messages/store/contacts.actions';
+import { ChangeStatus, ReceiveNewMessageOnActiveChat, ReceiveNewMessageOnSomeChat, ReceiveNewMessageOnSomeChatFromMe, SendMessageOnActiveChat } from '@pages/messages/store/contacts.actions';
 import { RxStomp } from '@stomp/rx-stomp';
 import { Message } from '@stomp/stompjs';
 import { Subject, takeUntil } from 'rxjs';
@@ -42,7 +42,19 @@ export class ChatService implements OnDestroy {
           console.log(sth);
           switch (sth.action) {
             case ActionType.MESSAGE: {
-              if (sth.senderId == this.activeContactId) {
+              if (sth.senderId == this.myId) {
+                if (sth.recipientId == this.activeContactId){
+                  this.store.dispatch(new SendMessageOnActiveChat(sth.content, sth.createdAt));
+                  this.store.dispatch(new SaveMessage({
+                    text: sth.content,
+                    isMe: true,
+                    readAt: null,
+                    sentAt: sth.createdAt
+                  }));
+                } else {
+                  this.store.dispatch(new ReceiveNewMessageOnSomeChatFromMe(sth));
+                }
+              } else if (sth.senderId == this.activeContactId) {
                 this.store.dispatch(new SaveMessage({
                   text: sth.content,
                   isMe: false,

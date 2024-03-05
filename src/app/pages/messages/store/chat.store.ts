@@ -50,6 +50,9 @@ export class ChatState {
   @Action(SaveMessage)
   saveMessage({ getState, patchState }: StateContext<ChatStateModel>, action: SaveMessage) {
     const state = getState();
+    if (state.messages.some(mes => mes.sentAt == new Date(action.message.sentAt).toISOString())){
+      return;
+    }
     const message: DisplayedMessage = {
       text: action.message.text,
       isMe: action.message.isMe,

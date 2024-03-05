@@ -11,9 +11,9 @@ import {
   OpenChat,
   ReceiveNewMessageOnActiveChat,
   ReceiveNewMessageOnSomeChat,
+  ReceiveNewMessageOnSomeChatFromMe,
   SendMessageOnActiveChat
 } from "@pages/messages/store/contacts.actions";
-import { compareAsc, differenceInSeconds, isBefore, parseISO } from "date-fns";
 import { map, tap } from "rxjs";
 
 export interface ContactsStateModel {
@@ -120,6 +120,25 @@ export class ContactsState {
           ...contact,
           message: action.message.content,
           unreadMessages: contact.unreadMessages + 1,
+          createdAt: action.message.createdAt
+        };
+      }
+      return contact;
+    });
+    patchState({
+      contacts: updatedContacts,
+    });
+  }
+
+  @Action(ReceiveNewMessageOnSomeChatFromMe)
+  receiveMessageOnSomeChatFromMe({ getState, patchState }: StateContext<ContactsStateModel>, action: ReceiveNewMessageOnSomeChatFromMe) {
+    const state = getState();
+    const updatedContacts = state.contacts.map(contact => {
+      if (contact.id === action.message.recipientId) {
+        return {
+          ...contact,
+          message: "Ty: " + action.message.content,
+          unreadMessages: contact.unreadMessages,
           createdAt: action.message.createdAt
         };
       }

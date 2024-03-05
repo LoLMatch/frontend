@@ -20,6 +20,11 @@ export class ReceiveNewMessageOnSomeChat {
   constructor(public message: MessageFromWebsocket) {}
 }
 
+export class ReceiveNewMessageOnSomeChatFromMe {
+  static readonly type = '[Contacts] Set last message and other stuff when it is send by myself';
+  constructor(public message: MessageFromWebsocket) {}
+}
+
 export class SendMessageOnActiveChat {
   static readonly type = '[Contacts] Set last message and time of sent message';
   constructor(public message: string, public createdAt: string) {}
