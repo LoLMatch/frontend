@@ -39,13 +39,15 @@ export class ChatService implements OnDestroy {
       .subscribe(
         (message: Message) => {
           const sth = JSON.parse(message.body) as MessageFromWebsocket;
+          console.log(sth);
           switch (sth.action) {
             case ActionType.MESSAGE: {
               if (sth.senderId == this.activeContactId) {
                 this.store.dispatch(new SaveMessage({
                   text: sth.content,
                   isMe: false,
-                  readAt: new Date().toString()
+                  readAt: new Date().toString(),
+                  sentAt: sth.createdAt
                 }));
                 this.store.dispatch(new ReceiveNewMessageOnActiveChat(sth.content, sth.createdAt));
                 this.markChatRead(false);
@@ -89,6 +91,7 @@ export class ChatService implements OnDestroy {
       text: messageToSend,
       isMe: true,
       readAt: null,
+      sentAt: message.time.toISOString()
     }));
     this.rxStomp.publish({ destination: API.PUBLISH, body: JSON.stringify(message) });
     this.store.dispatch(new SendMessageOnActiveChat(message.content, message.time.toISOString()));

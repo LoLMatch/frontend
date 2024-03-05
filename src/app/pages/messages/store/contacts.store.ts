@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
-import { convertDate } from "@pages/messages/components/constants/convert-date.const";
+import { convertDate } from "@pages/messages/constants/convert-date.const";
+import { lastActiveFormatter } from "@pages/messages/constants/convert-last-active.const";
 import { Status } from "@pages/messages/enums/action-type.enum";
 import { ContactListItem, ContactsListFromApi } from "@pages/messages/interfaces/contacts.interface";
 import { ChatApiService } from "@pages/messages/services/chat-api.service";
@@ -12,6 +13,7 @@ import {
   ReceiveNewMessageOnSomeChat,
   SendMessageOnActiveChat
 } from "@pages/messages/store/contacts.actions";
+import { compareAsc, differenceInSeconds, isBefore, parseISO } from "date-fns";
 import { map, tap } from "rxjs";
 
 export interface ContactsStateModel {
@@ -37,7 +39,20 @@ export class ContactsState {
   }
   @Selector()
   static getContacts(state: ContactsStateModel): any[] {
-    return state?.contacts;
+    const sortedContacts = state?.contacts
+      .slice()
+      .sort((a, b) => {
+        const dateA = new Date(a?.createdAt).getTime();
+        const dateB = new Date(b?.createdAt).getTime();
+
+        return dateB - dateA;
+      });
+    return sortedContacts.map(
+      (con) => ({
+        ...con,
+        createdAt: convertDate(con.createdAt)
+      })
+    );
   }
 
   @Selector()
@@ -49,6 +64,15 @@ export class ContactsState {
   @Selector()
   static getNotifications(state: ContactsStateModel): boolean {
     return state.contacts.some(con => con.unreadMessages > 0);
+  }
+
+  @Selector()
+  static getLastActiveTimestamp(state: ContactsStateModel): string {
+    const contact = state.contacts?.find(con => con.id === state.contactId);
+    if (contact.isActive){
+      return "now"
+    }
+    return lastActiveFormatter(contact.lastActive);
   }
 
   @Action(OpenChat)
@@ -77,7 +101,7 @@ export class ContactsState {
         return {
           ...contact,
           message: action.message,
-          createdAt: convertDate(action.createdAt)
+          createdAt: action.createdAt
         };
       }
       return contact;
@@ -96,7 +120,7 @@ export class ContactsState {
           ...contact,
           message: action.message.content,
           unreadMessages: contact.unreadMessages + 1,
-          createdAt: convertDate(action.message.createdAt)
+          createdAt: action.message.createdAt
         };
       }
       return contact;
@@ -114,7 +138,7 @@ export class ContactsState {
         return {
           ...contact,
           message: "Ty: " + action.message,
-          createdAt: convertDate(action.createdAt)
+          createdAt: action.createdAt
         };
       }
       return contact;
@@ -131,7 +155,8 @@ export class ContactsState {
       if (contact.id === action.message.id) {
         return {
           ...contact,
-          isActive: action.message.status == Status.ACTIVE ? true : false
+          isActive: action.message.status == Status.ACTIVE ? true : false,
+          lastActive: action.message.status == Status.INACTIVE ? new Date().toString() : contact.lastActive,
         };
       }
       return contact;
@@ -148,7 +173,6 @@ export class ContactsState {
     };
     return this.apiService.getContacts(params).pipe(
       map((res: ContactsListFromApi) => {
-        console.log(res);
         return res.contacts.map((con) => {
           const contact: ContactListItem = {
             id: con.contactId,
@@ -156,8 +180,8 @@ export class ContactsState {
             unreadMessages: con.unreadMessages,
             message: con.lastMessageSenderId == params.id ? "Ty: " + con.lastMessage : con.lastMessage,
             isActive: con.isActive,
-            createdAt: convertDate(con.lastMessageTimestamp),
-            // lastActive: con. dodać ostatnia aktywnosc tutaj
+            createdAt: con.lastMessageTimestamp,
+            lastActive: con.lastActiveTimestamp
           };
           return contact;
         });

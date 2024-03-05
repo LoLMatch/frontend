@@ -5,7 +5,8 @@ export interface Contact {
   unreadMessages: number,
   lastMessage: string,
   lastMessageSenderId: string,
-  lastMessageTimestamp: string
+  lastMessageTimestamp: string,
+  lastActiveTimestamp: string
 }
 
 export interface User {
@@ -25,5 +26,6 @@ export interface ContactListItem {
   unreadMessages: number,
   id: string,
   isActive: boolean,
-  createdAt: string
+  createdAt: string,
+  lastActive: string
 }

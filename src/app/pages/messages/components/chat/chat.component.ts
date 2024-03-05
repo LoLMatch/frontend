@@ -39,6 +39,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   @Select(ChatState.getMessages) messages$: Observable<DisplayedMessage[]>;
   @Select(ContactsState.getUsername) username$: Observable<string>;
+  @Select(ContactsState.getLastActiveTimestamp) lastActive$: Observable<string>;
   @Select(ChatState.getLastReadAt) readAt$: Observable<string>;
 
   linkToMessages = `/${RoutesPath.HOME}/${RoutesPath.MESSAGES}`;
@@ -68,18 +69,10 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.store.dispatch(new ClearChatStore());
       this.store.dispatch(new OpenChat(id));
       this.store.dispatch(new SetMessagesPageAndRecipient(0, id));
-      this.chatService.markChatRead(true); 
-      this.store.dispatch(new LoadHistoricalMessages());
-    });
-
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      takeUntil(this.onDestroy$),
-    ).subscribe(() => {
-      this.chatService.setActiveContactId(this.route.snapshot.paramMap.get('id'));
       this.chatService.markChatRead(true);
       this.store.dispatch(new LoadHistoricalMessages());
     });
+
     this.chatService.markChatRead(true);
     this.store.dispatch(new LoadHistoricalMessages());
   }

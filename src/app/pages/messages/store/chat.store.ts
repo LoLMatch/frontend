@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { KeyStorage } from "@core/enums/key-storage.enum";
 import { LocalStorageService } from "@core/services/localStorage/local-storage.service";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
-import { convertDate } from "@pages/messages/components/constants/convert-date.const";
+import { convertDate } from "@pages/messages/constants/convert-date.const";
 import { DisplayedMessage, MessageFromApi, MessagesApiResponse } from "@pages/messages/interfaces/messages.interface";
 import { ChatApiService } from "@pages/messages/services/chat-api.service";
 import { ClearChatStore, LoadHistoricalMessages, MarkChatRead, SaveMessage, SetMessagesPageAndRecipient } from "@pages/messages/store/chat.actions";
@@ -53,7 +53,8 @@ export class ChatState {
     const message: DisplayedMessage = {
       text: action.message.text,
       isMe: action.message.isMe,
-      readAt: convertDate(action.message.readAt)
+      readAt: convertDate(action.message.readAt),
+      sentAt: action.message.sentAt
     }
     patchState({
       messages: [message, ...state.messages,],
@@ -73,7 +74,8 @@ export class ChatState {
     const message = {
       text: state.messages[0]?.text,
       isMe: state.messages[0]?.isMe,
-      readAt: convertDate(action.seenAt)
+      readAt: convertDate(action.seenAt),
+      sentAt: state.messages[0]?.sentAt
     };
     const updatedMessages = [message, ...state.messages.slice(1)];
     patchState({
@@ -110,7 +112,8 @@ export class ChatState {
           const isMe = message.sender.id == myId;
           const text = message.content || '';
           const readAt = convertDate(message.readAt);
-          return { text, isMe, readAt };
+          const sentAt = message.createdAt;
+          return { text, isMe, readAt, sentAt };
         });
       }),
       tap(displayedMessages => {

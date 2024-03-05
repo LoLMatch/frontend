@@ -16,7 +16,7 @@
     </div>
     <div class="contact__data">
       <p><span class="contact__name">{{ username$ | async }}</span> <br>
-        Last active: 5 hours ago</p>
+        Last active: {{ lastActive$ | async }}</p>
     </div>
   </div>
 
@@ -30,7 +30,7 @@
         }
         @for (message of messages; track $index) {
           <div [class]="'message ' + (message.isMe ? 'my__message' : 'contact__message')">
-            {{ message.text }}        
+            {{ message.text }}
           </div>
         }
         @empty {

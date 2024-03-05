@@ -26,6 +26,7 @@ export interface DisplayedMessage {
   text: string;
   isMe: boolean;
   readAt: string;
+  sentAt: string;
 }
 
 export interface MessageFromApi {

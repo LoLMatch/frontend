@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { RoutesPath } from '@core/constants/routes.const';
 import { KeyStorage } from '@core/enums/key-storage.enum';
 import { AuthService } from '@core/services/auth/auth.service';
 import { LocalStorageService } from '@core/services/localStorage/local-storage.service';
@@ -22,7 +23,7 @@ import { Observable, Subject, combineLatest, filter, takeUntil, tap } from 'rxjs
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent implements OnInit, OnDestroy { 
+export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
@@ -46,14 +47,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         this.store.dispatch(new LoadContacts(user.id));
       }),
-      takeUntil(this.onDestroy$),            
+      takeUntil(this.onDestroy$),
     ).subscribe();
 
     this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
+      filter(event => event instanceof NavigationEnd && !(event as NavigationEnd).url.includes(RoutesPath.MESSAGES)),
       takeUntil(this.onDestroy$),
     ).subscribe(() => {
-      this.chatService.setActiveContactId(null);        // Nie wiem czy to wystarczy, żeby zerować aktywny kontakt, 
+      this.chatService.setActiveContactId(null);        // Nie wiem czy to wystarczy, żeby zerować aktywny kontakt,
     });                                                 // czy nie będzie przypadków kiedy to nie zadziała ??
   }
 
