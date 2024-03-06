@@ -5,7 +5,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { RoutesPath } from '@core/constants/routes.const';
 import { Select, Store } from '@ngxs/store';
 import { DisplayedMessage } from '@pages/messages/interfaces/messages.interface';
@@ -14,7 +14,7 @@ import { ClearChatStore, LoadHistoricalMessages, SetMessagesPageAndRecipient } f
 import { ChatState } from '@pages/messages/store/chat.store';
 import { OpenChat } from '@pages/messages/store/contacts.actions';
 import { ContactsState } from '@pages/messages/store/contacts.store';
-import { Observable, Subject, filter, map, takeUntil } from 'rxjs';
+import { Observable, Subject, map, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'ds-chat',
@@ -47,7 +47,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
     private route: ActivatedRoute,
     private store: Store,
     private chatService: ChatService,

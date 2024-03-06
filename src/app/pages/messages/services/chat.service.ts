@@ -39,7 +39,6 @@ export class ChatService implements OnDestroy {
       .subscribe(
         (message: Message) => {
           const sth = JSON.parse(message.body) as MessageFromWebsocket;
-          console.log(sth);
           switch (sth.action) {
             case ActionType.MESSAGE: {
               if (sth.senderId == this.myId) {

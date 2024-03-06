@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { convertDate } from '@pages/messages/constants/convert-date.const';
 import { ContactListItem } from '@pages/messages/interfaces/contacts.interface';
 
 @Component({
@@ -12,6 +13,15 @@ import { ContactListItem } from '@pages/messages/interfaces/contacts.interface';
   styleUrl: './contact-item.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ContactItemComponent {
+export class ContactItemComponent implements OnInit, OnChanges {
   @Input() chat: ContactListItem;
+  createdAt: string;
+
+  ngOnInit(): void {
+    this.createdAt = convertDate(this.chat?.createdAt);    
+  }
+
+  ngOnChanges(): void {
+    this.createdAt = convertDate(this.chat?.createdAt);  
+  }
 }

@@ -17,7 +17,7 @@ export class RxStompService {
     heartbeatOutgoing: 20000,
     reconnectDelay: 200,
     debug: (msg: string): void => {
-      console.log(new Date(), msg);
+      // console.log(new Date(), msg);
     }
   };
 

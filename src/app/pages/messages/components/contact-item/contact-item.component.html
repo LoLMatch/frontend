@@ -10,7 +10,7 @@
     <div class="message" [ngClass]="{'bold' : chat.unreadMessages > 0}">{{ chat.message }}</div>
   </div>
   <div class="right">
-    <h5 class="time"> {{ chat.createdAt }} </h5>
+    <h5 class="time"> {{ createdAt }} </h5>
     @if (chat.unreadMessages > 0) {
       <h4 class="new__messages"> {{ chat.unreadMessages }} </h4>
     }

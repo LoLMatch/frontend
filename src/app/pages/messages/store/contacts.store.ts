@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
-import { convertDate } from "@pages/messages/constants/convert-date.const";
 import { lastActiveFormatter } from "@pages/messages/constants/convert-last-active.const";
+import { sortContacts } from "@pages/messages/constants/sort-contacts.const";
 import { Status } from "@pages/messages/enums/action-type.enum";
 import { ContactListItem, ContactsListFromApi } from "@pages/messages/interfaces/contacts.interface";
 import { ChatApiService } from "@pages/messages/services/chat-api.service";
@@ -39,20 +39,7 @@ export class ContactsState {
   }
   @Selector()
   static getContacts(state: ContactsStateModel): any[] {
-    const sortedContacts = state?.contacts
-      .slice()
-      .sort((a, b) => {
-        const dateA = new Date(a?.createdAt).getTime();
-        const dateB = new Date(b?.createdAt).getTime();
-
-        return dateB - dateA;
-      });
-    return sortedContacts.map(
-      (con) => ({
-        ...con,
-        createdAt: convertDate(con.createdAt)
-      })
-    );
+    return state?.contacts;
   }
 
   @Selector()
@@ -107,7 +94,7 @@ export class ContactsState {
       return contact;
     });
     patchState({
-      contacts: updatedContacts,
+      contacts: sortContacts(updatedContacts),
     });
   }
 
@@ -126,7 +113,7 @@ export class ContactsState {
       return contact;
     });
     patchState({
-      contacts: updatedContacts,
+      contacts: sortContacts(updatedContacts),
     });
   }
 
@@ -145,7 +132,7 @@ export class ContactsState {
       return contact;
     });
     patchState({
-      contacts: updatedContacts,
+      contacts: sortContacts(updatedContacts),
     });
   }
 
@@ -163,7 +150,7 @@ export class ContactsState {
       return contact;
     });
     patchState({
-      contacts: updatedContacts,
+      contacts: sortContacts(updatedContacts),
     });
   }
 
@@ -207,7 +194,7 @@ export class ContactsState {
       }),
       tap(allContacts => {
         patchState({
-          contacts: allContacts,
+          contacts: sortContacts(allContacts),
         });
       })
     );
