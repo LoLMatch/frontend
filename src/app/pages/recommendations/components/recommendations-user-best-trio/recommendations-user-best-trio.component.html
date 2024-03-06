@@ -6,8 +6,12 @@
   @for (champion of bestTrio; track $index) {
 
   <div class="champion">
-    <div class="champion__icon">{{champion?.name}}</div>
-    <div class="champion__icon">{{champion?.lane}}</div>
+    <img
+      class="champion__icon"
+      [src]="'assets/images/champions/'+champion?.champion_id+'.png'"
+      [matTooltip]="champion?.champion_name"
+    />
+    <div class="champion__icon">{{champion?.line}}</div>
   </div>
   }
 </div>

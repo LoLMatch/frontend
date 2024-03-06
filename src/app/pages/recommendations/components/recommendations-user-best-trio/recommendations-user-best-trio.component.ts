@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Lane, PreferedChampions } from '@pages/recommendations/interfaces/recommendation-user.interface';
+import { Lane, PreferedChampion } from '@pages/recommendations/interfaces/recommendation-user.interface';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'ds-recommendations-user-best-trio',
   standalone: true,
   imports: [
-    CommonModule,
+    CommonModule, MatTooltipModule
   ],
   templateUrl: './recommendations-user-best-trio.component.html',
   styleUrl: './recommendations-user-best-trio.component.scss',
@@ -14,10 +15,10 @@ import { Lane, PreferedChampions } from '@pages/recommendations/interfaces/recom
 })
 export class RecommendationsUserBestTrioComponent {
 
-  @Input() dsPreferedChampions: PreferedChampions;
+  @Input() dsPreferedChampions: PreferedChampion[];
 
 
-  get bestTrio(): { name: string, lane: Lane }[] {
-    return Object.entries(this.dsPreferedChampions)?.map(([name, lane]) => ({ name, lane }))?.slice(0, 3) || [];
+  get bestTrio(): PreferedChampion[] {
+    return this.dsPreferedChampions?.slice(0, 3) || [];
   }
 }
