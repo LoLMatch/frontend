@@ -12,6 +12,8 @@ import { ChatState } from '@pages/messages/store/chat.store';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { environment } from '@env/environment';
 import { KEYCLOAK } from '@core/constants/keycloak.const';
+import { HttpClientModule } from '@angular/common/http';
+import { ContactsState } from '@pages/messages/store/contacts.store';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -23,6 +25,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
       },
       initOptions: {
         redirectUri: KEYCLOAK.REDIRECT_LOGIN,
+        // checkLoginIframe: false,
       },
     });
 }
@@ -32,6 +35,7 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(
       BrowserModule,
       RouterModule.forRoot(appRouting),
+      HttpClientModule,
       KeycloakAngularModule,
       ServiceWorkerModule.register('ngsw-worker.js', {
         enabled: !isDevMode(),
@@ -39,7 +43,7 @@ bootstrapApplication(AppComponent, {
         // or after 30 seconds (whichever comes first).
         registrationStrategy: 'registerWhenStable:30000',
       }),
-      NgxsModule.forRoot([ChatState])
+      NgxsModule.forRoot([ChatState, ContactsState])
     ),
     provideAnimations(),
     {

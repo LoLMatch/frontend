@@ -38,12 +38,12 @@
 }
 
 .list {
-  height: 78vh;                       //   Tragiczne rozwiązanie, ale scroll nie chciał współpracować, jak były procenty ustawione
+  height: calc(100vh - 130px - 50px);      
   width: 100%;
   padding-right: 15px;
 
-  @media (min-width: $screen-840) {   //    Też nie najlepiej, ale dla niższych ekranów nie było widać dobrze inputa na dole
-    height: 75vh;                     //    więc dałem coś takiego
+  @media (min-width: $screen-840) {   
+    height: calc(100vh - 130px - 60px); 
   }
 }
 

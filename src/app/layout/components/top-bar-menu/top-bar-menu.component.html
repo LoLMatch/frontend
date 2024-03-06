@@ -17,7 +17,7 @@
             class="topbar__button"
         >
             <mat-icon>
-                {{areNewMessages ? 'mark_unread_chat_alt' :'chat_bubble'}}
+                {{(areNewMessages$ | async) ? 'mark_unread_chat_alt' :'chat_bubble'}}
             </mat-icon>
         </a>
 

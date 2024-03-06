@@ -62,10 +62,10 @@
 .messages__box {
   display: flex;
   flex-direction: column;
-  max-height: 78vh;
+  height: calc(100vh - 130px - 50px);
 
   @media (min-width: $screen-840) {
-    max-height: 75vh;
+    height: calc(100vh - 130px - 60px);
   }
 }
 
@@ -76,7 +76,10 @@
   overflow-x: hidden;
   overflow-y: scroll;
   overflow: scroll;
+}
 
+.messages__wrapper--empty {
+  justify-content: center;
 }
 
 .message {
@@ -150,7 +153,6 @@
 }
 
 .empty__chat {
-  margin-top: 150px;
   font-size: 20px;
   padding: 20px;
   text-align: center;
