@@ -31,6 +31,7 @@ export class TopBarMenuComponent {
   sidebarManager = inject(SidebarManagementService);
 
   @Select(ContactsState.getNotifications) areNewMessages$: Observable<boolean>;
+  areNewNotifications = true;
 
   openSidebar() {
     this.sidebarManager.showLoader();

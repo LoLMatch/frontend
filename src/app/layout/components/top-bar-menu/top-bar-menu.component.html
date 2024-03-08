@@ -12,6 +12,15 @@
     </div>
     <div class="right__side">
         <a
+            routerLink="/account"
+            class="topbar__button"
+        >
+            <mat-icon>
+                {{ areNewNotifications ? 'notifications_active' : 'notifications' }}
+            </mat-icon>
+            
+        </a>
+        <a
             dsActiveLink
             routerLink="/home/messages"
             class="topbar__button"
@@ -20,7 +29,6 @@
                 {{(areNewMessages$ | async) ? 'mark_unread_chat_alt' :'chat_bubble'}}
             </mat-icon>
         </a>
-
         <a
             routerLink="/account"
             class="topbar__button"
