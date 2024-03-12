@@ -52,3 +52,12 @@
   border: 1px solid map-get($map: $ds-utils, $key: primary-color);
   object-fit: cover;
 }
+
+.champion__lane {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}

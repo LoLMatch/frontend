@@ -35,3 +35,21 @@
   border: 1px solid map-get($map: $ds-utils, $key: primary-color);
   object-fit: cover;
 }
+
+.champion__lane {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+}
+
+.champion__rank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+}

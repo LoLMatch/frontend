@@ -5,6 +5,8 @@ export interface RecommendationUser {
   level: number;
   losses: number;
   name: string;
+  favourite_champion: PreferedChampion,
+  favourite_line: Lane,
   preferred_champions_and_lines: PreferedChampion[];
   rank: Rank;
   sex: Sex;

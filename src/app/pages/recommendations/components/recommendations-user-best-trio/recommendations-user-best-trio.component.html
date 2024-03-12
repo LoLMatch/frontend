@@ -11,7 +11,11 @@
       [src]="'assets/images/champions/'+champion?.champion_id+'.png'"
       [matTooltip]="champion?.champion_name"
     />
-    <div class="champion__icon">{{champion?.line}}</div>
+    <img
+      class="champion__lane"
+      [src]="'assets/images/lanes/'+(champion?.line | dsTextToSnakeCase)+'.png'"
+      [matTooltip]="champion?.line"
+    />
   </div>
   }
 </div>

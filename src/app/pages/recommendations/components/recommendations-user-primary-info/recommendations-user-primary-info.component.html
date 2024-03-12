@@ -1,14 +1,24 @@
 <div class="information__wrapper">
   <div class="header">MOST PLAYED</div>
-  <div class="champion__icon">
-    GRAGAS
-  </div>
+  <img
+    class="champion__icon"
+    [src]="'assets/images/champions/'+dsRecommendation?.favourite_champion.champion_id+'.png'"
+    [matTooltip]="dsRecommendation?.favourite_champion.champion_name"
+  />
 </div>
 <div class="information__wrapper">
   <div class="header">current rank</div>
-  {{dsRecommendation?.tier}}
+  <img
+    class="champion__rank"
+    [src]="'assets/images/ranks/'+(dsRecommendation?.tier | dsTextToSnakeCase)+'.png'"
+    [matTooltip]="dsRecommendation?.tier"
+  />
 </div>
 <div class="information__wrapper">
   <div class="header">preferable line</div>
-  Jungle
+  <img
+    class="champion__lane"
+    [src]="'assets/images/lanes/'+(dsRecommendation?.favourite_line | dsTextToSnakeCase)+'.png'"
+    [matTooltip]="dsRecommendation?.favourite_line"
+  />
 </div>
