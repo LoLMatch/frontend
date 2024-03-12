@@ -5,12 +5,14 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { AuthService } from '@core/services/auth/auth.service';
 
 @Component({
   selector: 'ds-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,7 +23,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private changeDetectorRef: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit() {
     void this.authService.loadProfile().subscribe((user) => {

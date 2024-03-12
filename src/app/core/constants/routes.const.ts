@@ -6,4 +6,5 @@ export const RoutesPath = {
   REGISTER: "register",
   FORGOT_PASSWORD: "forgot-password",
   MESSAGES: 'messages',
+  RECOMMENDATIONS: 'recommendations',
 };

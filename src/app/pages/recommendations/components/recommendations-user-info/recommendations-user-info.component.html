@@ -1,0 +1,22 @@
+@if(recommendation$ | async; as recommendations){
+
+<ds-recommendations-user-header
+  class="header"
+  [dsRecommendation]="recommendations"
+/>
+
+<div class="row">
+  <ds-recommendations-user-description [dsRecommendation]="recommendations" />
+  <ds-recommendations-user-best-trio [dsPreferedChampions]="recommendations?.preferred_champions_and_lines" />
+</div>
+
+<ds-recommendations-user-primary-info [dsRecommendation]="recommendations" />
+
+<hr class="horizontal" />
+
+<ds-recommendations-user-actions />
+}@else {
+<div class="centered">
+  <mat-spinner />
+</div>
+}

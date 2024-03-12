@@ -1,0 +1,33 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin: 50px 0;
+  gap: 32px;
+}
+
+
+.icon__button {
+  transform: scale(1.75)
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(1.75);
+}
+
+.close {
+  color: #898D8F;
+}
+
+.star {
+  color: #CCA856;
+}
+
+.favourite {
+  color: #9E3729;
+}

@@ -1,0 +1,42 @@
+@import 'src/styles/variables/breakpoints';
+
+:host {
+  display: block;
+}
+
+.header {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #E9EAEA80
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  @media(min-width:$screen-600) {
+    gap: 60px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.centered {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.horizontal {
+  color: #898d90;
+  background-color: #898d90;
+
+  @media(min-width:$screen-600) {
+    display: none;
+  }
+}
