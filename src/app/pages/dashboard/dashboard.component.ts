@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    void this.authService.loadProfile().then((user) => {
+    void this.authService.loadProfile().subscribe((user) => {
       this.username = user.username;
       this.changeDetectorRef.detectChanges();
     });

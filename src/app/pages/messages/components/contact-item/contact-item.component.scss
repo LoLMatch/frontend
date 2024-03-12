@@ -80,7 +80,12 @@
 .new__messages {
   background-color: map-get($map: $ds-primary, $key: 200);
   border-radius: 50%;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  margin: auto;
 }
 
 .active .new__messages {

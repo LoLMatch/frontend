@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Inject, OnInit, Renderer2, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostListener, OnInit, Renderer2, inject } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
-import { ContactsListComponent } from './components/contacts-list/contacts-list.component';
+import { ContactsListComponent } from '@pages/messages/components/contacts-list/contacts-list.component';
 import { filter } from 'rxjs';
 
 @Component({
@@ -12,14 +12,11 @@ import { filter } from 'rxjs';
     RouterModule,
     ContactsListComponent
   ],
-  providers: [
-    Window
-  ],
   templateUrl: './messages.component.html',
   styleUrl: './messages.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MessagesComponent implements OnInit{
+export class MessagesComponent implements OnInit{ 
 
   private el = inject(ElementRef);
   private renderer = inject(Renderer2);
