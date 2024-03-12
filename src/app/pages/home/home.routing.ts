@@ -20,7 +20,7 @@ export default [
       },
       {
         path: RoutesPath.RECOMMENDATIONS,
-        loadChildren: () => import('../recommendations/recommendations.routing'),
+        loadChildren: () => import('@pages/recommendations/recommendations.routing'),
       }
     ],
   },
