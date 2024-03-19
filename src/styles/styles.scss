@@ -13,7 +13,7 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$frontend-primary: mat.define-palette($ds-primary-material, 400);
+$frontend-primary: mat.define-palette($ds-primary, 400);
 $frontend-accent: mat.define-palette(mat.$green-palette, A400);
 
 // The warn palette is optional (defaults to red).
@@ -34,6 +34,7 @@ $frontend-theme: mat.define-light-theme((color: (primary: $frontend-primary,
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include mat.all-component-themes($frontend-theme);
+@include mat.input-theme($frontend-theme);
 
 :root {
 
@@ -59,7 +60,10 @@ body {
   background-color: map-get($map: $ds-utils, $key: background-color);
   color: map-get($map: $ds-utils, $key: font-color);
   font-family: 'Space Grotesk', sans-serif;
-  overflow: hidden;
+  overflow-x: hidden;
+  --mdc-outlined-text-field-outline-color: white;
+  --mdc-outlined-text-field-label-text-color: rgba(255, 255, 255, 0.541);
+  --mdc-outlined-text-field-input-text-color: white;
 }
 
 body {
@@ -67,6 +71,7 @@ body {
   // font-family: 'Space Grotesk', sans-serif;
   font-size: 14px;
 }
+
 
 .cursor-pointer {
   cursor: pointer;

@@ -19,5 +19,10 @@ export default [
   {
     path: RoutesPath.HOME,
     loadChildren: () => import('./pages/home/home.routing')
-  }
+  },
+  {
+    path: '**',
+    redirectTo: RoutesPath.LANDING_PAGE,
+    pathMatch: 'full'
+  },
 ] as Routes;

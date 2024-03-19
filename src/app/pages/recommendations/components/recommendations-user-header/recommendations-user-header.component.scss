@@ -1,0 +1,65 @@
+@import 'src/styles/variables/breakpoints';
+
+ds-recommendations-user-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  .header__wrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    justify-content: center;
+    height: 100%;
+    gap: 18px
+  }
+
+  .header {
+    color: #CCA856;
+    font-size: 50px;
+    line-height: 55px;
+    margin-bottom: 0;
+  }
+
+  .description {
+    font-size: 18px;
+    margin-bottom: 0px;
+  }
+
+  .wins__header {
+    font-size: 26px;
+    color: #CCCCCC66;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .spinner__wrapper {
+    position: relative;
+
+    & .win__percent {
+      font-size: 17px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+  }
+
+  .spinner {
+    display: none;
+
+    @media(min-width:$screen-550) {
+      display: block;
+    }
+  }
+
+  .mat-progress-spinner circle,
+  .mat-spinner circle {
+    stroke: #CCA856 !important;
+  }
+}

@@ -3,7 +3,8 @@ export interface Environment {
   httpBackend: string;
   httpChat: string,
   httpWebsockets: string,
-  httpKeycloak: string
+  httpKeycloak: string,
+  httpBackendPython: string,
 }
 
 export type Profile = 'dev' | 'local' | 'prod' | 'test';

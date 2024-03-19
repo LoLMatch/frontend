@@ -1,0 +1,21 @@
+<div class="header">
+  BEST TRIO
+</div>
+
+<div class="champion__wrapper">
+  @for (champion of bestTrio; track $index) {
+
+  <div class="champion">
+    <img
+      class="champion__icon"
+      [src]="'assets/images/champions/'+champion?.champion_id+'.png'"
+      [matTooltip]="champion?.champion_name"
+    />
+    <img
+      class="champion__lane"
+      [src]="'assets/images/lanes/'+(champion?.line | dsTextToSnakeCase)+'.png'"
+      [matTooltip]="champion?.line"
+    />
+  </div>
+  }
+</div>

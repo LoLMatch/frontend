@@ -1,0 +1,23 @@
+<div class="header__wrapper">
+  <h1 class="header">
+    {{dsRecommendation?.name}}
+  </h1>
+  <p class="description">{{dsRecommendation?.short_description}}</p>
+</div>
+
+<div class="spinner">
+  <div class="wins__header">
+    WINS
+  </div>
+
+  <div class="spinner__wrapper">
+    <mat-progress-spinner
+      color="secondary"
+      mode="determinate"
+      [value]="winPercent"
+    />
+    <div class="win__percent">
+      {{winPercent}}%
+    </div>
+  </div>
+</div>

@@ -1,6 +1,8 @@
+import { RoutesPath } from "@core/constants/routes.const";
+
 export const NAVIGATION = [
   {
-    link: "/home",
+    link: `/${RoutesPath.HOME}`,
     icon: "home",
     name: "HOME"
   },

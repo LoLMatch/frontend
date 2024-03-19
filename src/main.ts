@@ -12,6 +12,8 @@ import { ChatState } from '@pages/messages/store/chat.store';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { environment } from '@env/environment';
 import { KEYCLOAK } from '@core/constants/keycloak.const';
+import { provideHttpClient } from '@angular/common/http';
+import { RecommendationsState } from '@pages/recommendations/store/recommendations.store';
 import { HttpClientModule } from '@angular/common/http';
 import { ContactsState } from '@pages/messages/store/contacts.store';
 
@@ -50,8 +52,9 @@ bootstrapApplication(AppComponent, {
         // or after 30 seconds (whichever comes first).
         registrationStrategy: 'registerWhenStable:30000',
       }),
-      NgxsModule.forRoot([ChatState, ContactsState])
+      NgxsModule.forRoot([ChatState, ContactsState, RecommendationsState])
     ),
+    provideHttpClient(),
     provideAnimations(),
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,

@@ -1,0 +1,63 @@
+@import 'src/styles/variables/palette';
+@import 'src/styles/variables/breakpoints';
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.header {
+  font-size: 26px;
+  color: #CCCCCC66;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.champion__wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
+
+  @media(min-width:$screen-600) {
+    flex-direction: column;
+    gap: 10px
+  }
+}
+
+.champion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  @media(min-width:$screen-600) {
+    flex-direction: row;
+  }
+}
+
+.champion__icon {
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 68px;
+  border: 1px solid map-get($map: $ds-utils, $key: primary-color);
+  object-fit: cover;
+}
+
+.champion__lane {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
