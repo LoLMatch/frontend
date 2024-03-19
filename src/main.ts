@@ -18,7 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ContactsState } from '@pages/messages/store/contacts.store';
 
 function initializeKeycloak(keycloak: KeycloakService) {
-  return () => {
+  return () =>
     keycloak.init({
       config: {
         url: environment.httpKeycloak,
@@ -27,16 +27,10 @@ function initializeKeycloak(keycloak: KeycloakService) {
       },
       initOptions: {
         redirectUri: KEYCLOAK.REDIRECT_LOGIN,
-        // action:   
         // checkLoginIframe: false,
       },
-      
-    });
-    keycloak.register({
-      action: 'register',
-      redirectUri: KEYCLOAK.REDIRECT_REGISTER
-    });
-  }
+    }
+  );
 }
 
 bootstrapApplication(AppComponent, {
@@ -60,11 +54,11 @@ bootstrapApplication(AppComponent, {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: MatFormFieldDefaultOptionsConfig,
     },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeKeycloak,
-      multi: true,
-      deps: [KeycloakService],
-    },
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: initializeKeycloak,
+    //   multi: true,
+    //   deps: [KeycloakService],
+    // },
   ],
 }).catch((err) => console.error(err));

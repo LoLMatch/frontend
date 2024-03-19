@@ -1,0 +1,61 @@
+<div class="form__wrapper">
+  <div class="title__wrapper">
+    <h1>Welcome user123</h1>
+    <h3>Before we start tell us more about yourself</h3>
+  </div>
+  <form [formGroup]="form" class="post__registration__form">
+    <cdk-virtual-scroll-viewport itemSize="50" class="list">
+      <div *cdkVirtualFor="let cos of coses" class="fields__wrapper">
+        <div class="field">
+          <span class="label">COUNTRY YOU LIVE IN: </span>
+          <mat-form-field>
+            <mat-label>Country</mat-label>
+            <mat-select formControlName="country">
+              <mat-option>1</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div formArrayName="languages">
+          <div class="field">
+            <span class="label">LANGUAGES YOU SPEAK: </span>
+            <div class="languages">
+              @for (lang of Languages.controls; track $index) {
+              <mat-form-field>
+                <mat-label>Language</mat-label>
+                <mat-select [formControlName]="$index">
+                  @for (langOption of languagesList; track $index) {
+                  <mat-option [value]="langOption">{{ langOption }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+              }
+            </div>
+          </div>
+        </div>
+        @if (Languages.length < 5) { <button mat-icon-button type="button" (click)="addLanguage()">
+          <mat-icon>
+            add_circle
+          </mat-icon>
+          </button>
+          }
+          <div class="field">
+            <span class="label">BIRTH DATE: </span>
+            <mat-form-field>
+              <input formControlName="birthDate" matInput type="date">
+            </mat-form-field>
+          </div>
+          <div class="field">
+            <span class="label">ABOUT YOU: </span>
+            <mat-form-field>
+              <textarea matInput formControlName="about">
+
+              </textarea>
+            </mat-form-field>
+          </div>
+      </div>
+    </cdk-virtual-scroll-viewport>
+  </form>
+</div>
+<div class="right__image__container">
+  <img class="right__image" src="assets/images/yasuo.jpg">
+</div>

@@ -18,21 +18,21 @@
 <div class="list__wrapper">
   @if (filteredChats$ | async; as displayedChats) {
     <cdk-virtual-scroll-viewport
-    itemSize="50"
-    class="list"
-  >
-    <div
-      *cdkVirtualFor="let chat of displayedChats"
-      class="chat__item"
+      itemSize="50"
+      class="list"
     >
-      <ds-contact-item
-        dsActiveLink
-        [routerLink]="pathToMessages+chat.id"
-        [chat]="chat"
-        (click)="goToChat(chat.id)"
-      />
-    </div>
-  </cdk-virtual-scroll-viewport>
+      <div
+        *cdkVirtualFor="let chat of displayedChats"
+        class="chat__item"
+      >
+        <ds-contact-item
+          dsActiveLink
+          [routerLink]="pathToMessages+chat.id"
+          [chat]="chat"
+          (click)="goToChat(chat.id)"
+        />
+      </div>
+    </cdk-virtual-scroll-viewport>
   }
 
 </div>

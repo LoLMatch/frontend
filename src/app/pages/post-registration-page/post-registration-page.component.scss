@@ -1,0 +1,83 @@
+@import "src/styles/variables/palette";
+@import 'src/styles/variables/breakpoints';
+
+:host {
+  display: flex;
+  height: 100vh;
+}
+
+.form__wrapper {
+  width: 50vw;
+}
+
+.title__wrapper {
+  text-align: center;
+
+  h1 {
+    color: map-get($map: $ds-utils, $key: primary-color);
+  }
+}
+
+.field {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+}
+
+.label {
+  padding-bottom: 21.6px;
+}
+
+.list {
+  height: 500px;
+  width: 100%;
+}
+
+.fields__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.post__registration__form {
+  margin: auto;
+  width: 500px;
+  height: 500px;
+  background-color: map-get($map: $ds-grey, $key: 400);
+  border-radius: 30px;
+  overflow-x: scroll;
+  overflow-y: auto;
+  overflow: scroll;
+}
+
+.languages {
+  display: flex;
+  flex-direction: column;
+}
+
+.right__image__container {
+  display: none;
+  position: relative;
+  width: 50vw;
+
+  @media(min-width: $screen-1024) {
+    display: block;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0) 55%, map-get($map: $ds-utils, $key: background-color) 100%);
+  }
+}
+
+.right__image {
+  height: 100vh;
+  // width: 100%;
+  object-fit: cover;
+}

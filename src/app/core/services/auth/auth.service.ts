@@ -14,7 +14,9 @@ export class AuthService {
   }
 
   register() {
-    void this.keycloak.register();
+    void this.keycloak.register({
+      redirectUri: KEYCLOAK.REDIRECT_REGISTER
+    });
   }
 
   logout() {

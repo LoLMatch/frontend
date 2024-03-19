@@ -1,5 +1,6 @@
 export const RoutesPath = {
   LANDING_PAGE: 'landing-page',
+  POST_REGISTRATION_PAGE: 'post-registration-page',
   HOME: 'home',
   AUTHORIZATION: "authorization",
   LOGIN: "login",
@@ -7,4 +8,8 @@ export const RoutesPath = {
   FORGOT_PASSWORD: "forgot-password",
   MESSAGES: 'messages',
   RECOMMENDATIONS: 'recommendations',
+  MATCHES: 'matches',
+  FINDER: 'finder',
+  TEAM: 'team',
+  CALENDAR: 'calendar',
 };
