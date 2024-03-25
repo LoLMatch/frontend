@@ -7,22 +7,22 @@ export const NAVIGATION = [
     name: "HOME"
   },
   {
-    link: `/${RoutesPath.FINDER}`,
+    link: `/${RoutesPath.HOME}/${RoutesPath.RECOMMENDATIONS}`,
     icon: "favorite",
     name: "FIND A MATCH"
   },
   {
-    link: `/${RoutesPath.MATCHES}`,
+    link: `/${RoutesPath.HOME}/${RoutesPath.MATCHES}`,
     icon: "diversity_1",
     name: "YOUR MATCHES"
   },
   {
-    link: `/${RoutesPath.TEAM}`,
+    link: `/${RoutesPath.HOME}/${RoutesPath.TEAM}`,
     icon: "group",
     name: "YOUR TEAM"
   },
   {
-    link: `/${RoutesPath.CALENDAR}`,
+    link: `/${RoutesPath.HOME}/${RoutesPath.CALENDAR}`,
     icon: "calendar_month",
     name: "YOUR CALENDAR"
   }

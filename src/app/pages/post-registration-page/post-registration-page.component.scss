@@ -7,7 +7,16 @@
 }
 
 .form__wrapper {
-  width: 50vw;
+  width: 100vw;
+  margin: auto;
+
+  @media (min-width: $screen-600) {
+    width: 90vw;
+  }
+
+  @media(min-width: $screen-1024) {
+    width: 50vw;
+  }
 }
 
 .title__wrapper {
@@ -18,42 +27,124 @@
   }
 }
 
-.field {
+.post__registration__form, .second__page {
+  overflow-x: scroll;
+  overflow-y: auto;
+  overflow: scroll;
+
+  @media (min-width: $screen-1024) {
+    background-color: map-get($map: $ds-grey, $key: 450);
+    border-radius: 30px;
+    margin: auto;
+    width: 500px;
+    height: 600px;
+  }
+}
+
+.second__page {
+  width: 650px;
+  height: 450px;
+}
+
+.scroll__list {
+  margin-top: 15px;
+  height: 70vh;
+  width: 100%;
+
+  @media (min-width: $screen-1024) {
+    height: 570px;
+  }
+}
+
+.fields__wrapper {
   display: flex;
-  gap: 5px;
+  flex-direction: column;
+  gap: 10px;
   align-items: center;
-  justify-content: center;
+  padding: 10px;
+}
+
+.languages__wrapper {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.field__wrapper {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.languages__field__wrapper {
+  width: 100%;
+}
+
+.field {
+  width: 200px;
 }
 
 .label {
   padding-bottom: 21.6px;
 }
 
-.list {
-  height: 500px;
-  width: 100%;
+.languages {
+  display: flex;
+  flex-direction: column;
 }
 
-.fields__wrapper {
+.image__picker {
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+}
+
+.image__wrapper {
+  width: 250px;
+  height: 200px;
+  display: grid;
+  grid-template-columns: repeat(1fr, 4);
+  // column-gap: 15px;
+}
+
+.champion__image {
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+}
+
+.buttons {
+  text-align: center;
+}
+
+.second__part {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.description {
+  width: 50%;
+  margin: 20px auto 20px auto;
+  text-align: center;
+}
+
+.favourites {
+  display: flex;
+}
+
+.champions, .lanes {
+  width: 50%;
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.post__registration__form {
-  margin: auto;
-  width: 500px;
-  height: 500px;
-  background-color: map-get($map: $ds-grey, $key: 400);
-  border-radius: 30px;
-  overflow-x: scroll;
-  overflow-y: auto;
-  overflow: scroll;
-}
-
-.languages {
-  display: flex;
-  flex-direction: column;
+.fav__field {
+  width: 70%;
 }
 
 .right__image__container {
@@ -78,6 +169,22 @@
 
 .right__image {
   height: 100vh;
-  // width: 100%;
   object-fit: cover;
 }
+
+/* Style dla komponentu wyboru */
+mat-form-field {
+  width: 300px; /* Dostosuj szerokość według własnych potrzeb */
+}
+
+/* Style dla opcji wyboru */
+.option-image {
+  width: 50px; /* Dostosuj szerokość obrazka opcji */
+  height: 50px; /* Dostosuj wysokość obrazka opcji */
+  margin-right: 10px; /* Odstęp między obrazkiem a etykietą */
+}
+
+.option-label {
+  font-size: 14px; /* Dostosuj wielkość czcionki etykiety opcji */
+}
+

@@ -5,6 +5,6 @@ export const environment: Environment = {
   httpBackend: "http://localhost:3000",
   httpChat: "http://localhost:8081",
   httpWebsockets: "ws://localhost:8081/websocket",
-  httpKeycloak: "http://localhost:8443",
+  httpKeycloak: "http://keycloak:8443",
   httpBackendPython: "http://localhost:5000",
 };

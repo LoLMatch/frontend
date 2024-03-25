@@ -17,22 +17,29 @@
                     close
                 </mat-icon>
             </a>
-
             <ds-logo class="logo" />
-
         </div>
         @if (isPhone) {
         <div class="right__side">
             <a
-                routerLink="/home/messages"
+                [routerLink]="'/' + routes.NOTIFICATIONS"
                 class="topbar__button"
             >
                 <mat-icon>
-                    {{areNewMessages ? 'mark_unread_chat_alt' :'chat_bubble'}}
+                    {{ areNewNotifications ? 'notifications_active' : 'notifications' }}
                 </mat-icon>
             </a>
             <a
-                routerLink="/account"
+                dsActiveLink
+                [routerLink]="'/' + routes.HOME + '/' + routes.MESSAGES"
+                class="topbar__button"
+            >
+                <mat-icon>
+                    {{(areNewMessages$ | async) ? 'mark_unread_chat_alt' :'chat_bubble'}}
+                </mat-icon>
+            </a>
+            <a
+                [routerLink]="'/' + routes.ACCOUNT"
                 class="topbar__button"
             >
                 <mat-icon>

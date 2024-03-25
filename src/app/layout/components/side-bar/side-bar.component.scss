@@ -107,6 +107,11 @@
   cursor: pointer;
 }
 
+.topbar__button:hover,
+.topbar__button.active {
+  color: map-get($map: $ds-primary, $key: 200);
+}
+
 .right__side {
   display: flex;
   gap: 10px;

@@ -10,6 +10,7 @@ import { ActiveLinkDirective } from '../side-bar/link/link.directive';
 import { Select } from '@ngxs/store';
 import { ContactsState } from '@pages/messages/store/contacts.store';
 import { Observable } from 'rxjs';
+import { RoutesPath } from '@core/constants/routes.const';
 
 @Component({
   selector: 'ds-top-bar-menu',
@@ -32,6 +33,7 @@ export class TopBarMenuComponent {
 
   @Select(ContactsState.getNotifications) areNewMessages$: Observable<boolean>;
   areNewNotifications = true;
+  routes = RoutesPath;
 
   openSidebar() {
     this.sidebarManager.showLoader();

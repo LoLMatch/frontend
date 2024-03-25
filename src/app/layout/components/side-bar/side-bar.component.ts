@@ -9,9 +9,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { NAVIGATION } from '@core/constants/navigation.const';
+import { RoutesPath } from '@core/constants/routes.const';
 import { AuthService } from '@core/services/auth/auth.service';
 import { ActiveLinkDirective } from '@layout/components/side-bar/link/link.directive';
 import { SidebarManagementService } from '@layout/services/sidebar-management.service';
+import { Select } from '@ngxs/store';
+import { ContactsState } from '@pages/messages/store/contacts.store';
 import { LogoComponent } from '@shared/ui/logo/logo.component';
 import { Observable } from 'rxjs';
 
@@ -35,9 +38,11 @@ export class SideBarComponent implements OnInit {
   isOpenFromService: boolean;
   windowWidth: number;
   isPhone = false;
-  areNewMessages = true;
+  @Select(ContactsState.getNotifications) areNewMessages$: Observable<boolean>;
   isOpen$: Observable<boolean>;
   NAVIGATION = NAVIGATION;
+  routes = RoutesPath;
+  areNewNotifications = true;
 
   constructor(
     private sidebarManager: SidebarManagementService,

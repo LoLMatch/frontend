@@ -9,7 +9,8 @@ export const RoutesPath = {
   MESSAGES: 'messages',
   RECOMMENDATIONS: 'recommendations',
   MATCHES: 'matches',
-  FINDER: 'finder',
   TEAM: 'team',
   CALENDAR: 'calendar',
+  ACCOUNT: 'account',
+  NOTIFICATIONS: 'notifications',
 };

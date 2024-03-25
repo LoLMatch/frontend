@@ -3,57 +3,164 @@
     <h1>Welcome user123</h1>
     <h3>Before we start tell us more about yourself</h3>
   </div>
-  <form [formGroup]="form" class="post__registration__form">
-    <cdk-virtual-scroll-viewport itemSize="50" class="list">
-      <div *cdkVirtualFor="let cos of coses" class="fields__wrapper">
-        <div class="field">
-          <span class="label">COUNTRY YOU LIVE IN: </span>
-          <mat-form-field>
-            <mat-label>Country</mat-label>
-            <mat-select formControlName="country">
-              <mat-option>1</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div formArrayName="languages">
-          <div class="field">
-            <span class="label">LANGUAGES YOU SPEAK: </span>
-            <div class="languages">
-              @for (lang of Languages.controls; track $index) {
-              <mat-form-field>
-                <mat-label>Language</mat-label>
-                <mat-select [formControlName]="$index">
-                  @for (langOption of languagesList; track $index) {
-                  <mat-option [value]="langOption">{{ langOption }}</mat-option>
-                  }
-                </mat-select>
-              </mat-form-field>
+  <form [formGroup]="form" [class]="part == 2 ? 'second__page' : '' + 'post__registration__form'">
+    @if (part == 1) {
+      <cdk-virtual-scroll-viewport itemSize="50" class="scroll__list">
+        <div *cdkVirtualFor="let cos of coses" class="fields__wrapper">
+          <div class="field__wrapper">
+            <span class="label">COUNTRY YOU LIVE IN: </span>
+            <mat-form-field class="field">
+              <mat-label>Country</mat-label>
+              <mat-select formControlName="country">
+                @for (countryOption of countriesList; track $index) {
+                  <mat-option [value]="countryOption">{{ countryOption }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="languages__wrapper" formArrayName="languages">
+            <div class="languages__field__wrapper field__wrapper">
+              <span class="label">LANGUAGES YOU SPEAK: </span>
+              <div class="languages">
+                @for (lang of Languages.controls; track $index) {
+                <mat-form-field class="field">
+                  <mat-label>Language</mat-label>
+                  <mat-select [formControlName]="$index">
+                    @for (langOption of languagesList; track $index) {
+                    <mat-option [value]="langOption">{{ langOption }}</mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+                }
+              </div>
+            </div>
+            <div>  
+              @if (Languages.length > 1) { 
+                <button mat-icon-button type="button" class="manage__languages" (click)="removeLanguage()">
+                  <mat-icon>
+                    cancel
+                  </mat-icon>
+                </button>
+              }
+              @if (Languages.length < 5) { 
+                <button mat-icon-button type="button" class="manage__languages" (click)="addLanguage()">
+                  <mat-icon>
+                    add_circle
+                  </mat-icon>
+                </button>
               }
             </div>
-          </div>
-        </div>
-        @if (Languages.length < 5) { <button mat-icon-button type="button" (click)="addLanguage()">
-          <mat-icon>
-            add_circle
-          </mat-icon>
-          </button>
-          }
-          <div class="field">
+          </div>          
+          <div class="field__wrapper">
             <span class="label">BIRTH DATE: </span>
-            <mat-form-field>
+            <mat-form-field class="field">
               <input formControlName="birthDate" matInput type="date">
             </mat-form-field>
           </div>
-          <div class="field">
+          <div class="field__wrapper">
             <span class="label">ABOUT YOU: </span>
-            <mat-form-field>
-              <textarea matInput formControlName="about">
-
+            <mat-form-field class="field">
+              <textarea matInput formControlName="about">  
               </textarea>
             </mat-form-field>
           </div>
-      </div>
-    </cdk-virtual-scroll-viewport>
+          <div class="field__wrapper">
+            <span class="label">YOUR PROFILE PICTURE: </span>
+            <div class="field">
+              <img [matMenuTriggerFor]="aboveMenu" src="assets/images/champions/0.png" class="image__picker" alt="Choose">
+              <mat-menu #aboveMenu="matMenu" yPosition="above">
+                <div class="image__wrapper" mat-menu-item>
+                  @for (option of options; track $index) {
+                    <img [src]="option.imageUrl" class="champion__image" alt="">
+                  }
+                </div>
+              </mat-menu>         
+            </div>
+          </div>
+          <div class="buttons">
+            <button
+              class="action__button"
+              type="button"
+              dsButton
+              dsButtonType="primary"
+              dsButtonCutCorner="top-left"
+              (click)="goNext()"
+            >
+              Next
+            </button>
+            <button
+              class="action__button"
+              type="button"
+              dsButton
+              dsButtonType="secondary"
+              dsButtonCutCorner="bottom-right"
+              (click)="exit()"
+            >
+              Exit
+            </button>
+          </div>
+        </div>
+      </cdk-virtual-scroll-viewport>
+    }
+    @else {
+      <div class="second__part">
+        <div class="description">
+          Choose three favourite champions and on which line you play them
+        </div>
+        <div class="favourites">
+          <div class="champions" formArrayName="champions">
+            @for (champ of Champions.controls; track $index) {
+              <div class="field__wrapper">
+                <span class="label">
+                  CHAMPION
+                </span>
+                <mat-form-field class="fav__field">
+                  <mat-select [formControlName]="$index">
+                    <!--    dodać nazwy postaci      --> 
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            }
+          </div>
+          <div class="lanes" formArrayName="lanes">
+            @for (lane of Lanes.controls; track $index) {
+              <div class="field__wrapper">
+                <span class="label">
+                  ON LANE
+                </span>
+                <mat-form-field class="fav__field">
+                  <mat-select [formControlName]="$index">
+  
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            }
+          </div>
+        </div>
+        <div class="buttons">
+          <button
+            class="action__button"
+            type="button"
+            dsButton
+            dsButtonType="primary"
+            dsButtonCutCorner="top-left"
+            (click)="send()"
+          >
+            Finish
+          </button>
+          <button
+            class="action__button"
+            type="button"
+            dsButton
+            dsButtonType="secondary"
+            dsButtonCutCorner="bottom-right"
+            (click)="goBack()"
+          >
+            Back
+          </button>
+        </div>
+      </div>      
+    }
   </form>
 </div>
 <div class="right__image__container">
