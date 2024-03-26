@@ -14,6 +14,7 @@ import { DsButtonDirective } from '@shared/ui/button/ds-button.directive';
 import { CardDirective } from '@shared/ui/card/card.directive';
 import { CutCornerBorderDirective } from '@shared/ui/cut-corner-border/cut-corner-border.directive';
 import { COUNTRIES } from '@pages/post-registration-page/constants/countries.const';
+import { LANES } from '@pages/post-registration-page/constants/lanes.const';
 
 @Component({
   selector: 'ds-post-registration-page',
@@ -41,10 +42,11 @@ import { COUNTRIES } from '@pages/post-registration-page/constants/countries.con
 })
 export class PostRegistrationPageComponent implements OnInit{
 
-  part = 1;
+  part = 2;
   form = this.formService.generateForm();
   languagesList = LANGUAGES;
   countriesList = COUNTRIES;
+  lanesList = LANES;
   coses = [1];
   options = [
     {

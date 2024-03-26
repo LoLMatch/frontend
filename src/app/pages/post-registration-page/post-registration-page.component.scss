@@ -4,14 +4,16 @@
 :host {
   display: flex;
   height: 100vh;
+  overflow: hidden;
 }
 
 .form__wrapper {
   width: 100vw;
-  margin: auto;
+  margin-top: 50px;
+  text-align: center;
 
   @media (min-width: $screen-600) {
-    width: 90vw;
+    // width: 90vw;
   }
 
   @media(min-width: $screen-1024) {
@@ -21,9 +23,31 @@
 
 .title__wrapper {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
 
   h1 {
     color: map-get($map: $ds-utils, $key: primary-color);
+  }
+}
+
+.title {
+  font-size: 35px;
+
+  @media (min-width: $screen-600) {
+    font-size: 45px;
+  }
+}
+
+.subtitle {
+  font-size: 20px;
+
+  @media (min-width: $screen-600) {
+    width: 450px;
+    font-size: 24px;
   }
 }
 
@@ -31,13 +55,18 @@
   overflow-x: scroll;
   overflow-y: auto;
   overflow: scroll;
+  border-radius: 30px;
+  margin: auto;
+
+  @media (min-width: $screen-600) {
+    background-color: map-get($map: $ds-grey, $key: 450);
+    width: 80%;
+  }
 
   @media (min-width: $screen-1024) {
     background-color: map-get($map: $ds-grey, $key: 450);
-    border-radius: 30px;
-    margin: auto;
-    width: 500px;
-    height: 600px;
+    width: 450px;
+    height: 70vh;
   }
 }
 
@@ -52,7 +81,7 @@
   width: 100%;
 
   @media (min-width: $screen-1024) {
-    height: 570px;
+    height: 65vh;
   }
 }
 
@@ -65,17 +94,44 @@
 }
 
 .languages__wrapper {
-  width: 80%;
+  width: 90%;
   display: flex;
   flex-direction: column;
-  align-items: end;
+  align-items: center;
+
+  @media (min-width: $screen-600) {
+    align-items: end;
+  }
+
+  @media (min-width: $screen-720) {
+    width: 70%;
+  }
+
+  @media (min-width: $screen-1024) {
+    width: 90%;
+  }
 }
 
 .field__wrapper {
-  width: 80%;
+  width: 90%;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
+
+  @media (min-width: $screen-600) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  @media (min-width: $screen-720) {
+    width: 70%;
+  }
+
+  @media (min-width: $screen-1024) {
+    width: 90%;
+  }
 }
 
 .languages__field__wrapper {
@@ -84,6 +140,11 @@
 
 .field {
   width: 200px;
+  text-align: center;
+
+  @media (min-width:$screen-600) {
+    text-align: left;
+  }
 }
 
 .label {
@@ -106,7 +167,6 @@
   height: 200px;
   display: grid;
   grid-template-columns: repeat(1fr, 4);
-  // column-gap: 15px;
 }
 
 .champion__image {
@@ -147,6 +207,18 @@
   width: 70%;
 }
 
+.lane {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.lane__img {
+  width: 40px;
+  height: 40px;
+}
+
 .right__image__container {
   display: none;
   position: relative;
@@ -172,19 +244,5 @@
   object-fit: cover;
 }
 
-/* Style dla komponentu wyboru */
-mat-form-field {
-  width: 300px; /* Dostosuj szerokość według własnych potrzeb */
-}
 
-/* Style dla opcji wyboru */
-.option-image {
-  width: 50px; /* Dostosuj szerokość obrazka opcji */
-  height: 50px; /* Dostosuj wysokość obrazka opcji */
-  margin-right: 10px; /* Odstęp między obrazkiem a etykietą */
-}
-
-.option-label {
-  font-size: 14px; /* Dostosuj wielkość czcionki etykiety opcji */
-}
 

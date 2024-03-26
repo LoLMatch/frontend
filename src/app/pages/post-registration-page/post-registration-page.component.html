@@ -1,10 +1,11 @@
 <div class="form__wrapper">
   <div class="title__wrapper">
-    <h1>Welcome user123</h1>
-    <h3>Before we start tell us more about yourself</h3>
+    <h1 class="title">Welcome user123</h1>
+    <h3 class="subtitle">Before we start tell us more about yourself</h3>
   </div>
   <form [formGroup]="form" [class]="part == 2 ? 'second__page' : '' + 'post__registration__form'">
-    @if (part == 1) {
+    @if (part == 1)
+    {
       <cdk-virtual-scroll-viewport itemSize="50" class="scroll__list">
         <div *cdkVirtualFor="let cos of coses" class="fields__wrapper">
           <div class="field__wrapper">
@@ -12,7 +13,8 @@
             <mat-form-field class="field">
               <mat-label>Country</mat-label>
               <mat-select formControlName="country">
-                @for (countryOption of countriesList; track $index) {
+                @for (countryOption of countriesList; track $index)
+                {
                   <mat-option [value]="countryOption">{{ countryOption }}</mat-option>
                 }
               </mat-select>
@@ -23,34 +25,35 @@
               <span class="label">LANGUAGES YOU SPEAK: </span>
               <div class="languages">
                 @for (lang of Languages.controls; track $index) {
-                <mat-form-field class="field">
-                  <mat-label>Language</mat-label>
-                  <mat-select [formControlName]="$index">
-                    @for (langOption of languagesList; track $index) {
-                    <mat-option [value]="langOption">{{ langOption }}</mat-option>
-                    }
-                  </mat-select>
-                </mat-form-field>
+                  <mat-form-field class="field">
+                    <mat-label>Language</mat-label>
+                    <mat-select [formControlName]="$index">
+                      @for (langOption of languagesList; track $index) {
+                        <mat-option [value]="langOption">{{ langOption }}</mat-option>
+                      }
+                    </mat-select>
+                  </mat-form-field>
                 }
               </div>
             </div>
-            <div>  
-              @if (Languages.length > 1) { 
+            <div>
+              @if (Languages.length > 1) {
                 <button mat-icon-button type="button" class="manage__languages" (click)="removeLanguage()">
                   <mat-icon>
                     cancel
                   </mat-icon>
                 </button>
               }
-              @if (Languages.length < 5) { 
-                <button mat-icon-button type="button" class="manage__languages" (click)="addLanguage()">
-                  <mat-icon>
-                    add_circle
-                  </mat-icon>
+              @if (Languages.length < 5) {
+                <button mat-icon-button type="button" class="manage__languages"
+                (click)="addLanguage()">
+                <mat-icon>
+                  add_circle
+                </mat-icon>
                 </button>
               }
             </div>
-          </div>          
+          </div>
           <div class="field__wrapper">
             <span class="label">BIRTH DATE: </span>
             <mat-form-field class="field">
@@ -60,8 +63,8 @@
           <div class="field__wrapper">
             <span class="label">ABOUT YOU: </span>
             <mat-form-field class="field">
-              <textarea matInput formControlName="about">  
-              </textarea>
+              <textarea matInput formControlName="about">
+                </textarea>
             </mat-form-field>
           </div>
           <div class="field__wrapper">
@@ -74,28 +77,16 @@
                     <img [src]="option.imageUrl" class="champion__image" alt="">
                   }
                 </div>
-              </mat-menu>         
+              </mat-menu>
             </div>
           </div>
           <div class="buttons">
-            <button
-              class="action__button"
-              type="button"
-              dsButton
-              dsButtonType="primary"
-              dsButtonCutCorner="top-left"
-              (click)="goNext()"
-            >
+            <button class="action__button" type="button" dsButton dsButtonType="primary" dsButtonCutCorner="top-left"
+              (click)="goNext()">
               Next
             </button>
-            <button
-              class="action__button"
-              type="button"
-              dsButton
-              dsButtonType="secondary"
-              dsButtonCutCorner="bottom-right"
-              (click)="exit()"
-            >
+            <button class="action__button" type="button" dsButton dsButtonType="secondary"
+              dsButtonCutCorner="bottom-right" (click)="exit()">
               Exit
             </button>
           </div>
@@ -105,7 +96,7 @@
     @else {
       <div class="second__part">
         <div class="description">
-          Choose three favourite champions and on which line you play them
+          Choose three favourite champions and on which lane you play them
         </div>
         <div class="favourites">
           <div class="champions" formArrayName="champions">
@@ -116,7 +107,7 @@
                 </span>
                 <mat-form-field class="fav__field">
                   <mat-select [formControlName]="$index">
-                    <!--    dodać nazwy postaci      --> 
+                    <!--    dodać nazwy postaci      -->
                   </mat-select>
                 </mat-form-field>
               </div>
@@ -124,42 +115,37 @@
           </div>
           <div class="lanes" formArrayName="lanes">
             @for (lane of Lanes.controls; track $index) {
-              <div class="field__wrapper">
-                <span class="label">
-                  ON LANE
-                </span>
-                <mat-form-field class="fav__field">
-                  <mat-select [formControlName]="$index">
-  
-                  </mat-select>
-                </mat-form-field>
-              </div>
+            <div class="field__wrapper">
+              <span class="label">
+                ON LANE
+              </span>
+              <mat-form-field class="fav__field">
+                <mat-select [formControlName]="$index">
+                  @for (lane of lanesList; track $index) {
+                    <mat-option [value]="lane.name">
+                      <div class="lane">
+                        <img [src]="lane.image" class="lane__img">
+                        <span>{{ lane.name }}</span>
+                      </div>
+                    </mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </div>
             }
           </div>
         </div>
         <div class="buttons">
-          <button
-            class="action__button"
-            type="button"
-            dsButton
-            dsButtonType="primary"
-            dsButtonCutCorner="top-left"
-            (click)="send()"
-          >
+          <button class="action__button" type="button" dsButton dsButtonType="primary" dsButtonCutCorner="top-left"
+            (click)="send()">
             Finish
           </button>
-          <button
-            class="action__button"
-            type="button"
-            dsButton
-            dsButtonType="secondary"
-            dsButtonCutCorner="bottom-right"
-            (click)="goBack()"
-          >
+          <button class="action__button" type="button" dsButton dsButtonType="secondary" dsButtonCutCorner="bottom-right"
+            (click)="goBack()">
             Back
           </button>
         </div>
-      </div>      
+      </div>
     }
   </form>
 </div>
